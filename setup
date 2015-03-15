@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function desktop_install() {
+    echo ""
+}
+
+function server_install() {
+    echo ""
+}
+
+echo "Welcome to the Dotfiles install!"
+echo -n "Which environment would you like to setup? "
+
+read install_environment
+
+case "$install_environment" in
+    'desktop')
+        desktop_install
+        ;;
+    'server')
+        server_install
+        ;;
+    *)
+        echo "Not a valid environment. Please enter desktop or server."
+        ;;
+esac
