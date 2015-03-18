@@ -1,7 +1,24 @@
 #!/bin/bash
 
+# Since we need to ask the git user name and email we'll generate the entire
+# git config on the fly.
+function setup_git() {
+    echo -n "What is your git name? "
+    read git_user
+    git config --global user.name "$git_user"
+    echo -n "What is your git email? "
+    read git_email
+    git config --global user.email "$git_email"
+
+    # Aliases
+    net_a="log --color --graph --pretty=format:'%Cred%h%Creset"
+    net_a="$net_a -%C(yellow)%d%Creset %s"
+    net_a="$net_a %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
+    git config --global alias.network "$net_a"
+}
+
 function desktop_install() {
-    echo ""
+    setup_git
 }
 
 function server_install() {
