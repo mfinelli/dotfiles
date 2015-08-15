@@ -25,6 +25,14 @@ call plug#begin(s:bundle_home)
 " let vim-plug manage vim-plug
 Plug 'jwhitley/vim-plug'
 
+" Colors
+Plug 'fxn/vim-monochrome'
+Plug '29decibel/codeschool-vim-theme'
+Plug 'xero/sourcerer.vim'
+Plug 'tomasr/molokai'
+Plug 'nanotech/jellybeans.vim'
+Plug 'sjl/badwolf'
+
 " Generic plugins
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -94,3 +102,13 @@ endif
 
 " Force *.md files to markdown instead of modula-2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Show line numbers
+set number
+
+" Set the colorscheme
+set background=dark
+try
+    colorscheme monochrome
+catch
+endtry
