@@ -116,6 +116,19 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " Show line numbers
 set number
 
+" Startup nerdtree automatically
+" autocmd vimenter * NERDTree
+
+" Startup nerdtree if no files are specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Close vim if the only window left open is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Turn off JSON concealing
+let g:vim_json_syntax_conceal = 0
+
 " Set the colorscheme
 set background=dark
 try
