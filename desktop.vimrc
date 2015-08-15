@@ -25,9 +25,20 @@ call plug#begin(s:bundle_home)
 " let vim-plug manage vim-plug
 Plug 'jwhitley/vim-plug'
 
-" other plugins
+" Generic plugins
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+
+" Git plugins
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" Ruby plugins
+Plug 'tpope/vim-projectionist' | Plug 'tpope/vim-rake'
+Plug 'tpope/vim-bundler'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
