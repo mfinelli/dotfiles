@@ -40,6 +40,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-flagship'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-haystack'
+Plug 'tpope/vim-characterize'
+Plug 'scrooloose/nerdtree'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
@@ -48,6 +54,10 @@ Plug 'tpope/vim-fugitive'
 " Ruby plugins
 Plug 'tpope/vim-projectionist' | Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
+
+" JSON
+Plug 'elzr/vim-json'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
