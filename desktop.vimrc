@@ -93,3 +93,6 @@ if (exists('+colorcolumn'))
     set colorcolumn=80
     highlight ColorColumn ctermbg=9
 endif
+
+" Force *.md files to markdown instead of modula-2
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
