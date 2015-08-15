@@ -31,6 +31,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
@@ -49,9 +50,6 @@ call plug#end()
 
 " The caveat is that you should *never* use PlugUpgrade
 delc PlugUpgrade
-
-" :W sudo saves the file
-command W w !sudo tee % > /dev/null
 
 " Be smart about case when searching
 set smartcase
