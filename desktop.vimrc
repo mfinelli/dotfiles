@@ -45,7 +45,8 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-haystack'
 Plug 'tpope/vim-characterize'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Yggdroot/indentLine'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
@@ -120,11 +121,13 @@ set number
 " autocmd vimenter * NERDTree
 
 " Startup nerdtree if no files are specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Close vim if the only window left open is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let g:nerdtree_tabs_open_on_console_startup=1
 
 " Turn off JSON concealing
 let g:vim_json_syntax_conceal = 0
