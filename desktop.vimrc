@@ -27,6 +27,7 @@ Plug 'jwhitley/vim-plug'
 
 " other plugins
 Plug 'tpope/vim-sensible'
+Plug 'airblade/vim-gitgutter'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
