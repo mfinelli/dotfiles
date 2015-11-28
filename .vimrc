@@ -89,8 +89,9 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 
-" use two spaces for ruby files
+" use two spaces for ruby,javascript files
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " Wrap lines
 set wrap
