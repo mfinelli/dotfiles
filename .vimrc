@@ -132,6 +132,7 @@ set number
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 let g:nerdtree_tabs_open_on_console_startup=1
+let g:NERDTreeShowHidden=1
 
 " Turn off JSON concealing
 let g:vim_json_syntax_conceal = 0
