@@ -60,6 +60,9 @@ Plug 'tpope/vim-endwise'
 " JSON
 Plug 'elzr/vim-json'
 
+" JavaScript
+Plug 'digitaltoad/vim-jade'
+
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
     autocmd VimEnter * PlugInstall
