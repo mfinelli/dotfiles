@@ -62,6 +62,7 @@ Plug 'elzr/vim-json'
 
 " JavaScript
 Plug 'digitaltoad/vim-jade'
+Plug 'kchmck/vim-coffee-script'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
