@@ -25,3 +25,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 export EDITOR=vim
+
+if command -v thefuck >/dev/null 2>&1; then
+    eval "$(thefuck --alias)"
+fi
