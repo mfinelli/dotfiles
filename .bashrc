@@ -26,6 +26,8 @@ fi
 
 export EDITOR=vim
 
+alias please='eval "sudo $(fc -ln -1)"'
+
 if command -v thefuck >/dev/null 2>&1; then
     eval "$(thefuck --alias)"
 fi
