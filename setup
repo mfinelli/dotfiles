@@ -21,6 +21,7 @@ function desktop_install() {
     setup_git
     whereami=$(pwd)
     ln -s "${whereami}/.vimrc" ~/.vimrc
+    ln -s "${whereami}/.bashrc" ~/.bashrc
 }
 
 function server_install() {
