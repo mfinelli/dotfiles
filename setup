@@ -52,6 +52,7 @@ function desktop_install() {
     ln -s "${whereami}/.mutt" ~/.mutt
     ln -s "${whereami}/.mbsyncrc" ~/.mbsyncrc
     ln -s "${whereami}/.msmtprc" ~/.msmtprc
+    ln -s "${whereami}/.muttrc" ~/.muttrc
 }
 
 function server_install() {
