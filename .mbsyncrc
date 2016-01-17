@@ -1,0 +1,107 @@
+IMAPAccount sculch
+Host mail.runbox.com
+User mario%scul.ch
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.mutt/.sculch.gpg"
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore sculch-remote
+Account sculch
+
+MaildirStore sculch-local
+Path ~/.mail/mario@scul.ch/
+Inbox ~/.mail/mario@scul.ch/Inbox
+
+Channel sculch-inbox
+Master :sculch-remote:
+Slave :sculch-local:
+Create Both
+Expunge Both
+SyncState *
+
+Channel sculch-sent
+Master :sculch-remote:Sent
+Slave :sculch-local:Sent
+Create Both
+Expunge Both
+SyncState *
+
+Channel sculch-drafts
+Master :sculch-remote:Drafts
+Slave :sculch-local:Drafts
+Create Both
+Expunge Both
+SyncState *
+
+Channel sculch-spam
+Master :sculch-remote:Spam
+Slave :sculch-local:Spam
+Create Both
+Expunge Both
+SyncState *
+
+Channel sculch-trash
+Master :sculch-remote:Trash
+Slave :sculch-local:Trash
+Create Both
+Expunge Both
+SyncState *
+
+Group sculch
+Channel sculch-inbox
+Channel sculch-sent
+Channel sculch-drafts
+Channel sculch-spam
+Channel sculch-trash
+
+####
+
+IMAPAccount finelli
+Host neomailbox.net
+User mario.finelli
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.mutt/.finelli.gpg"
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore finelli-remote
+Account finelli
+
+MaildirStore finelli-local
+Path ~/.mail/mario@finel.li/
+Inbox ~/.mail/mario@finel.li/Inbox
+
+Channel finelli-inbox
+Master :finelli-remote:
+Slave :finelli-local:
+Create Both
+Expunge Both
+SyncState *
+
+Channel finelli-sent
+Master :finelli-remote:Sent
+Slave :finelli-local:Sent
+Create Both
+Expunge Both
+SyncState *
+
+Channel finelli-drafts
+Master :finelli-remote:Drafts
+Slave :finelli-local:Drafts
+Create Both
+Expunge Both
+SyncState *
+
+Channel finelli-trash
+Master :finelli-remote:Trash
+Slave :finelli-local:Trash
+Create Both
+Expunge Both
+SyncState *
+
+Group finelli
+Channel finelli-inbox
+Channel finelli-sent
+Channel finelli-drafts
+Channel finelli-trash
