@@ -12,4 +12,8 @@ set sendmail = "/usr/bin/msmtp -a finelli"
 
 set pgp_sign_as = "0x36FDA306"
 
+macro index D \
+    "<save-message>=Trash<enter>" \
+    "move message to the trash"
+
 # vim: ft=muttrc

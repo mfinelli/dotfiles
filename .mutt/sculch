@@ -12,4 +12,9 @@ set sendmail = "/usr/bin/msmtp -a sculch"
 
 set pgp_sign_as = "0xD0D6A8E7"
 
+macro index D \
+    "<save-message>=Trash<enter>" \
+    "move message to the trash"
+
+
 # vim: ft=muttrc
