@@ -30,7 +30,7 @@ function desktop_install() {
     ln -s "${whereami}/gpg.conf" ~/.gnupg/gpg.conf
 
     # setup mutt/mbsync/msmtp: ensure directories
-    if [ ! -d ~/.mail]; then
+    if [ ! -d ~/.mail ]; then
         mkdir -p ~/.mail/mario\@finel.li
         mkdir -p ~/.mail/mario\@scul.ch
 
