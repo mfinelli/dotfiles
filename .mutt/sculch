@@ -1,0 +1,15 @@
+set mbox_type=Maildir
+set folder=$HOME/.mail/mario@scul.ch
+set spoolfile=+Inbox
+
+set record = +Sent
+set postponed = +Drafts
+set realname = "Mario Finelli"
+set from = "mario@scul.ch"
+set use_from = yes
+
+set sendmail = "/usr/bin/msmtp -a sculch"
+
+set pgp_sign_as = "0xD0D6A8E7"
+
+# vim: ft=muttrc
