@@ -28,6 +28,24 @@ function desktop_install() {
         mkdir ~/.gnupg
     fi
     ln -s "${whereami}/gpg.conf" ~/.gnupg/gpg.conf
+
+    # setup mutt/mbsync/msmtp: ensure directories
+    if [ ! -d ~/.mail]; then
+        mkdir -p ~/.mail/mario@finel.li
+        mkdir -p ~/.mail/mario@scul.ch
+    else
+        if [ ! -d ~/.mail/mario@finel.li ]; then
+            mkdir ~/.mail/mario@finel.li
+        fi
+        if [ ! -d ~/.mail/mario@scul.ch ]; then
+            mkdir ~/.mail/mario@scul.ch
+        fi
+    fi
+
+    # setup mutt/mbsync/msmtp: symlink files
+    ln -s "${whereami}/.mutt" ~/.mutt
+    ln -s "${whereami}/.mbsyncrc" ~/.mbsyncrc
+    ln -s "${whereami}/.msmtprc" ~/.msmtprc
 }
 
 function server_install() {
