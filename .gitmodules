@@ -1,3 +1,6 @@
 [submodule "utilities"]
 	path = utilities
 	url = https://github.com/mfinelli/utilities.git
+[submodule "vim-plug"]
+	path = vim-plug
+	url = https://github.com/junegunn/vim-plug.git
