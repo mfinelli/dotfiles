@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd ~/
+
+rm .bashrc
+rm .vimrc
+rm .mutt
+rm .muttrc
+rm .gitconfig
+rm .mbsyncrc
+rm .msmtprc
+rm .gnupg/gpg.conf
+rm -rf .vim
+rm -rf .mail
