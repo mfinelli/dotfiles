@@ -23,7 +23,7 @@ exec "set rtp+=".s:plug_tool_home
 call plug#begin(s:bundle_home)
 
 " let vim-plug manage vim-plug
-Plug 'jwhitley/vim-plug'
+Plug 'junegunn/vim-plug'
 
 " Colors
 Plug 'fxn/vim-monochrome'
