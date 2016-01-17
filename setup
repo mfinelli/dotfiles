@@ -22,6 +22,12 @@ function desktop_install() {
     whereami=$(pwd)
     ln -s "${whereami}/.vimrc" ~/.vimrc
     ln -s "${whereami}/.bashrc" ~/.bashrc
+
+    # setup gpg
+    if [ ! -d ~/.gnupg ]; then
+        mkdir ~/.gnupg
+    fi
+    ln -s "${whereami}/gpg.conf" ~/.gnupg/gpg.conf
 }
 
 function server_install() {
