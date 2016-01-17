@@ -11,15 +11,6 @@ function! Dot_vim(path)
 endfunction
 
 let s:bundle_home=Dot_vim("bundle")
-let s:plug_tool_home=Dot_vim("bundle/vim-plug")
-
-if !isdirectory(Dot_vim("bundle/vim-plug/.git"))
-    silent exec "!mkdir -p ".s:bundle_home
-    silent exec "!git clone --depth 1 https://github.com/jwhitley/vim-plug.git ".s:plug_tool_home
-    let s:bootstrap=1
-endif
-
-exec "set rtp+=".s:plug_tool_home
 call plug#begin(s:bundle_home)
 
 " let vim-plug manage vim-plug
@@ -63,11 +54,6 @@ Plug 'elzr/vim-json'
 " JavaScript
 Plug 'digitaltoad/vim-jade'
 Plug 'kchmck/vim-coffee-script'
-
-if exists("s:bootstrap") && s:bootstrap
-    unlet s:bootstrap
-    autocmd VimEnter * PlugInstall
-endif
 
 call plug#end()
 

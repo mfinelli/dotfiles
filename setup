@@ -53,6 +53,22 @@ function desktop_install() {
     ln -s "${whereami}/.mbsyncrc" ~/.mbsyncrc
     ln -s "${whereami}/.msmtprc" ~/.msmtprc
     ln -s "${whereami}/.muttrc" ~/.muttrc
+
+    # setup vim
+    if [ ! -d ~/.vim ]; then
+        mkdir -p ~/.vim/{autoload,bundle}
+    else
+        if [ ! -d ~/.vim/autoload ]; then
+            mkdir ~/.vim/autoload
+        fi
+        if [ ! -d ~/.vim/bundle ]; then
+            mkdir ~/.vim/bundle
+        fi
+    fi
+
+    # let vim-plug manage itself
+    git clone --depth 1 https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug
+    ln -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload"
 }
 
 function server_install() {
