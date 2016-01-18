@@ -1,4 +1,3 @@
-" vim-plug bootstrap: https://github.com/jwhitley/vimrc
 " some set options: https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 
 set nocompatible
