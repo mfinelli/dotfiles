@@ -31,3 +31,8 @@ alias please='eval "sudo $(fc -ln -1)"'
 if command -v thefuck >/dev/null 2>&1; then
     eval "$(thefuck --alias)"
 fi
+
+# AWS completion if it exists
+if [ -f /usr/bin/aws_completer ]; then
+    complete -C '/usr/bin/aws_completer' aws
+fi
