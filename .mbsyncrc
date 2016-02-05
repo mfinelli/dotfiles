@@ -1,7 +1,7 @@
 IMAPAccount sculch
 Host mail.runbox.com
 User mario%scul.ch
-PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.mutt/.sculch.gpg"
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.mutt/.sculch.asc"
 SSLType IMAPS
 SSLVersions TLSv1.2
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -60,7 +60,7 @@ Channel sculch-trash
 IMAPAccount finelli
 Host neomailbox.net
 User mario.finelli
-PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.mutt/.finelli.gpg"
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.mutt/.finelli.asc"
 SSLType IMAPS
 SSLVersions TLSv1.2
 CertificateFile /etc/ssl/certs/ca-certificates.crt
