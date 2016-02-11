@@ -27,7 +27,7 @@ folder-hook "mario@finel.li/*" source ~/.mutt/finelli
 folder-hook "mario@scul.ch/*" source ~/.mutt/sculch
 
 # shortcuts
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/finelli<enter><change-folder>!<enter>'
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/sculch<enter><change-folder>!<enter>'
+macro index,pager <f6> '<sync-mailbox><enter-command>source ~/.mutt/finelli<enter><change-folder>!<enter>'
+macro index,pager <f7> '<sync-mailbox><enter-command>source ~/.mutt/sculch<enter><change-folder>!<enter>'
 
 macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
