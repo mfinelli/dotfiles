@@ -22,6 +22,7 @@ function desktop_install() {
     whereami=$(pwd)
     ln -s "${whereami}/.vimrc" ~/.vimrc
     ln -s "${whereami}/.bashrc" ~/.bashrc
+    ln -s "${whereami}/.bash_functions" ~/.bash_functions
 
     # setup gpg
     if [ ! -d ~/.gnupg ]; then

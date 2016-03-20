@@ -36,3 +36,5 @@ fi
 if [ -f /usr/bin/aws_completer ]; then
     complete -C '/usr/bin/aws_completer' aws
 fi
+
+source ~/.bash_functions
