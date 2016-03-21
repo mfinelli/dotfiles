@@ -5,7 +5,7 @@ function volo {
     # timedatectl set-timezone basically just creates a symbolic link from
     # /usr/share/zoneinfo/... to /etc/localtime
 
-    case "$1"
+    case "$1" in
         usa )
             sudo timedatectl set-timezone America/New_York
             ;;
