@@ -3,6 +3,7 @@
 cd ~/
 
 rm .bashrc
+rm .bash_functions
 rm .vimrc
 rm .mutt
 rm .muttrc
