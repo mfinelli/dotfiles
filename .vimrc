@@ -52,7 +52,7 @@ Plug 'tpope/vim-endwise'
 Plug 'elzr/vim-json'
 
 " JavaScript
-Plug 'digitaltoad/vim-jade'
+Plug 'digitaltoad/vim-pug'
 Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
