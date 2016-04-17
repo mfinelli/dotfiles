@@ -49,3 +49,19 @@ function volo {
             echo "Not doing anything..."
     esac
 }
+
+function mmrb {
+    case "$1" in
+        start)
+            sudo systemctl start mysqld
+            sudo systemctl start redis
+            sudo systemctl start memcached
+            sudo systemctl start beanstalkd
+            ;;
+        stop)
+            sudo systemctl stop mysqld
+            sudo systemctl stop redis
+            sudo systemctl stop memcached
+            sudo systemctl stop beanstalkd
+    esac
+}
