@@ -63,5 +63,10 @@ function mmrb {
             sudo systemctl stop redis
             sudo systemctl stop memcached
             sudo systemctl stop beanstalkd
+            ;;
+        *)
+            echo "Start or stop...?"
+            return 1
+            ;;
     esac
 }
