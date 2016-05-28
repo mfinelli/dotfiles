@@ -23,6 +23,7 @@ function desktop_install() {
     ln -s "${whereami}/.vimrc" ~/.vimrc
     ln -s "${whereami}/.bashrc" ~/.bashrc
     ln -s "${whereami}/.bash_functions" ~/.bash_functions
+    ln -s "${whereami}/.zshrc" ~/.zshrc
 
     # setup gpg
     if [ ! -d ~/.gnupg ]; then
