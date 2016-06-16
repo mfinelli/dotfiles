@@ -54,7 +54,7 @@ function mr {
     case "$1" in
         start)
             sudo systemctl start mysqld
-            sudi systemctl start redis
+            sudo systemctl start redis
             ;;
         stop)
             sudo systemctl stop mysqld
