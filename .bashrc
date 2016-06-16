@@ -37,4 +37,8 @@ if [ -f /usr/bin/aws_completer ]; then
     complete -C '/usr/bin/aws_completer' aws
 fi
 
+function printer_admin() {
+    ssh "$1" -T -L 3631:localhost:631
+}
+
 source ~/.bash_functions
