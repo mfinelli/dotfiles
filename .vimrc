@@ -54,6 +54,7 @@ Plug 'elzr/vim-json'
 " JavaScript
 Plug 'digitaltoad/vim-pug'
 Plug 'kchmck/vim-coffee-script'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
