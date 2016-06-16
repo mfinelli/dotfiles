@@ -50,6 +50,23 @@ function volo {
     esac
 }
 
+function mr {
+    case "$1" in
+        start)
+            sudo systemctl start mysqld
+            sudi systemctl start redis
+            ;;
+        stop)
+            sudo systemctl stop mysqld
+            sudo systemctl stop redis
+            ;;
+        *)
+            echo "Start or stop...?"
+            return 1
+            ;;
+    esac
+}
+
 function mmrb {
     case "$1" in
         start)
