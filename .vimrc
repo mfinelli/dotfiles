@@ -39,6 +39,7 @@ Plug 'tpope/vim-characterize'
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Yggdroot/indentLine'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
