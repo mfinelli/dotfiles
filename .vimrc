@@ -22,6 +22,7 @@ Plug 'xero/sourcerer.vim'
 Plug 'tomasr/molokai'
 Plug 'nanotech/jellybeans.vim'
 Plug 'sjl/badwolf'
+Plug 'jdkanani/vim-material-theme'
 
 " Generic plugins
 Plug 'tpope/vim-sensible'
