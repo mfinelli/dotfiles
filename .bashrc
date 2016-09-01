@@ -32,13 +32,6 @@ if command -v thefuck >/dev/null 2>&1; then
     eval "$(thefuck --alias)"
 fi
 
-# Set 256 color terminal if we're using xfce
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    if [ "$COLORTERM" == "xfce4-terminal" ]; then
-        export TERM=xterm-256color
-    fi
-fi
-
 # AWS completion if it exists
 if [ -f /usr/bin/aws_completer ]; then
     complete -C '/usr/bin/aws_completer' aws

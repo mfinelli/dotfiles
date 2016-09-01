@@ -14,3 +14,4 @@ rm .gnupg/gpg.conf
 rm -rf .vim
 rm -rf .mail
 rm .zshrc
+rm .Xresources
