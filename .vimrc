@@ -133,9 +133,16 @@ let g:NERDTreeShowHidden=1
 " Turn off JSON concealing
 let g:vim_json_syntax_conceal = 0
 
+" Specific options for the jellybeans color scheme
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_use_lowcolor_black = 0
+let g:jellybeans_overrides = {
+            \'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+            \}
+
 " Set the colorscheme
 set background=dark
 try
-    colorscheme monochrome
+    colorscheme jellybeans
 catch
 endtry
