@@ -22,6 +22,7 @@ Plug 'xero/sourcerer.vim'
 Plug 'tomasr/molokai'
 Plug 'nanotech/jellybeans.vim'
 Plug 'sjl/badwolf'
+Plug 'jacoborus/tender'
 Plug 'jdkanani/vim-material-theme'
 
 " Generic plugins
@@ -140,6 +141,10 @@ let g:jellybeans_use_lowcolor_black = 0
 let g:jellybeans_overrides = {
             \'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
             \}
+
+" options for tender theme
+" let g:tender_airline = 1
+" let g:airline_theme = 'tender'
 
 " Set the colorscheme
 set background=dark
