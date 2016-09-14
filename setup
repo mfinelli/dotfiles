@@ -10,6 +10,9 @@ function setup_git() {
     read git_email
     git config --global user.email "$git_email"
 
+    # Fix commit message error on OSX
+    git config --global core.editor $(which vim)
+
     # Aliases
     net_a="log --color --graph --pretty=format:'%Cred%h%Creset"
     net_a="$net_a -%C(yellow)%d%Creset %s"
