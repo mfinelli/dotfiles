@@ -117,7 +117,7 @@ endif
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Show line numbers
-set number
+set relativenumber
 
 " Startup nerdtree automatically
 " autocmd vimenter * NERDTree
