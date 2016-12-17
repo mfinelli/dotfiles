@@ -61,6 +61,9 @@ Plug 'digitaltoad/vim-pug'
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
 
+" other
+Plug 'cometsong/ferm.vim'
+
 call plug#end()
 
 " The caveat is that you should *never* use PlugUpgrade
