@@ -91,6 +91,7 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd FileType pug setlocal shiftwidth=2 tabstop=2
 autocmd FileType jade setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 " Wrap lines
 set wrap
@@ -107,6 +108,7 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.yml :call DeleteTrailingWS()
 
 " Highlight the 80th column
 if (exists('+colorcolumn'))
