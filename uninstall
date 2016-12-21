@@ -16,3 +16,4 @@ rm -rf .mail
 rm .zshrc
 rm .Xresources
 rm .tmux.conf
+rm -rf .ssh

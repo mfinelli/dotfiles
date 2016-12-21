@@ -20,6 +20,17 @@ function setup_git() {
     git config --global alias.network "$net_a"
 }
 
+function setup_ssh() {
+    if [ ! -d ~/.ssh ]; then
+        mkdir ~/.ssh
+    fi
+
+    gpg -d ./.ssh/arch.asc > ~/.ssh/arch
+    gpg -d ./.ssh/arch.pub.asc > ~/.ssh/arch.pub
+
+    ln -s "${whereami}/.ssh/config" ~/.ssh/config
+}
+
 function desktop_install() {
     setup_git
     whereami=$(pwd)
@@ -76,6 +87,8 @@ function desktop_install() {
     # let vim-plug manage itself
     git clone --depth 1 https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug
     ln -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload"
+
+    setup_ssh
 }
 
 function server_install() {
