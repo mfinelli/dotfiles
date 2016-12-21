@@ -27,6 +27,8 @@ function setup_ssh() {
 
     gpg -d ./.ssh/arch.asc > ~/.ssh/arch
     gpg -d ./.ssh/arch.pub.asc > ~/.ssh/arch.pub
+    gpg -d ./.ssh/github.asc > ~/.ssh/github
+    gpg -d ./.ssh/github.pub > ~/.ssh/github.pub
 
     ln -s "${whereami}/.ssh/config" ~/.ssh/config
 }
