@@ -17,3 +17,16 @@ Plugins are managed with [vim-plug](https://github.com/junegunn/vim-plug).
 
 After running the install script you will need to install the other plugins
 with the `PlugInstall` command. Restart vim to see the changes.
+
+## archives
+
+Archives created piping tar directly into gpg:
+
+```shell
+$ tar cvz directory | gpg -ear me -o file.tgz.asc
+```
+ To decrypt:
+
+ ```shell
+$ gpg -d file.tgz.asc | tar zxv
+ ```

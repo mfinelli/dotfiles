@@ -91,6 +91,9 @@ function desktop_install() {
     ln -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload"
 
     setup_ssh
+
+    gpg -d vpn.tgz.asc | tar zxv
+    ln -s "${whereami}/.vpn" ~/.vpn
 }
 
 function server_install() {
