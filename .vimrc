@@ -43,6 +43,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'reedes/vim-pencil'
+Plug 'jpalardy/vim-slime'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
@@ -140,6 +141,10 @@ let g:NERDTreeShowHidden=1
 
 " Turn off JSON concealing
 let g:vim_json_syntax_conceal = 0
+
+" config for vim-slime
+let g:slime_target = "tmux"
+" let g:slime_paste_file = tempname()
 
 " Specific options for the jellybeans color scheme
 let g:jellybeans_use_term_italics = 1
