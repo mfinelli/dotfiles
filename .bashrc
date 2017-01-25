@@ -41,4 +41,7 @@ function printer_admin() {
     ssh "$1" -T -L 3631:localhost:631
 }
 
+# add locally installed ruby gems to the path
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+
 source ~/.bash_functions
