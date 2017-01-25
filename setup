@@ -94,6 +94,11 @@ function desktop_install() {
 
     gpg -d vpn.tgz.asc | tar zxv
     ln -s "${whereami}/.vpn" ~/.vpn
+
+    # setup sublime text
+    mkdir -p ~/.config/sublime-text-3/Installed\ Packages
+    wget -P ~/.config/sublime-text-3/Installed\ Packages \
+        https://packagecontrol.io/Package%20Control.sublime-package
 }
 
 function server_install() {
