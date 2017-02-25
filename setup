@@ -37,7 +37,7 @@ function desktop_install() {
     setup_git
     whereami=$(pwd)
     ln -s "${whereami}/.vimrc" ~/.vimrc
-    ln -s "${whereami}/.bashrc" ~/.bashrc
+    ln -fs "${whereami}/.bashrc" ~/.bashrc
     ln -s "${whereami}/.bash_functions" ~/.bash_functions
     ln -s "${whereami}/.zshrc" ~/.zshrc
     ln -s "${whereami}/.Xresources" ~/.Xresources
