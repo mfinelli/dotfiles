@@ -43,6 +43,14 @@ function desktop_install() {
     ln -s "${whereami}/.Xresources" ~/.Xresources
     ln -s "${whereami}/.tmux.conf" ~/.tmux.conf
 
+    # force user dirs to english
+    echo en_US > ~/.config/user-dirs.locale
+    ln -fs "${whereami}/user-dirs.dirs" ~/.config/user-dirs.dirs
+    dirs=(Desktop Downloads Templates Public Documents Music Pictures Videos)
+    for dir in $dirs; do
+        mkdir -p ~/$dir
+    done
+
     # setup gpg
     if [ ! -d ~/.gnupg ]; then
         mkdir ~/.gnupg
