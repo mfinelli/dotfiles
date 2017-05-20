@@ -64,6 +64,8 @@ Plug 'leafgarland/typescript-vim'
 
 " other
 Plug 'cometsong/ferm.vim'
+Plug 'Matt-Deacalion/vim-systemd-syntax'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
