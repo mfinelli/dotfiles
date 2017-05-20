@@ -118,7 +118,7 @@ autocmd BufWrite *.yml :call DeleteTrailingWS()
 
 " Highlight the 80th column
 if (exists('+colorcolumn'))
-    set colorcolumn=80
+    set colorcolumn=80,100,120
     highlight ColorColumn ctermbg=9
 endif
 
