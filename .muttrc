@@ -16,6 +16,7 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 
+bind index A group-reply
 # set send_charset="us-ascii:utf-8"
 set send_charset="utf-8"
 
