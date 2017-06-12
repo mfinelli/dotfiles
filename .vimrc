@@ -61,6 +61,7 @@ Plug 'elzr/vim-json'
 Plug 'digitaltoad/vim-pug'
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
+Plug 'mustache/vim-mustache-handlebars'
 
 " other
 Plug 'cometsong/ferm.vim'
