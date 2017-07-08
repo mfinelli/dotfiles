@@ -25,7 +25,7 @@ function setup_ssh() {
         mkdir ~/.ssh
     fi
 
-    for sshkey in (arch github sculch); do
+    for sshkey in (arch aws github sculch); do
         gpg -d ./.ssh/$sshkey.asc > ~/.ssh/$sshkey
         gpg -d ./.ssh/$sshkey.pub.asc > ~/.ssh/$sshkey.pub
         chmod 600 ~/.ssh/$sshkey
