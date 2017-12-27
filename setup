@@ -1,132 +1,29 @@
 #!/bin/bash
 
-# Since we need to ask the git user name and email we'll generate the entire
-# git config on the fly.
-function setup_git() {
-    echo -n "What is your git name? "
-    read git_user
-    git config --global user.name "$git_user"
-    echo -n "What is your git email? "
-    read git_email
-    git config --global user.email "$git_email"
+# in case we didn't clone recursively
+git submodule update --init
 
-    # Fix commit message error on OSX
-    git config --global core.editor $(which vim)
+if [[ -f ~/.bashrc ]]; then
+    rm ~/.bashrc
+fi
 
-    # Aliases
-    net_a="log --color --graph --pretty=format:'%Cred%h%Creset"
-    net_a="$net_a -%C(yellow)%d%Creset %s"
-    net_a="$net_a %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
-    git config --global alias.network "$net_a"
-}
+if [[ ! -d ~/.ssh ]]; then
+    mkdir ~/.ssh && chmod 700 ~/.ssh
+fi
 
-function setup_ssh() {
-    if [ ! -d ~/.ssh ]; then
-        mkdir ~/.ssh
-    fi
+if [[ ! -f ~/.ssh/known_hosts ]]; then
+    touch ~/.ssh/known_hosts
+fi
 
-    for sshkey in (arch aws github sculch); do
-        gpg -d ./.ssh/$sshkey.asc > ~/.ssh/$sshkey
-        gpg -d ./.ssh/$sshkey.pub.asc > ~/.ssh/$sshkey.pub
-        chmod 600 ~/.ssh/$sshkey
-    done
+chmod 755 mutt/.mail/{,mario@finel.li,mario@scul.ch}
 
-    ln -s "${whereami}/.ssh/config" ~/.ssh/config
-}
+for key in $(ls ssh/.ssh/*.asc); do
+    gpg -d $key > ssh/.ssh/$(basename $key .asc) && \
+        chmod 600 ssh/.ssh/$(basename $key .asc)
+done
 
-function desktop_install() {
-    setup_git
-    whereami=$(pwd)
-    ln -s "${whereami}/.vimrc" ~/.vimrc
-    ln -fs "${whereami}/.bashrc" ~/.bashrc
-    ln -s "${whereami}/.bash_functions" ~/.bash_functions
-    ln -s "${whereami}/.zshrc" ~/.zshrc
-    ln -s "${whereami}/.Xresources" ~/.Xresources
-    ln -s "${whereami}/.tmux.conf" ~/.tmux.conf
-
-    # force user dirs to english
-    echo en_US > ~/.config/user-dirs.locale
-    ln -fs "${whereami}/user-dirs.dirs" ~/.config/user-dirs.dirs
-    dirs=(Desktop Downloads Templates Public Documents Music Pictures Videos)
-    for dir in $dirs; do
-        mkdir -p ~/$dir
-    done
-
-    # setup gpg
-    if [ ! -d ~/.gnupg ]; then
-        mkdir ~/.gnupg
-    fi
-    ln -s "${whereami}/gpg.conf" ~/.gnupg/gpg.conf
-
-    # setup mutt/mbsync/msmtp: ensure directories
-    if [ ! -d ~/.mail ]; then
-        mkdir -p ~/.mail/mario\@finel.li
-        mkdir -p ~/.mail/mario\@scul.ch
-
-        chmod 700 ~/.mail
-        chmod 700 ~/.mail/mario\@finel.li
-        chmod 700 ~/.mail/mario\@scul.ch
-    else
-        if [ ! -d ~/.mail/mario\@finel.li ]; then
-            mkdir ~/.mail/mario\@finel.li
-            chmod 700 ~/.mail/mario\@finel.li
-        fi
-        if [ ! -d ~/.mail/mario\@scul.ch ]; then
-            mkdir ~/.mail/mario\@scul.ch
-            chmod 700 ~/.mail/mario\@scul.ch
-        fi
-    fi
-
-    # setup mutt/mbsync/msmtp: symlink files
-    ln -s "${whereami}/.mutt" ~/.mutt
-    ln -s "${whereami}/.mbsyncrc" ~/.mbsyncrc
-    ln -s "${whereami}/.msmtprc" ~/.msmtprc
-    ln -s "${whereami}/.muttrc" ~/.muttrc
-
-    # setup vim
-    if [ ! -d ~/.vim ]; then
-        mkdir -p ~/.vim/{autoload,bundle}
-    else
-        if [ ! -d ~/.vim/autoload ]; then
-            mkdir ~/.vim/autoload
-        fi
-        if [ ! -d ~/.vim/bundle ]; then
-            mkdir ~/.vim/bundle
-        fi
-    fi
-
-    # let vim-plug manage itself
-    git clone --depth 1 https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug
-    ln -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload"
-
-    setup_ssh
-
-    gpg -d vpn.tgz.asc | tar zxv
-    ln -s "${whereami}/.vpn" ~/.vpn
-
-    # setup sublime text
-    mkdir -p ~/.config/sublime-text-3/Installed\ Packages
-    wget -P ~/.config/sublime-text-3/Installed\ Packages \
-        https://packagecontrol.io/Package%20Control.sublime-package
-}
-
-function server_install() {
-    echo ""
-}
-
-echo "Welcome to the Dotfiles install!"
-echo -n "Which environment would you like to setup? "
-
-read install_environment
-
-case "$install_environment" in
-    'desktop')
-        desktop_install
-        ;;
-    'server')
-        server_install
-        ;;
-    *)
-        echo "Not a valid environment. Please enter desktop or server."
-        ;;
-esac
+stow bash
+stow gnupg
+stow mutt
+stow ssh
+stow vim
