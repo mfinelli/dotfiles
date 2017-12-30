@@ -7,6 +7,14 @@ if [[ -f ~/.bashrc ]]; then
     rm ~/.bashrc
 fi
 
+if [[ -f ~/.config/user-dirs.dirs ]]; then
+    rm ~/.config/user-dirs.dirs
+fi
+
+if [[ -f ~/.config/user-dirs.locale ]]; then
+    rm ~/.config/user-dirs.locale
+fi
+
 if [[ ! -d ~/.ssh ]]; then
     mkdir ~/.ssh && chmod 700 ~/.ssh
 fi
@@ -26,6 +34,11 @@ for vpn in $(ls vpn/.vpn/*.tgz.asc); do
     gpg -d $vpn | tar zx -C vpn/.vpn
 done
 
+dirs=(Desktop Downloads Templates Public Documents Music Pictures Videos)
+for dir in $dirs; do
+    mkdir -p ~/$dir
+done
+
 stow bash
 stow gnupg
 stow mutt
@@ -33,4 +46,5 @@ stow ssh
 stow tmux
 stow vim
 stow vpn
+stow xorg
 stow zsh
