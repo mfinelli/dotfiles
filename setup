@@ -22,8 +22,13 @@ for key in $(ls ssh/.ssh/*.asc); do
         chmod 600 ssh/.ssh/$(basename $key .asc)
 done
 
+for vpn in $(ls vpn/.vpn/*.tgz.asc); do
+    gpg -d $vpn | tar zx -C vpn/.vpn
+done
+
 stow bash
 stow gnupg
 stow mutt
 stow ssh
 stow vim
+stow vpn
