@@ -30,5 +30,7 @@ stow bash
 stow gnupg
 stow mutt
 stow ssh
+stow tmux
 stow vim
 stow vpn
+stow zsh
