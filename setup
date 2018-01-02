@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! command -v stow > /dev/null 2>&1; then
+    echo >&2 "Stow not found, aborting!"
+    exit 1
+fi
+
 # in case we didn't clone recursively
 git submodule update --init
 
