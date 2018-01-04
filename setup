@@ -76,12 +76,12 @@ if array_contains comp xorg; then
     fi
 
     dirs=(Desktop Downloads Templates Public Documents Music Pictures Videos)
-    for dir in $dirs; do
+    for dir in ${dirs[@]}; do
         mkdir -p ~/$dir
     done
 fi
 
-for s in $comp; do
+for s in ${comp[@]}; do
     stow $s
 done
 
