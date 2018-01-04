@@ -1,20 +1,93 @@
 #!/bin/bash
 
-cd ~/
+set -e
 
-rm .bashrc
-rm .bash_functions
-rm .vimrc
-rm .mutt
-rm .muttrc
-rm .gitconfig
-rm .mbsyncrc
-rm .msmtprc
-rm .gnupg/gpg.conf
-rm -rf .vim
-rm -rf .mail
-rm .zshrc
-rm .Xresources
-rm .tmux.conf
-rm -rf .ssh
-rm .vpn
+# this script will do it's best to leave the machine in a working state while
+# also removing or defaulting as much configuration as possible
+
+# https://stackoverflow.com/a/14367368
+function array_contains() {
+    local array="$1[@]"
+    local item=$2
+    local found=1
+
+    for element in "${!array}"; do
+        if [[ $element == $item ]]; then
+            found=0
+            break
+        fi
+    done
+
+    return $found
+}
+
+if ! command -v stow > /dev/null 2>&1; then
+    echo >&2 "Stow not found, aborting!"
+    exit 1
+fi
+
+# check if we're doing just one or all of them
+if [[ $# -eq 1 ]]; then
+    comp=($1)
+else
+    comp=(bash gnupg mutt ssh tmux vim vpn xorg zsh)
+fi
+
+echo "Removing dotfiles for: ${comp[@]}"
+
+# because of some of the uninstall steps we taks and because it's non-trival
+# to remove items from the array we need to check and do each one instead of
+# looping through
+
+if array_contains comp bash; then
+    stow -D bash
+
+    # heredoc is ugly... taken from /etc/skel/.bashrc
+    cat <<-EOF > ~/.bashrc
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ \$- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\\\$ '
+EOF
+fi
+
+if array_contains comp gnupg; then
+    stow -D gnupg
+fi
+
+if array_contains comp mutt; then
+    stow -D mutt
+fi
+
+if array_contains comp ssh; then
+    stow -D ssh
+fi
+
+if array_contains comp tmux; then
+    stow -D tmux
+fi
+
+if array_contains comp vim; then
+    stow -D vim
+fi
+
+if array_contains comp vpn; then
+    stow -D vpn
+fi
+
+if array_contains comp xorg; then
+    stow -D xorg
+
+    echo en_US > ~/.config/user-dirs.locale
+fi
+
+if array_contains comp zsh; then
+    stow -D zsh
+fi
+
+exit 0
