@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # https://stackoverflow.com/a/14367368
 function array_contains() {
     local array="$1[@]"
@@ -82,3 +84,5 @@ fi
 for s in $comp; do
     stow $s
 done
+
+exit 0
