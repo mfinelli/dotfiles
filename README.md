@@ -6,7 +6,7 @@ possible.
 ## bootstrap
 
 ```shell
-$ git clone --recursive ... .dotfile && cd .dotfiles && ./setup
+$ git clone --recursive ... .dotfiles && cd .dotfiles && ./setup
 ```
 
 It's also possible to install individual components
