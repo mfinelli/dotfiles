@@ -11,6 +11,7 @@ PS1='[\u@\h \W]\$ '
 
 # don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
+HISTSIZE=100000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
