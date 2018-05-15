@@ -27,7 +27,7 @@ fi
 if [[ $# -eq 1 ]]; then
     comp=($1)
 else
-    comp=(bash gnupg mutt ssh tmux vim vpn xorg zsh)
+    comp=(bash git gnupg mutt ssh tmux vim vpn xorg zsh)
 fi
 
 echo "Installing dotfiles for: ${comp[@]}"

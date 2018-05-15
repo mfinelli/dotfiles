@@ -30,7 +30,7 @@ fi
 if [[ $# -eq 1 ]]; then
     comp=($1)
 else
-    comp=(bash gnupg mutt ssh tmux vim vpn xorg zsh)
+    comp=(bash git gnupg mutt ssh tmux vim vpn xorg zsh)
 fi
 
 echo "Removing dotfiles for: ${comp[@]}"
@@ -54,6 +54,10 @@ if array_contains comp bash; then
 alias ls='ls --color=auto'
 PS1='[\\u@\\h \\W]\\\$ '
 EOF
+fi
+
+if array_contains comp git; then
+    stow -D git
 fi
 
 if array_contains comp gnupg; then
