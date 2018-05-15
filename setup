@@ -27,13 +27,17 @@ fi
 if [[ $# -eq 1 ]]; then
     comp=($1)
 else
-    comp=(bash git gnupg mutt ssh tmux vim vpn xorg zsh)
+    comp=(aws bash git gnupg mutt ssh tmux vim vpn xorg zsh)
 fi
 
 echo "Installing dotfiles for: ${comp[@]}"
 
 # in case we didn't clone recursively
 git submodule update --init
+
+if array_contains comp aws; then
+    gpg -d aws/.aws/credentials.asc > aws/.aws/credentials
+fi
 
 if array_contains comp bash; then
     if [[ -f ~/.bashrc ]]; then

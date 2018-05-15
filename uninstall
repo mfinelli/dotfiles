@@ -30,7 +30,7 @@ fi
 if [[ $# -eq 1 ]]; then
     comp=($1)
 else
-    comp=(bash git gnupg mutt ssh tmux vim vpn xorg zsh)
+    comp=(aws bash git gnupg mutt ssh tmux vim vpn xorg zsh)
 fi
 
 echo "Removing dotfiles for: ${comp[@]}"
@@ -38,6 +38,10 @@ echo "Removing dotfiles for: ${comp[@]}"
 # because of some of the uninstall steps we taks and because it's non-trival
 # to remove items from the array we need to check and do each one instead of
 # looping through
+
+if array_contains comp aws; then
+    stow -D aws
+fi
 
 if array_contains comp bash; then
     stow -D bash
