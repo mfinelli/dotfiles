@@ -30,7 +30,11 @@ fi
 if [[ $# -eq 1 ]]; then
     comp=($1)
 else
-    comp=(aws bash git gnupg mutt ssh tmux vim vpn xorg zsh)
+    if [[ "$(uname)" == "Darwin" ]]; then
+        comp=(aws bash git gnupg mutt ssh tmux vim vpn zsh)
+    else
+        comp=(aws bash git gnupg mutt ssh tmux vim vpn xorg zsh)
+    fi
 fi
 
 echo "Removing dotfiles for: ${comp[@]}"
