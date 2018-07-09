@@ -33,6 +33,9 @@ if command -v thefuck >/dev/null 2>&1; then
     eval "$(thefuck --alias)"
 fi
 
+# source bash completion from homebrew on osx
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
 # AWS completion if it exists
 if [ -f /usr/bin/aws_completer ]; then
     complete -C '/usr/bin/aws_completer' aws
