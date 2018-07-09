@@ -34,11 +34,17 @@ if command -v thefuck >/dev/null 2>&1; then
 fi
 
 # source bash completion from homebrew on osx
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion ]; then
+    source /usr/local/etc/bash_completion
+fi
 
 # AWS completion if it exists
 if [ -f /usr/bin/aws_completer ]; then
     complete -C '/usr/bin/aws_completer' aws
+fi
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    export HOMEBREW_NO_ANALYTICS=1
 fi
 
 function printer_admin() {
