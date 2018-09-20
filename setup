@@ -49,6 +49,11 @@ if array_contains comp bash; then
     fi
 fi
 
+if array_contains comp jibe; then
+    gpg -d jibe/.aws_api.asc > jibe/.aws_api
+    gpg -d jibe/.rackspace_api.asc > jibe/.rackspace_api
+fi
+
 if array_contains comp mutt; then
     chmod 700 mutt/.mail/{,mario@finel.li,mario@scul.ch}
 fi
