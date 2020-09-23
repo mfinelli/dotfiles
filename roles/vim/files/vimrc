@@ -5,3 +5,22 @@ set fileencoding=utf-8
 " make searching better
 set ignorecase
 set smartcase
+
+" show line numbers
+set relativenumber
+
+" turn on syntax highlighting
+syntax on
+
+" set colors
+" colorscheme bubblegum-256-dark
+" let g:airline_theme='bubblegum'
+colorscheme jellybeans
+let g:airline_theme='jellybeans'
+
+" increase frequency of gitgutter updates
+set updatetime=100
+
+" set backspace to work like we expect
+" https://vi.stackexchange.com/a/2163
+set backspace=indent,eol,start
