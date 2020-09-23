@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 default-key {{ gnupg_default_key[ansible_hostname] }}
 
 # https://www.gnupg.org/faq/subkey-cross-certify.html
@@ -12,3 +14,5 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 
 no-emit-version
 no-comments
+
+keyserver {{ gnupg_keyserver }}
