@@ -3,3 +3,7 @@
   tasks:
     - name: get fqdn
       debug: msg={{ ansible_fqdn }}
+
+- hosts: localhost
+  roles:
+    - vim

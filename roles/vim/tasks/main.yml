@@ -1,0 +1,15 @@
+---
+- name: ensure .vim directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+  loop: "{{ vim_plugins_dirs }}"
+
+- name: install editorconfig plugin
+  git:
+    dest: "{{ ansible_user_dir }}/.vim/pack/local/start/editorconfig"
+    repo: https://github.com/editorconfig/editorconfig-vim.git
+    version: v1.1.1

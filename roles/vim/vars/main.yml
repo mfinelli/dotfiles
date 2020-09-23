@@ -1,0 +1,7 @@
+---
+vim_plugins_dirs:
+  - "{{ ansible_user_dir }}/.vim/"
+  - "{{ ansible_user_dir }}/.vim/pack"
+  - "{{ ansible_user_dir }}/.vim/pack/local"
+  - "{{ ansible_user_dir }}/.vim/pack/local/opt"
+  - "{{ ansible_user_dir }}/.vim/pack/local/start"

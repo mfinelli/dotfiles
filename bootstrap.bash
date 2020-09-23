@@ -12,6 +12,9 @@ for bin in ansible-playbook ansible-vault; do
   fi
 done
 
-ansible-playbook -i hosts --vault-password-file ./vault dotfiles.yml
+ansible-playbook --inventory hosts --vault-password-file ./vault \
+  --extra-vars whoami="$(whoami)" \
+  --extra-vars whoami_group="$(id -gn)" \
+  dotfiles.yml
 
 exit 0
