@@ -31,6 +31,12 @@ vim_plugins:
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
     version: HEAD
+  - name: nerdtree
+    repo: https://github.com/preservim/nerdtree.git
+    version: 6.9.9
+  - name: nerdtree-git
+    repo: https://github.com/Xuyuanp/nerdtree-git-plugin
+    version: HEAD
 
   - name: bubblegum
     repo: https://github.com/baskerville/bubblegum.git
