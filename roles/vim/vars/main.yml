@@ -13,6 +13,15 @@ vim_plugins:
   - name: airline-themes
     repo: https://github.com/vim-airline/vim-airline-themes.git
     version: HEAD
+  - name: characterize
+    repo: https://github.com/tpope/vim-characterize.git
+    version: HEAD
+  - name: commentary
+    repo: https://github.com/tpope/vim-commentary.git
+    version: HEAD
+  - name: ctrlp
+    repo: https://github.com/ctrlpvim/ctrlp.vim.git
+    version: HEAD # 1.80 is also _old_
   - name: editorconfig
     repo: https://github.com/editorconfig/editorconfig-vim.git
     version: v1.1.1
