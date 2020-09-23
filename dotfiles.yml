@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+    - name: get fqdn
+      debug: msg={{ ansible_fqdn }}
