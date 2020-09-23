@@ -1,6 +1,6 @@
 # .dotfiles
 
-All configuration is manage via [ansible](https://www.ansible.com).
+All configuration is managed via [ansible](https://www.ansible.com).
 
 Get up and running by either cloning this repository and running,
 `bootstrap.bash`, or all-in-one:
