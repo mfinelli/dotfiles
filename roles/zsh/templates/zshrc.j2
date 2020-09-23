@@ -1,12 +1,15 @@
+# {{ ansible_managed }}
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zhistfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
+
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/mario/.zshrc'
+zstyle :compinstall filename '{{ ansible_user_dir }}/.zshrc'
 
 autoload -Uz compinit
 compinit
