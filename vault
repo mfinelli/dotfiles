@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+# if no arguments then return the vault secret
+# else encrypt a new secret
+
+if [[ $# -eq 0 ]]; then
+  if [[ ! -f vault.asc ]]; then
+    echo >&2 "error: unable to find vault.asc!"
+    exit 1
+  fi
+
+  gpg --batch --quiet --decrypt vault.asc
+  exit 0
+fi
+
+exit 0
