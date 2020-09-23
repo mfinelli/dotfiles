@@ -5,3 +5,8 @@ vim_plugins_dirs:
   - "{{ ansible_user_dir }}/.vim/pack/local"
   - "{{ ansible_user_dir }}/.vim/pack/local/opt"
   - "{{ ansible_user_dir }}/.vim/pack/local/start"
+
+vim_plugins:
+  - name: editorconfig
+    repo: https://github.com/editorconfig/editorconfig-vim.git
+    version: v1.1.1

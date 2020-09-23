@@ -8,8 +8,9 @@
     state: directory
   loop: "{{ vim_plugins_dirs }}"
 
-- name: install editorconfig plugin
+- name: install vim plugins
   git:
-    dest: "{{ ansible_user_dir }}/.vim/pack/local/start/editorconfig"
-    repo: https://github.com/editorconfig/editorconfig-vim.git
-    version: v1.1.1
+    dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
+    repo: "{{ item.repo }}"
+    version: "{{ item.version }}"
+  loop: "{{ vim_plugins }}"
