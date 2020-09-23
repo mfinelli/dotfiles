@@ -1,0 +1,4 @@
+---
+# load default key based on hostname
+gnupg_default_key:
+  MacBook-Pro-di-Mario: 36FDA306

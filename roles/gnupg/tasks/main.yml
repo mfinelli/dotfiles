@@ -1,0 +1,8 @@
+---
+- name: install gnupg gpg.conf
+  template:
+    dest: "{{ ansible_user_dir }}/.gpg.tmp.conf"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: gpg.conf.j2

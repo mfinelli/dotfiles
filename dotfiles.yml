@@ -6,4 +6,5 @@
 
 - hosts: localhost
   roles:
+    - gnupg
     - vim
