@@ -31,6 +31,9 @@ vim_plugins:
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
     version: HEAD
+  # - name: indentline
+  #   repo: https://github.com/Yggdroot/indentLine.git
+  #   version: HEAD
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
     version: 6.9.9
