@@ -18,4 +18,5 @@
     - gnupg
     - vim
     - xorg
+    - ssh
     - zsh
