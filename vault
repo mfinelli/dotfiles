@@ -16,14 +16,26 @@ fi
 if [[ $1 == -v || $1 == --view ]]; then
   if [[ $# -eq 2 && -f $2 ]]; then
     ansible-vault view --vault-password-file ./vault "$2"
+  elif [[ $# -eq 3 && -f $2 ]]; then
+    if ! command -v yq > /dev/null 2>&1; then
+      echo >&2 "missing 'yq' (https://github.com/mikefarah/yq)"
+      exit 1
+    fi
+
+    t="$(mktemp)"
+    yq r "$2" "$3" > "$t"
+
+    ansible-vault decrypt --vault-password-file ./vault "$t" > /dev/null
+    cat "$t"
+    rm "$t"
   else
-    echo "TODO string view"
+    echo >&2 "usage: $(basename "$0") -v ./path/file OR ./roles/file.yml var"
   fi
 else
   if [[ $# -eq 1 && -f $1 ]]; then
     ansible-vault encrypt --vault-password-file ./vault "$1"
   elif [[ $# -eq 2 ]]; then
-    echo "encrypt string $2 as key $1"
+    ansible-vault encrypt_string --vault-password-file ./vault --name "$1" "$2"
   else
     echo >&2 "usage: $(basename "$0") [-v|--view] ./path/to/file OR key value"
   fi

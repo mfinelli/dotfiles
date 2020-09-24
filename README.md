@@ -24,3 +24,6 @@ initialized like so:
 ```shell
 pwgen -cnsy 128 1 | gpg -ear 36FDA306 > vault.asc
 ```
+
+**N.B.** that to view encrypted variables (as opposed to full files) you will
+need to have the [yq](https://github.com/mikefarah/yq) utility installed.
