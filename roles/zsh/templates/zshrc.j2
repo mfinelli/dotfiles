@@ -28,27 +28,8 @@ if [[ -d "$HOME/src/go" ]]; then
   export GOPATH="$HOME/src/go"
 fi
 
-# heredocs are ugly but ¯\_(ツ)_/¯
 function unlockmf() {
-  gpg -qd > /dev/null << EOF
------BEGIN PGP MESSAGE-----
-
-hQIMA2iVJOpU1ahrAQ//YS1RO+jeqwsM8i71bgADHA7TZpCr4HWHxWUBrnQKR4cW
-xrbAzAwEeJ59Rz9gX+BVIuG8aHlqaNj7kH4gBD+5yJot04PaogiVccm2YsEGcPHf
-N7bOzeG59xCnY9wOFtcFUbsCesUgbFRXildTJRIPoa+kfONy1ACHfDa0BTI/gTD2
-NJdfcRohXEf/GutddmW6AX2vCuLCIykstTxm6W0o/c3OT1WLsGlBbxgclvVryu+e
-EP+IztqbgyGAEGo5P139elqPmoV9Tmp7J7LO4IxcAr8nLO0fxQuMoNRR2lUdbrx3
-sgh0k1v1qzn6fyF6fxiCQGs1/8b96zhDGJwfXCPGAMUr5u3UHwH8luQU5bPQW45p
-k1jAHmFvxHIk60h4/AHg1t3bYcomKo1iCvKDHJ1OvDtlZt7DX41xtLsOA5aDu0lH
-DaL2gz+gOdjWVp2FxXpfX38uGdabOvIXStye1wXz5NBXOEDoCSnQxC7BO1PU/uvd
-FFJ0xGkuJV2YJUfDnnPpCIwvzSOqxTwH7hJ5yzJuaf4rIomOSDnjeYfN82i4/qJK
-bRBU8Pp5byXET7su566Qhn+8pUnRiCRmkZfiJNndE0zNyqSRhHFgYS9w3uyeVdby
-jhAMwJN/bqrGoaKombWqLGKPDXqmaQwlOwOtcLA9Hesc7gz1RVtAArUag+CPxsDS
-QQHczbE22P19MKB07NJCVQf1pv6faStd94sczJAh/ZZM8i4QSwjsiqJZqE+BJJlv
-7lFVLLHPg2cYHo6xvJKMdH4c
-=ZYEv
------END PGP MESSAGE-----
-EOF
+  gpg -qd ~/.zsh/36FDA306.asc > /dev/null
 }
 
 # https://github.com/sharkdp/vivid

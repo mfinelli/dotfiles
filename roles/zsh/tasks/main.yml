@@ -37,3 +37,10 @@
     dest: "{{ ansible_user_dir }}/.p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the dummy file for the unlockmf function
+  file:
+    dest: "{{ ansible_user_dir }}/.zsh/36FDA306.asc"
+    src: "{{ playbook_dir }}/roles/zsh/files/36FDA306.asc"
+    state: link
