@@ -1,0 +1,16 @@
+---
+# on archlinux install the ttf-meslo-nerd-font-powerlevel10k package
+# https://aur.archlinux.org/packages/ttf-meslo-nerd-font-powerlevel10k/
+- name: download meslo nerd font
+  when: ansible_os_family == "Darwin"
+  get_url:
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
+    dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item }}.ttf"
+    mode: 0664
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+  loop:
+    - MesloLGS NF Regular
+    - MesloLGS NF Bold
+    - MesloLGS NF Italic
+    - MesloLGS NF Bold Italic
