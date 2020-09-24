@@ -1,0 +1,15 @@
+---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link gitignore_global
+  file:
+    dest: "{{ ansible_user_dir }}/.gitignore_global"
+    src: "{{ playbook_dir }}/roles/git/files/gitignore_global"
+    state: link
+
+- name: install user global git config
+  template:
+    dest: "{{ ansible_user_dir }}/.gitconfig"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0644
+    src: gitconfig.j2

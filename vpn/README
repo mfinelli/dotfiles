@@ -1,7 +1,0 @@
-VPN Configurations
-
-Create: tar zcv directory | gpg -ear me > directory.tgz.asc
-
-For manual decryption: gpg -d directory.tgz.asc | tar zxv
-
-Be sure to update .gitignore and .stow-local-ignore

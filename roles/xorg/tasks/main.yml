@@ -1,0 +1,24 @@
+---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the xresources config in place
+  when: ansible_os_family != "Darwin"
+  file:
+    dest: "{{ ansible_user_dir }}/.Xresources"
+    src: "{{ playbook_dir }}/roles/xorg/files/Xresources"
+    state: link
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the user dirs config in place
+  when: ansible_os_family != "Darwin"
+  file:
+    dest: "{{ ansible_user_dir }}/.config/user-dirs.dirs"
+    src: "{{ playbook_dir }}/roles/xorg/files/user-dirs.dirs"
+    state: link
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the user dirs locale config in place
+  when: ansible_os_family != "Darwin"
+  file:
+    dest: "{{ ansible_user_dir }}/.config/user-dirs.locale"
+    src: "{{ playbook_dir }}/roles/xorg/files/user-dirs.locale"
+    state: link

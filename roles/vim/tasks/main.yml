@@ -1,0 +1,23 @@
+---
+- name: ensure .vim directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+  loop: "{{ vim_plugins_dirs }}"
+
+- name: install vim plugins
+  git:
+    dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
+    repo: "{{ item.repo }}"
+    version: "{{ item.version }}"
+  loop: "{{ vim_plugins }}"
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: install the vim configuration
+  file:
+    dest: "{{ ansible_user_dir }}/.vimrc"
+    src: "{{ playbook_dir }}/roles/vim/files/vimrc"
+    state: link

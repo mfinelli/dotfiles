@@ -1,0 +1,46 @@
+---
+- name: ensure zsh config download directory
+  file:
+    path: "{{ ansible_user_dir }}/.zsh"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: download grml-zsh-config
+  git:
+    dest: "{{ ansible_user_dir }}/.zsh/grml"
+    repo: https://github.com/grml/grml-etc-core.git
+    version: v0.17.4
+
+- name: download powerlevel10k
+  git:
+    dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
+    repo: https://github.com/romkatv/powerlevel10k.git
+    version: v1.13.0
+
+- include: fonts.yml
+
+# i'd prefer this to be a symlink but then we miss out on ansible being able
+# to process it, run if/else, and drop in encrypted variables...
+- name: install zshrc
+  template:
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: zshrc.j2
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the p10k configuration
+  file:
+    dest: "{{ ansible_user_dir }}/.p10k.zsh"
+    src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
+    state: link
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the dummy file for the unlockmf function
+  file:
+    dest: "{{ ansible_user_dir }}/.zsh/36FDA306.asc"
+    src: "{{ playbook_dir }}/roles/zsh/files/36FDA306.asc"
+    state: link

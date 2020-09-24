@@ -1,0 +1,31 @@
+---
+- name: ensure gnupg directory
+  file:
+    path: "{{ ansible_user_dir }}/.gnupg"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0700
+    state: directory
+
+- name: install gnupg gpg.conf
+  template:
+    dest: "{{ ansible_user_dir }}/.gnupg/gpg.conf"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: gpg.conf.j2
+
+- name: install dirmngr config
+  template:
+    dest: "{{ ansible_user_dir }}/.gnupg/dirmngr.conf"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: dirmngr.conf.j2
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link gpg-agent config
+  file:
+    dest: "{{ ansible_user_dir }}/.gnupg/gpg-agent.conf"
+    src: "{{ playbook_dir }}/roles/gnupg/files/gpg-agent.conf"
+    state: link

@@ -1,0 +1,25 @@
+; {{ ansible_managed }}
+
+[user]
+{% if ansible_hostname == "MacBook-Pro-di-Mario" %}
+	email = mario@finel.li
+{% endif %}
+	name = Mario Finelli
+
+[alias]
+	network = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	plog = log -p --stat
+
+[core]
+	precomposeunicode = true
+{% if ansible_os_family == "Darwin" %}
+	editor = /usr/local/bin/vim
+{% else %}
+	editor = /usr/bin/vim
+{% endif %}
+
+[core]
+	excludesfile = /Users/mario/.gitignore_global
+
+[pull]
+	ff = only

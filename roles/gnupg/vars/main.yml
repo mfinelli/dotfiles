@@ -1,0 +1,8 @@
+---
+# keys.gnupg.net doesn't seem to support hkps yet
+# gnupg_keyserver: hkp://keys.gnupg.net
+gnupg_keyserver: hkps://keys.openpgp.org
+
+# load default key based on hostname
+gnupg_default_key:
+  MacBook-Pro-di-Mario: 36FDA306

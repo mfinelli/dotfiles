@@ -1,0 +1,66 @@
+# {{ ansible_managed }}
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.zhistfile
+HISTSIZE=100000
+SAVEHIST=100000
+setopt appendhistory autocd
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+# The following lines were added by compinstall
+zstyle :compinstall filename '{{ ansible_user_dir }}/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
+source {{ ansible_user_dir }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+
+export EDITOR=vim
+
+if [[ -d "$HOME/bin" ]]; then
+  export PATH="$HOME/bin":$PATH
+fi
+
+if [[ -d "$HOME/src/go" ]]; then
+  export GOPATH="$HOME/src/go"
+fi
+
+function unlockmf() {
+  gpg -qd ~/.zsh/36FDA306.asc > /dev/null
+}
+
+# https://github.com/sharkdp/vivid
+if command -v vivid > /dev/null 2>&1; then
+  export LS_COLORS="$(vivid generate solarized-dark)"
+fi
+
+{% if ansible_os_family == "Darwin" %}
+# Use GNU coreutils ls if it's installed on osx
+if [[ -f /usr/local/bin/gls ]]; then
+  alias ls="gls --color"
+fi
+{% endif %}
+
+alias please='eval "sudo $(fc -ln -1)"'
+
+if command -v thefuck > /dev/null 2>&1; then
+  eval "$(thefuck --alias)"
+fi
+
+{% if ansible_os_family == "Darwin" %}
+if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
+  source /usr/local/share/chruby/chruby.sh
+fi
+{% else %}
+{% endif %}
+
+{% if ansible_os_family == "Darwin" %}
+# disable homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
+{% endif %}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  roles:
+    - bash
+    - git
+    - gnupg
+    - vim
+    - xorg
+    - ssh
+    - zsh

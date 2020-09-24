@@ -1,0 +1,44 @@
+#!/bin/bash -e
+
+# if no arguments then return the vault secret
+# else encrypt a new secret
+
+if [[ $# -eq 0 ]]; then
+  if [[ ! -f vault.asc ]]; then
+    echo >&2 "error: unable to find vault.asc!"
+    exit 1
+  fi
+
+  gpg --batch --quiet --decrypt vault.asc
+  exit 0
+fi
+
+if [[ $1 == -v || $1 == --view ]]; then
+  if [[ $# -eq 2 && -f $2 ]]; then
+    ansible-vault view --vault-password-file ./vault "$2"
+  elif [[ $# -eq 3 && -f $2 ]]; then
+    if ! command -v yq > /dev/null 2>&1; then
+      echo >&2 "missing 'yq' (https://github.com/mikefarah/yq)"
+      exit 1
+    fi
+
+    t="$(mktemp)"
+    yq r "$2" "$3" > "$t"
+
+    ansible-vault decrypt --vault-password-file ./vault "$t" > /dev/null
+    cat "$t"
+    rm "$t"
+  else
+    echo >&2 "usage: $(basename "$0") -v ./path/file OR ./roles/file.yml var"
+  fi
+else
+  if [[ $# -eq 1 && -f $1 ]]; then
+    ansible-vault encrypt --vault-password-file ./vault "$1"
+  elif [[ $# -eq 2 ]]; then
+    ansible-vault encrypt_string --vault-password-file ./vault --name "$1" "$2"
+  else
+    echo >&2 "usage: $(basename "$0") [-v|--view] ./path/to/file OR key value"
+  fi
+fi
+
+exit 0

@@ -1,0 +1,56 @@
+set nocompatible
+set encoding=utf-8
+set fileencoding=utf-8
+scriptencoding utf-8
+
+" make searching better
+set ignorecase
+set smartcase
+
+" show line numbers
+set relativenumber
+
+" turn on syntax highlighting
+" https://stackoverflow.com/a/33380495
+if !exists("g:syntax_on")
+  syntax enable
+endif
+
+" turn on filetype detection
+" https://vi.stackexchange.com/a/10125
+" https://github.com/tpope/vim-sensible
+if has('autocmd')
+  filetype plugin indent on
+endif
+
+" set backspace to work like we expect
+" https://vi.stackexchange.com/a/2163
+set backspace=indent,eol,start
+
+" automatically indent
+set autoindent
+
+" make autocomplete better
+" https://medium.com/usevim/set-complete-e76b9f196f0f
+set complete-=i
+
+" set colors
+" colorscheme bubblegum-256-dark
+" let g:airline_theme='bubblegum'
+colorscheme jellybeans
+let g:airline_theme='jellybeans'
+
+" increase frequency of gitgutter updates
+set updatetime=100
+
+" reload files that are changed on disk
+set autoread
+
+" increase history size
+" https://github.com/tpope/vim-sensible
+if &history < 1000
+  set history=1000
+endif
+if &tabpagemax < 50
+  set tabpagemax=50
+endif

@@ -1,0 +1,34 @@
+---
+- name: ensure .ssh directory
+  file:
+    path: "{{ ansible_user_dir}}/.ssh"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0700
+    state: directory
+
+- name: write out public keys
+  copy:
+    dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: keys/{{ item }}.pub
+  loop: "{{ ssh_keys }}"
+
+- name: write out private keys
+  copy:
+    dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: keys/{{ item }}
+  loop: "{{ ssh_keys }}"
+
+- name: install ssh config
+  template:
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: config.j2
