@@ -13,4 +13,20 @@ if [[ $# -eq 0 ]]; then
   exit 0
 fi
 
+if [[ $1 == -v || $1 == --view ]]; then
+  if [[ $# -eq 2 && -f $2 ]]; then
+    ansible-vault view --vault-password-file ./vault "$2"
+  else
+    echo "TODO string view"
+  fi
+else
+  if [[ $# -eq 1 && -f $1 ]]; then
+    ansible-vault encrypt --vault-password-file ./vault "$1"
+  elif [[ $# -eq 2 ]]; then
+    echo "encrypt string $2 as key $1"
+  else
+    echo >&2 "usage: $(basename "$0") [-v|--view] ./path/to/file OR key value"
+  fi
+fi
+
 exit 0
