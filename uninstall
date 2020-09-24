@@ -72,6 +72,10 @@ if array_contains comp gnupg; then
     stow -D gnupg
 fi
 
+if array_contains comp jibe; then
+    stow -D jibe
+fi
+
 if array_contains comp mutt; then
     stow -D mutt
 fi
