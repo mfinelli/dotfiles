@@ -13,6 +13,7 @@
 
 - hosts: localhost
   roles:
+    - bash
     - git
     - gnupg
     - vim
