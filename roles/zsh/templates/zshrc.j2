@@ -51,6 +51,18 @@ QQHczbE22P19MKB07NJCVQf1pv6faStd94sczJAh/ZZM8i4QSwjsiqJZqE+BJJlv
 EOF
 }
 
+# https://github.com/sharkdp/vivid
+if command -v vivid > /dev/null 2>&1; then
+  export LS_COLORS="$(vivid generate solarized-dark)"
+fi
+
+{% if ansible_os_family == "Darwin" %}
+# Use GNU coreutils ls if it's installed on osx
+if [[ -f /usr/local/bin/gls ]]; then
+  alias ls="gls --color"
+fi
+{% endif %}
+
 {% if ansible_os_family == "Darwin" %}
 if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
   source /usr/local/share/chruby/chruby.sh
