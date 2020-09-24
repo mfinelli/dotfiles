@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 #
 # ~/.bashrc
 #
@@ -21,8 +23,8 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # source bash_aliases if it exists
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [[ -f ~/.bash_aliases ]]; then
+  . ~/.bash_aliases
 fi
 
 export EDITOR=vim
@@ -30,25 +32,25 @@ export EDITOR=vim
 alias please='eval "sudo $(fc -ln -1)"'
 
 if command -v thefuck >/dev/null 2>&1; then
-    eval "$(thefuck --alias)"
+  eval "$(thefuck --alias)"
 fi
 
 # source bash completion from homebrew on osx
 if [ -f /usr/local/etc/bash_completion ]; then
-    source /usr/local/etc/bash_completion
+  source /usr/local/etc/bash_completion
 fi
 
 # AWS completion if it exists
 if [ -f /usr/bin/aws_completer ]; then
-    complete -C '/usr/bin/aws_completer' aws
+  complete -C '/usr/bin/aws_completer' aws
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_ANALYTICS=1
 fi
 
 function printer_admin() {
-    ssh "$1" -T -L 3631:localhost:631
+  ssh "$1" -T -L 3631:localhost:631
 }
 
 # add locally installed ruby gems to the path
