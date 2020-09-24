@@ -6,6 +6,7 @@
 
 - hosts: localhost
   roles:
+    - git
     - gnupg
     - vim
     - zsh
