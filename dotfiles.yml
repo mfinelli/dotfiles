@@ -8,3 +8,4 @@
   roles:
     - gnupg
     - vim
+    - zsh
