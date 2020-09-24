@@ -2,7 +2,14 @@
 - hosts: localhost
   tasks:
     - name: get fqdn
-      debug: msg={{ ansible_fqdn }}
+      debug: msg={{ ansible_env.HOME }}
+    - debug: msg={{ ansible_hostname }}
+    - debug: msg={{ ansible_pkg_mgr }}
+    - debug: msg={{ ansible_os_family }}
+    - debug: msg={{ ansible_user_dir }}
+    - debug: msg={{ ansible_user_gid }}
+    - debug: msg={{ whoami_group }}
+    - debug: msg={{ playbook_dir }}
 
 - hosts: localhost
   roles:

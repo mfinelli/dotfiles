@@ -9,6 +9,7 @@
 [alias]
 	network = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 	plog = log -p --stat
+
 [core]
 	precomposeunicode = true
 {% if ansible_os_family == "Darwin" %}
