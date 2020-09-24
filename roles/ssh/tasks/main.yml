@@ -24,3 +24,11 @@
     mode: 0600
     src: keys/{{ item }}
   loop: "{{ ssh_keys }}"
+
+- name: install ssh config
+  template:
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: config.j2
