@@ -13,7 +13,7 @@ Get up and running by either cloning this repository and running,
 `bootstrap.bash`, or all-in-one:
 
 ```shell
-curl -xo- https://raw.githubusercontent.com/mfinelli/dotfiles/master/go | bash
+curl -s https://raw.githubusercontent.com/mfinelli/dotfiles/master/go | bash
 ```
 
 ## vault
