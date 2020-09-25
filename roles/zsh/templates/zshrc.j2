@@ -42,6 +42,8 @@ fi
 if [[ -f /usr/local/bin/gls ]]; then
   alias ls="gls --color"
 fi
+{% else %}
+alias ls="ls --color"
 {% endif %}
 
 alias please='eval "sudo $(fc -ln -1)"'
