@@ -1,0 +1,24 @@
+---
+- name: ensure vpn directory
+  file:
+    path: "{{ ansible_user_dir }}/.vpn"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0700
+    state: directory
+
+- name: decrypt vpn configuration
+  copy:
+    dest: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
+    owner: "{{ whoami }}"
+    group: "{{ whoami }}"
+    mode: 0600
+    src: "{{ item }}.tar.gz"
+  loop: "{{ vpn_configs }}"
+
+- name: extract vpn configuration
+  unarchive:
+    src: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
+    dest: "{{ ansible_user_dir }}/.vpn"
+    remote_src: yes
+  loop: "{{ vpn_configs }}"
