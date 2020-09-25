@@ -55,6 +55,9 @@ if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
   source /usr/local/share/chruby/chruby.sh
 fi
 {% else %}
+if [[ -f /usr/share/chruby/chruby.sh ]]; then
+  source /usr/share/chruby/chruby.sh
+fi
 {% endif %}
 
 {% if ansible_os_family == "Darwin" %}
