@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+---
+url: https://github.com/actions/setup-ruby/releases
+filter:
+  - xpath: '(//div[contains(@class,"release-timeline-tags")]//h4)[1]/a'
+  - html2text: re
+  - strip
+
+# vim: ft=yaml

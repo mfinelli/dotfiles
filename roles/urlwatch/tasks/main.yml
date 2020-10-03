@@ -13,3 +13,11 @@
     dest: "{{ ansible_user_dir }}/.config/urlwatch/urlwatch.yaml"
     src: "{{ playbook_dir }}/roles/urlwatch/files/urlwatch.yaml"
     state: link
+
+- name: install urlwatch list
+  template:
+    dest: "{{ ansible_user_dir }}/.config/urlwatch/urls.yaml"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0644
+    src: urls.yaml.j2
