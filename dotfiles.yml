@@ -6,6 +6,7 @@
     - gnupg
     - ruby
     - ssh
+    - urlwatch
     - vim
     - vpn
     - xorg
