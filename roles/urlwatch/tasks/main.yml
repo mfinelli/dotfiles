@@ -10,13 +10,13 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the urlwatch configuration
   file:
-    dest: "{{ urlwatch_config_basepath }/urlwatch.yaml"
+    dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urlwatch.yaml"
     src: "{{ playbook_dir }}/roles/urlwatch/files/urlwatch.yaml"
     state: link
 
 - name: install urlwatch list
   template:
-    dest: "{{ urlwatch_config_basepath }}/urls.yaml"
+    dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urls.yaml"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0644

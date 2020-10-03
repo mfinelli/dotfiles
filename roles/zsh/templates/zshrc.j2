@@ -68,8 +68,8 @@ export HOMEBREW_NO_ANALYTICS=1
 {% endif %}
 
 {% if ansible_os_family == "Darwin" %}
-if [[ -f {{ ansible_user_dir }}/Library/Python/3.8/bin/urlwatch]]; then
-  alias urlwatch=/Users/mario/Library/Python/3.8/bin/urlwatch
+if [[ -f {{ ansible_user_dir }}/Library/Python/3.8/bin/urlwatch ]]; then
+  alias urlwatch={{ ansible_user_dir }}/Library/Python/3.8/bin/urlwatch
 fi
 {% endif %}
 
