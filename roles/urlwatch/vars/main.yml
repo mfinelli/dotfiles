@@ -1,6 +1,7 @@
 ---
 urlwatch_github_releases:
   - actions/checkout
+  - actions/create-release
   - actions/setup-ruby
   - docker/build-push-action
   - peter-evans/dockerhub-description
