@@ -1,9 +1,11 @@
 # {{ ansible_managed }}
+{% for item in urlwatch_github_releases %}
 ---
-url: https://github.com/actions/setup-ruby/releases
+url: https://github.com/{{ item }}/releases
 filter:
   - xpath: '(//div[contains(@class,"release-timeline-tags")]//h4)[1]/a'
   - html2text: re
   - strip
+{% endfor %}
 
 # vim: ft=yaml
