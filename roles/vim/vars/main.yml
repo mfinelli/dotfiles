@@ -41,7 +41,7 @@ vim_plugins:
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin
     version: HEAD
   - name: svelte
-    repo: https://github.com/evanleck/vim-svelte.git
+    repo: https://github.com/leafOfTree/vim-svelte-plugin.git
     version: HEAD
 
   - name: bubblegum
