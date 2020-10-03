@@ -54,3 +54,6 @@ endif
 if &tabpagemax < 50
   set tabpagemax=50
 endif
+
+" https://github.com/kien/ctrlp.vim/issues/58#issuecomment-42743551
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor\/bundle)|(\.(git))$'
