@@ -2,3 +2,4 @@
 urlwatch_github_releases:
   - actions/checkout
   - actions/setup-ruby
+  - docker/build-push-action
