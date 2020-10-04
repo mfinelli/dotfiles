@@ -7,6 +7,13 @@ filter:
   - html2text: re
   - strip
 {% endfor %}
+{% for item in urlwatch_rubygems %}
+---
+url: https://rubygems.org/gems/{{ item }}
+filter:
+  - xpath: //i[contains(@class,"page__subheading")]
+  - html2text: re
+{% endfor %}
 ---
 url: https://raw.githubusercontent.com/GoogleCloudPlatform/cloud-sdk-docker/master/alpine/Dockerfile
 ---

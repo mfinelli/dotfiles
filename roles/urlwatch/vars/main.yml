@@ -9,3 +9,7 @@ urlwatch_github_releases:
   - actions/setup-ruby
   - docker/build-push-action
   - peter-evans/dockerhub-description
+
+urlwatch_rubygems:
+  - bankrupt
+  - ruolo
