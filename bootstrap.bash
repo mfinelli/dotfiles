@@ -12,9 +12,19 @@ for bin in ansible-playbook ansible-vault; do
   fi
 done
 
-ansible-playbook --inventory hosts --vault-password-file ./vault \
+hn="$(hostname)"
+if [[ $hn == "debian" ]]; then
+  VAULT_ID=w@./wvault
+  mtype=work
+else
+  VAULT_ID=p@./vault
+  mtype=personal
+fi
+
+ansible-playbook --inventory hosts --vault-id ${VAULT_ID} \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
+  --extra-vars mtype=$mtype \
   dotfiles.yml
 
 exit 0
