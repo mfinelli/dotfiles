@@ -79,3 +79,10 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+{% if mtype == "personal" %}
+export CLOUDFLARE_API_TOKEN={{ cloudflare_api_token }}
+export CFCA_TOKEN={{ cloudflare_ca_token }}
+export CF_TOKEN={{ cloudflare_global_api_key }}
+export DIGITALOCEAN_ACCESS_TOKEN={{ digitalocean_token }}
+{% endif %}
