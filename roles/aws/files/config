@@ -1,0 +1,15 @@
+[default]
+region = us-east-1
+output = text
+
+[profile dmarcist]
+region = us-east-1
+output = text
+
+[profile lidoclub]
+region = us-east-1
+output = text
+
+[profile mariomoney]
+region = us-east-1
+output = text
