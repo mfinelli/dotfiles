@@ -7,8 +7,12 @@ urlwatch_github_releases:
   - actions/checkout
   - actions/create-release
   - actions/setup-ruby
+  - ansible/ansible-lint-action
+  - docker/login-action
   - docker/build-push-action
+  - docker/setup-buildx-action
   - peter-evans/dockerhub-description
+  - ruby/setup-ruby
 
 urlwatch_rubygems:
   - bankrupt
