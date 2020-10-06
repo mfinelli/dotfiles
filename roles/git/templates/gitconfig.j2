@@ -1,7 +1,9 @@
 ; {{ ansible_managed }}
 
 [user]
-{% if ansible_hostname == "MacBook-Pro-di-Mario" or ansible_hostname == "stig" %}
+{% if mtype == "work" %}
+	email = mfinelli@genedx.com
+{% else %}
 	email = mario@finel.li
 {% endif %}
 	name = Mario Finelli

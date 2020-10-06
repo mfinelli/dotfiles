@@ -13,9 +13,16 @@ if [[ $# -eq 0 ]]; then
   exit 0
 fi
 
+if [[ $1 == -w ]]; then
+  VAULT_ID=w@./wvault
+  shift
+else
+  VAULT_ID=p@./vault
+fi
+
 if [[ $1 == -v || $1 == --view ]]; then
   if [[ $# -eq 2 && -f $2 ]]; then
-    ansible-vault view --vault-password-file ./vault "$2"
+    ansible-vault view --vault-id ${VAULT_ID} "$2"
   elif [[ $# -eq 3 && -f $2 ]]; then
     if ! command -v yq > /dev/null 2>&1; then
       echo >&2 "missing 'yq' (https://github.com/mikefarah/yq)"
@@ -25,19 +32,19 @@ if [[ $1 == -v || $1 == --view ]]; then
     t="$(mktemp)"
     yq r "$2" "$3" > "$t"
 
-    ansible-vault decrypt --vault-password-file ./vault "$t" > /dev/null
+    ansible-vault decrypt --vault-id ${VAULT_ID} "$t" > /dev/null
     cat "$t"
     rm "$t"
   else
-    echo >&2 "usage: $(basename "$0") -v ./path/file OR ./roles/file.yml var"
+    echo >&2 "usage: $(basename "$0") [-w] -v ./to/file OR ./roles/file.yml var"
   fi
 else
   if [[ $# -eq 1 && -f $1 ]]; then
-    ansible-vault encrypt --vault-password-file ./vault "$1"
+    ansible-vault encrypt --vault-id ${VAULT_ID} "$1"
   elif [[ $# -eq 2 ]]; then
-    ansible-vault encrypt_string --vault-password-file ./vault --name "$1" "$2"
+    ansible-vault encrypt_string --vault-id ${VAULT_ID} --name "$1" "$2"
   else
-    echo >&2 "usage: $(basename "$0") [-v|--view] ./path/to/file OR key value"
+    echo >&2 "usage: $(basename "$0") [-w] [-v|--view] ./to/file OR key value"
   fi
 fi
 

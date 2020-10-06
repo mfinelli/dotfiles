@@ -8,6 +8,7 @@
     state: directory
 
 - name: write out public keys
+  when: mtype == 'personal'
   copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
     owner: "{{ whoami }}"
@@ -17,6 +18,7 @@
   loop: "{{ ssh_keys }}"
 
 - name: write out private keys
+  when: mtype == 'personal'
   copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
     owner: "{{ whoami }}"
@@ -24,6 +26,24 @@
     mode: 0600
     src: keys/{{ item }}
   loop: "{{ ssh_keys }}"
+
+- name: write out public key
+  when: mtype == 'work'
+  copy:
+    dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: keys/work.pub
+
+- name: write out private key
+  when: mtype == 'work'
+  copy:
+    dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: keys/work
 
 - name: install ssh config
   template:

@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+# always returns the work-vault secret
+# use `./vault` for encrypt/decrypt options
+
+if [[ $# -eq 0 ]]; then
+  if [[ ! -f work.asc ]]; then
+    echo >&2 "error: unable to find work.asc!"
+    exit 1
+  fi
+
+  gpg --batch --quiet --decrypt work.asc
+else
+  echo >&2 "usage: $(basename "$0")"
+  exit 1
+fi
+
+exit 0

@@ -5,5 +5,5 @@ gnupg_keyserver: hkps://keys.openpgp.org
 
 # load default key based on hostname
 gnupg_default_key:
-  MacBook-Pro-di-Mario: 36FDA306
-  stig: 36FDA306
+  work: 4DA7BCBA
+  personal: 36FDA306

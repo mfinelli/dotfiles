@@ -32,6 +32,10 @@ function unlockmf() {
   gpg -qd ~/.zsh/36FDA306.asc > /dev/null
 }
 
+function unlockw() {
+  gpg -qd ~/.zsh/4DA7BCBA.asc > /dev/null
+}
+
 # https://github.com/sharkdp/vivid
 if command -v vivid > /dev/null 2>&1; then
   export LS_COLORS="$(vivid generate solarized-dark)"

@@ -1,5 +1,8 @@
 # {{ ansible_managed }}
 
+{% if mtype == "work" %}
+AddKeysToAgent yes
+{% else %}
 Host *.archlinux.org
     IdentityFile ~/.ssh/arch
     IdentitiesOnly yes
@@ -66,5 +69,6 @@ Host git-codecommit.{{ region }}.amazonaws.com
     AddKeysToAgent yes
 
 {% endfor %}
+{% endif %}
 
 # vim: ft=sshconfig
