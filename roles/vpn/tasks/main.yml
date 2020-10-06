@@ -20,5 +20,8 @@
   unarchive:
     src: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
     dest: "{{ ansible_user_dir }}/.vpn"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0700
     remote_src: yes
   loop: "{{ vpn_configs }}"

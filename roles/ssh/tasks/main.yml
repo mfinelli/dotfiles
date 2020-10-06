@@ -1,7 +1,7 @@
 ---
 - name: ensure .ssh directory
   file:
-    path: "{{ ansible_user_dir}}/.ssh"
+    path: "{{ ansible_user_dir }}/.ssh"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0700
