@@ -11,7 +11,7 @@
   copy:
     dest: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
     owner: "{{ whoami }}"
-    group: "{{ whoami }}"
+    group: "{{ whoami_group }}"
     mode: 0600
     src: "{{ item }}.tar.gz"
   loop: "{{ vpn_configs }}"
