@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 
-default-key {{ gnupg_default_key[ansible_hostname] }}
+default-key {{ gnupg_default_key[mtype] }}
 
 # https://www.gnupg.org/faq/subkey-cross-certify.html
 require-cross-certification
