@@ -25,6 +25,18 @@ Note if you'd like to regenerate the public key using the private key material:
 ssh-keygen -f ~/file -y > ./file.pub
 ```
 
+To change the comment on the key:
+
+```shell
+ssh-keygen -c -C username -f ./file
+```
+
+To update the password for a key:
+
+```shell
+ssh-keygen -p -f ./file
+```
+
 And finally, if you'd like to see the randomart again:
 
 ```shell
