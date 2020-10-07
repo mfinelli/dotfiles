@@ -55,5 +55,9 @@ if &tabpagemax < 50
   set tabpagemax=50
 endif
 
+" enable spell check on markdown and git commit messages
+autocmd FileType gitcommit setlocal spell spelllang=en
+autocmd FileType markdown setlocal spell spelllang=en
+
 " https://github.com/kien/ctrlp.vim/issues/58#issuecomment-42743551
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor\/bundle)|(\.(git))$'
