@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   roles:
-    - { role: aws, when "mtype == 'personal'" }
+    - { role: aws, when: "mtype == 'personal'" }
     - { role: bash, when: "mtype == 'personal'"  }
     - { role: git, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: gnupg, when: "mtype == 'personal' or mtype == 'work'" }
@@ -11,4 +11,4 @@
     - { role: vim, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: vpn, when: "mtype == 'personal'" }
     - { role: xorg, when: "mtype == 'personal'" }
-    - { role: zsh, when: "mtype == 'personal'" }
+    - { role: zsh, when: "mtype == 'personal' or mtype == 'work'" }
