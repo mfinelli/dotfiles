@@ -7,6 +7,7 @@
     - { role: gnupg, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: ruby, when: "mtype == 'personal'" }
     - { role: ssh, when: "mtype == 'personal' or mtype == 'work'" }
+    - { role: tmux, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: urlwatch, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: vim, when: "mtype == 'personal' or mtype == 'work'" }
     - { role: vpn, when: "mtype == 'personal'" }

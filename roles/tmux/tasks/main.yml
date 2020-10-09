@@ -1,0 +1,7 @@
+---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link tmux conf
+  file:
+    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    src: "{{ playbook_dir }}/roles/tmux/files/tmux.conf"
+    state: link
