@@ -1,4 +1,4 @@
-#/bin/bash
+#!/usr/bin/env bash
 
 # script to print out the right os icon for tmux status line
 # usage: ./os.sh
