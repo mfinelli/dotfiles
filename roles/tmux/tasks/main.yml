@@ -20,3 +20,10 @@
     dest: "{{ ansible_user_dir }}/.tmux/os.bash"
     src: "{{ playbook_dir }}/roles/tmux/files/os.bash"
     state: link
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the utc date script
+  file:
+    dest: "{{ ansible_user_dir }}/.tmux/date.sh"
+    src: "{{ playbook_dir }}/roles/tmux/files/date.sh"
+    state: link
