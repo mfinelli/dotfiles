@@ -86,3 +86,47 @@ export CFCA_TOKEN={{ cloudflare_ca_token }}
 export CF_TOKEN={{ cloudflare_global_api_key }}
 export DIGITALOCEAN_ACCESS_TOKEN={{ digitalocean_token }}
 {% endif %}
+
+function dcu() {
+  if [[ $(uname) == Linux ]]; then
+    active=$(sudo systemctl is-active docker.service)
+
+    if [[ $active == inactive ]]; then
+      sudo systemctl start docker.service
+      sleep 5
+    fi
+  fi
+
+  if [[ ! -f $1 ]]; then
+    echo >&2 "error: can not find compose file $1"
+    exit 1
+  fi
+
+  if [[ $(uname) == Linux ]]; then
+    sudo docker-compose -f "$1" up
+  else
+    docker-compose -f "$1" up
+  fi
+}
+
+function dcd() {
+  if [[ $(uname) == Linux ]]; then
+    active=$(sudo systemctl is-active docker.service)
+
+    if [[ $active == inactive ]]; then
+      sudo systemctl start docker.service
+      sleep 5
+    fi
+  fi
+
+  if [[ ! -f $1 ]]; then
+    echo >&2 "error: can not find compose file $1"
+    exit 1
+  fi
+
+  if [[ $(uname) == Linux ]]; then
+    sudo docker-compose -f "$1" down
+  else
+    docker-compose -f "$1" down
+  fi
+}
