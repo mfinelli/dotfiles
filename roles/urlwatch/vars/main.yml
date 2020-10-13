@@ -1,6 +1,7 @@
 ---
 urlwatch_config_basepath:
   Darwin: "{{ ansible_user_dir }}/Library/Application Support/urlwatch"
+  Debian: "{{ ansible_user_dir }}/.config/urlwatch"
   Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
 
 urlwatch_github_releases:
