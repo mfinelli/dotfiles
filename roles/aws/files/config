@@ -10,6 +10,10 @@ output = text
 region = us-east-1
 output = text
 
+[profile cooking]
+region = us-east-1
+output = text
+
 [profile mariomoney]
 region = us-east-1
 output = text
