@@ -1,6 +1,7 @@
 ---
 # on archlinux install the ttf-meslo-nerd-font-powerlevel10k package
 # https://aur.archlinux.org/packages/ttf-meslo-nerd-font-powerlevel10k/
+
 - name: download meslo nerd font
   when: ansible_os_family == "Darwin"
   get_url:
@@ -14,3 +15,37 @@
     - MesloLGS NF Bold
     - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
+
+- name: ensure local fonts directory
+  when: ansible_os_family == "Debian"
+  file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: ensure directory for meslo nerd font
+  when: ansible_os_family == "Debian"
+  file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: download meslo nerd font
+  when: ansible_os_family == "Debian"
+  get_url:
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
+    mode: 0644
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+  loop:
+    - MesloLGS NF Regular
+    - MesloLGS NF Bold
+    - MesloLGS NF Italic
+    - MesloLGS NF Bold Italic
+  notify:
+    - rebuild local font cache
