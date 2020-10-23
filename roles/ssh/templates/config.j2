@@ -2,6 +2,7 @@
 
 {% if mtype == "work" %}
 AddKeysToAgent yes
+User {{ work_ssh_username }}
 {% else %}
 Host *.archlinux.org
     IdentityFile ~/.ssh/arch
