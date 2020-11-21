@@ -52,6 +52,9 @@ vim_plugins:
   - name: terraform
     repo: https://github.com/hashivim/vim-terraform.git
     version: HEAD
+  - name: toml
+    repo: https://github.com/cespare/vim-toml.git
+    version: HEAD
 
   - name: bubblegum
     repo: https://github.com/baskerville/bubblegum.git
