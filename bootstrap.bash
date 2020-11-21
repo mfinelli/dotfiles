@@ -24,7 +24,7 @@ fi
 # yubikey needs this ahead of time to work
 gpg --import 4DA7BCBA.asc
 
-ansible-playbook --inventory hosts --vault-id ${VAULT_ID} \
+ansible-playbook --vault-id ${VAULT_ID} \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
