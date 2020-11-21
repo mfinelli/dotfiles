@@ -38,7 +38,10 @@ vim_plugins:
     repo: https://github.com/preservim/nerdtree.git
     version: 6.9.9
   - name: nerdtree-git
-    repo: https://github.com/Xuyuanp/nerdtree-git-plugin
+    repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
+    version: HEAD
+  - name: pug
+    repo: https://github.com/digitaltoad/vim-pug.git
     version: HEAD
   - name: slim
     repo: https://github.com/slim-template/vim-slim.git
