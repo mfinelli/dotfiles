@@ -87,6 +87,14 @@ export CF_TOKEN={{ cloudflare_global_api_key }}
 export DIGITALOCEAN_ACCESS_TOKEN={{ digitalocean_token }}
 {% endif %}
 
+{% if ansible_os_family == "Darwin" and mtype == "personal" %}
+if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
+  export CLOUDSDK_PYTHON=/usr/local/opt/python@3.8/libexec/bin/python
+  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
+{% endif %}
+
 {% if mtype == "work" %}
 if [[ -f /usr/local/share/java/bfg.jar ]]; then
   alias bfg='java -jar /usr/local/share/java/bfg.jar'
