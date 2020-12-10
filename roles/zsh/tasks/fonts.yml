@@ -25,14 +25,17 @@
     mode: 0755
     state: directory
 
-- name: ensure directory for meslo nerd font
+- name: ensure directory for nerd fonts
   when: ansible_os_family == "Debian"
   file:
-    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF"
+    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0755
     state: directory
+  loop:
+    - MesloLGS NF
+    - JetBrains Mono NF
 
 - name: download meslo nerd font
   when: ansible_os_family == "Debian"
@@ -47,5 +50,33 @@
     - MesloLGS NF Bold
     - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
+  notify:
+    - rebuild local font cache
+
+- name: download jetbrains nerd font
+  when: ansible_os_family == "Debian"
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
+    mode: 0644
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+  loop:
+    - kind: Regular
+      font: JetBrains Mono Regular Nerd Font Complete Mono
+    - kind: Medium
+      font: JetBrains Mono Medium Nerd Font Complete Mono
+    - kind: Medium-Italic
+      font: JetBrains Mono Medium Italic Nerd Font Complete Mono
+    - kind: Italic
+      font: JetBrains Mono Italic Nerd Font Complete Mono
+    - kind: ExtraBold
+      font: JetBrains Mono ExtraBold Nerd Font Complete Mono
+    - kind: ExtraBold-Italic
+      font: JetBrains Mono ExtraBold Italic Nerd Font Complete Mono
+    - kind: Bold
+      font: JetBrains Mono Bold Nerd Font Complete Mono
+    - kind: Bold-Italic
+      font: JetBrains Mono Bold Italic Nerd Font Complete Mono
   notify:
     - rebuild local font cache

@@ -55,6 +55,9 @@ vim_plugins:
   - name: toml
     repo: https://github.com/cespare/vim-toml.git
     version: HEAD
+  - name: typescript
+    repo: https://github.com/leafgarland/typescript-vim.git
+    version: HEAD
 
   - name: bubblegum
     repo: https://github.com/baskerville/bubblegum.git
