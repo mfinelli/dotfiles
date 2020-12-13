@@ -14,6 +14,12 @@ filter:
   - xpath: //i[contains(@class,"page__subheading")]
   - html2text: re
 {% endfor %}
+{% for item in urlwatch_github_helm_releases %}
+---
+url: https://raw.githubusercontent.com/{{ item }}/Chart.yaml
+filter:
+  - grep: "^version:"
+{% endfor %}
 ---
 url: https://raw.githubusercontent.com/GoogleCloudPlatform/cloud-sdk-docker/master/alpine/Dockerfile
 ---

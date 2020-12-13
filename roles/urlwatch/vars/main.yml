@@ -15,6 +15,13 @@ urlwatch_github_releases:
   - peter-evans/dockerhub-description
   - ruby/setup-ruby
 
+urlwatch_github_helm_releases:
+  - bitnami/charts/master/bitnami/kube-state-metrics
+  - bitnami/charts/master/bitnami/metrics-server
+  - kubernetes/ingress-nginx/master/charts/ingress-nginx
+  - newrelic/helm-charts/master/charts/newrelic-infrastructure
+  - newrelic/helm-charts/master/charts/newrelic-logging
+
 urlwatch_rubygems:
   - bankrupt
   - ruolo
