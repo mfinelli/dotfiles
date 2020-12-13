@@ -36,7 +36,7 @@ vim_plugins:
   #   version: HEAD
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
-    version: 6.9.9
+    version: 6.9.10
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
     version: HEAD
