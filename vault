@@ -30,7 +30,7 @@ if [[ $1 == -v || $1 == --view ]]; then
     fi
 
     t="$(mktemp)"
-    yq r "$2" "$3" > "$t"
+    yq e ".${3}" "$2" > "$t"
 
     ansible-vault decrypt --vault-id ${VAULT_ID} "$t" > /dev/null
     cat "$t"
