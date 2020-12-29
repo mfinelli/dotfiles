@@ -1,6 +1,8 @@
 ---
 # on archlinux install the ttf-meslo-nerd-font-powerlevel10k package
 # https://aur.archlinux.org/packages/ttf-meslo-nerd-font-powerlevel10k/
+# and the nerd-fonts-jetbrains-mono package
+# https://aur.archlinux.org/packages/nerd-fonts-jetbrains-mono/
 
 - name: download meslo nerd font
   when: ansible_os_family == "Darwin"
