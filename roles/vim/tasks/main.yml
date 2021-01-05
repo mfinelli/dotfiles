@@ -21,3 +21,9 @@
     dest: "{{ ansible_user_dir }}/.vimrc"
     src: "{{ playbook_dir }}/roles/vim/files/vimrc"
     state: link
+
+- name: install ag ignore file
+  file:
+    dest: "{{ ansible_user_dir }}/.vim/.ignore"
+    src: "{{ playbook_dir }}/roles/vim/files/ignore"
+    state: link
