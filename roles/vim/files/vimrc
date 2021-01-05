@@ -61,5 +61,11 @@ autocmd FileType markdown setlocal spell spelllang=en
 
 set colorcolumn=80
 
-" https://github.com/kien/ctrlp.vim/issues/58#issuecomment-42743551
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor\/bundle)|(\.(git))$'
+if executable("ag")
+  " https://stackoverflow.com/a/18601066
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --path-to-ignore ~/.vim/.ignore -g ""'
+else
+  " https://github.com/kien/ctrlp.vim/issues/58#issuecomment-42743551
+  let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor\/bundle)|(\.(git))$'
+  let g:ctrlp_show_hidden = 1
+endif
