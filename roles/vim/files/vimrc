@@ -69,3 +69,7 @@ else
   let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor\/bundle)|(\.(git))$'
   let g:ctrlp_show_hidden = 1
 endif
+
+" https://stackoverflow.com/a/60655244
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeIgnore = ['\.git$']
