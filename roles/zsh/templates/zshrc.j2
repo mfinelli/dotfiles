@@ -58,7 +58,7 @@ fi
 
 if command -v shfmt > /dev/null 2>&1; then
   alias mshfmt='shfmt -s -i 2 -ci -sr'
-end
+fi
 
 {% if ansible_os_family == "Darwin" %}
 if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
