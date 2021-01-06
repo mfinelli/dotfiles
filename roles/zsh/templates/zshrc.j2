@@ -56,6 +56,10 @@ if command -v thefuck > /dev/null 2>&1; then
   eval "$(thefuck --alias)"
 fi
 
+if command -v shfmt > /dev/null 2>&1; then
+  alias mshfmt='shfmt -s -i 2 -ci -sr'
+end
+
 {% if ansible_os_family == "Darwin" %}
 if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
   source /usr/local/share/chruby/chruby.sh
