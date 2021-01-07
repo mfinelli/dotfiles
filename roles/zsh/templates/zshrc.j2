@@ -107,6 +107,12 @@ if [[ -f /usr/local/share/java/bfg.jar ]]; then
 fi
 {% endif %}
 
+function jumpbox() {
+  kubectl -n jumpbox exec -it \
+    "$(kubectl -n jumpbox get pods | grep -m1 Running | awk '{print $1}')" \
+    -- /bin/bash
+}
+
 function dcu() {
   if [[ $(uname) == Linux ]]; then
     active=$(sudo systemctl is-active docker.service)
