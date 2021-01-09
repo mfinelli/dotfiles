@@ -36,7 +36,7 @@ vim_plugins:
   #   version: HEAD
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
-    version: 6.9.10
+    version: 6.9.11
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
     version: HEAD
@@ -48,6 +48,9 @@ vim_plugins:
     version: HEAD
   - name: svelte
     repo: https://github.com/leafOfTree/vim-svelte-plugin.git
+    version: HEAD
+  - name: systemd
+    repo: https://github.com/wgwoods/vim-systemd-syntax.git
     version: HEAD
   - name: terraform
     repo: https://github.com/hashivim/vim-terraform.git
