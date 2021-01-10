@@ -51,3 +51,5 @@
     dest: "{{ ansible_user_dir }}/.zsh/4DA7BCBA.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc"
     state: link
+
+- include: functions.yml

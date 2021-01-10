@@ -1,4 +1,15 @@
 ---
+gist_function_aliases:
+  - alias: update.bash
+    filename: update.bash
+    repo: https://gist.github.com/088a32b40fed73956a84fa830856400a.git
+  - alias: mirror.bash
+    filename: mirror.bash
+    repo: https://gist.github.com/587bc13fc90ca34860c44b0da309edfe.git
+  - alias: dcu
+    filename: dcu.bash
+    repo: https://gist.github.com/a861c27c2c8bc264f815ff39a11c49be.git
+
 cloudflare_api_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
   61376531373362653762313434356364353237343339383138303930643138623834626530663162

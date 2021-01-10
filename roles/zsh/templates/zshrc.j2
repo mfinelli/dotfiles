@@ -156,3 +156,9 @@ function dcd() {
     docker-compose -f "$1" down
   fi
 }
+{% for gfa in gist_function_aliases %}
+if [[ -f "{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
+  alias {{ gfa.alias }}="{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}"
+fi
+
+{% endfor %}

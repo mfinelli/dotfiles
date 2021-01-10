@@ -1,0 +1,15 @@
+---
+- name: ensure functions directory
+  file:
+    path: "{{ ansible_user_dir }}/.zsh/_functions"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: clone gist function alias repos
+  git:
+    dest: "{{ ansible_user_dir }}/.zsh/_functions/{{ item.alias }}"
+    repo: "{{ item.repo }}"
+    version: HEAD
+  loop: "{{ gist_function_aliases }}"
