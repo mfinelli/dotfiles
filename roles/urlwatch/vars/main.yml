@@ -25,3 +25,30 @@ urlwatch_github_helm_releases:
 urlwatch_rubygems:
   - bankrupt
   - ruolo
+
+  # aur packages
+  - airbrussh
+  - bump
+  - cliver
+  - coderay
+  - fast_gettext
+  - gettext-setup
+  - git
+  - jaro_winkler
+  - librarianp
+  - mimemagic
+  - minitar
+  - mini_magick
+  - netrc
+  - oj
+  - parallel
+  - parser
+  - pry
+  - racc
+  - rchardet
+  - regexp_parser
+  - rexml
+  - rubocop
+  - rubocop-ast
+  - ruby-progressbar
+  - sshkit
