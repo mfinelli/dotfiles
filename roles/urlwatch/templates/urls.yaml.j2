@@ -7,6 +7,14 @@ filter:
   - html2text: re
   - strip
 {% endfor %}
+{% for item in urlwatch_github_releases_complex %}
+---
+url: https://github.com/{{ item }}/releases/latest
+filter:
+  - xpath: //div[contains(@class,"release-header")]/div/div/a
+  - html2text: re
+  - strip
+{% endfor %}
 {% for item in urlwatch_rubygems %}
 ---
 url: https://rubygems.org/gems/{{ item }}

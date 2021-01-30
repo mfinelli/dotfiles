@@ -13,7 +13,15 @@ urlwatch_github_releases:
   - docker/build-push-action
   - docker/setup-buildx-action
   - peter-evans/dockerhub-description
+
+urlwatch_github_releases_complex:
   - ruby/setup-ruby
+
+  # aur packages
+  - vrana/adminer
+  - mikefarah/yq
+  - houmain/keymapper
+  - IBM-Cloud/redli
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/kube-state-metrics
