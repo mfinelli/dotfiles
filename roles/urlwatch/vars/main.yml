@@ -52,3 +52,12 @@ urlwatch_rubygems:
   - rubocop-ast
   - ruby-progressbar
   - sshkit
+
+urlwatch_npm_packages:
+  - autoprefixer
+  - clean-css-cli
+  - express-generator
+  - mjml
+  - postcss
+  - postcss-cli
+  - pug-cli
