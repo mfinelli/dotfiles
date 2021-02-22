@@ -1,7 +1,7 @@
 ---
 - name: ensure urlwatch directory
   file:
-    path: "{{ ansible_user_dir }}/.config/urlwatch"
+    path: "{{ urlwatch_config_basepath[ansible_os_family] }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0755
