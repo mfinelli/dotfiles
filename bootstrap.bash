@@ -13,7 +13,7 @@ for bin in ansible-playbook ansible-vault; do
 done
 
 hn="$(hostname)"
-if [[ $hn == "debian" ]]; then
+if [[ $hn == debian || $hn == MDMBMFINELLI.local ]]; then
   VAULT_ID=w@./wvault
   mtype=work
 else
