@@ -18,6 +18,32 @@
     - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
 
+- name: download jetbrains nerd font
+  when: ansible_os_family == "Darwin"
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
+    dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item.font | replace(' ', '_') }}.ttf"
+    mode: 0644
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+  loop:
+    - kind: Regular
+      font: JetBrains Mono Regular Nerd Font Complete Mono
+    - kind: Medium
+      font: JetBrains Mono Medium Nerd Font Complete Mono
+    - kind: Medium-Italic
+      font: JetBrains Mono Medium Italic Nerd Font Complete Mono
+    - kind: Italic
+      font: JetBrains Mono Italic Nerd Font Complete Mono
+    - kind: ExtraBold
+      font: JetBrains Mono ExtraBold Nerd Font Complete Mono
+    - kind: ExtraBold-Italic
+      font: JetBrains Mono ExtraBold Italic Nerd Font Complete Mono
+    - kind: Bold
+      font: JetBrains Mono Bold Nerd Font Complete Mono
+    - kind: Bold-Italic
+      font: JetBrains Mono Bold Italic Nerd Font Complete Mono
+
 - name: ensure local fonts directory
   when: ansible_os_family == "Debian"
   file:
