@@ -24,6 +24,11 @@ fi
 # yubikey needs this ahead of time to work
 gpg --import 4DA7BCBA.asc
 
+if [[ $mtype == work ]]; then
+  # make sure the yubikey is loaded
+  gpg --card-status
+fi
+
 curl -s https://finelli.pub/36FDA306.asc | gpg --import
 
 ansible-playbook --vault-id ${VAULT_ID} \
