@@ -43,6 +43,9 @@ vim_plugins:
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
     version: HEAD
+  - name: nginx
+    repo: https://github.com/chr4/nginx.vim.git
+    version: HEAD
   - name: pug
     repo: https://github.com/digitaltoad/vim-pug.git
     version: HEAD
