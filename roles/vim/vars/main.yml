@@ -9,7 +9,7 @@ vim_plugins_dirs:
 vim_plugins:
   - name: airline
     repo: https://github.com/vim-airline/vim-airline.git
-    version: HEAD # v0.11 is _old_
+    version: HEAD  # v0.11 is _old_
   - name: airline-themes
     repo: https://github.com/vim-airline/vim-airline-themes.git
     version: HEAD
@@ -21,7 +21,7 @@ vim_plugins:
     version: HEAD
   - name: ctrlp
     repo: https://github.com/ctrlpvim/ctrlp.vim.git
-    version: HEAD # 1.80 is also _old_
+    version: HEAD  # 1.80 is also _old_
   - name: editorconfig
     repo: https://github.com/editorconfig/editorconfig-vim.git
     version: v1.1.1

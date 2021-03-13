@@ -29,4 +29,4 @@
     dest: "{{ ansible_user_dir }}/.gnupg/gpg-agent.conf"
     src: "{{ playbook_dir }}/roles/gnupg/files/gpg-agent.conf"
     state: link
-    force: yes
+    force: true

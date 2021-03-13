@@ -23,5 +23,5 @@
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0700
-    remote_src: yes
+    remote_src: true
   loop: "{{ vpn_configs }}"
