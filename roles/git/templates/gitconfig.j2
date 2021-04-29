@@ -13,6 +13,7 @@
 	plog = log -p --stat
 
 [core]
+	excludesfile = {{ ansible_user_dir }}/.gitignore_global
 	precomposeunicode = true
 {% if ansible_os_family == "Darwin" %}
 	editor = /usr/local/bin/vim
@@ -20,8 +21,8 @@
 	editor = /usr/bin/vim
 {% endif %}
 
-[core]
-	excludesfile = {{ ansible_user_dir }}/.gitignore_global
+[init]
+	defaultBranch = master
 
 [pull]
 	ff = only
