@@ -28,6 +28,11 @@ if [[ -d "$HOME/src/go" ]]; then
   export GOPATH="$HOME/src/go"
 fi
 
+export N_PREFIX="$HOME/.n"
+if [[ -d "$HOME/.n/bin" ]]; then
+  export PATH="$HOME/.n/bin":$PATH
+fi
+
 function unlockmf() {
   gpg -qd ~/.zsh/36FDA306.asc > /dev/null
 }
