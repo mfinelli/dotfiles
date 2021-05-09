@@ -55,7 +55,6 @@ urlwatch_rubygems:
   - racc
   - rchardet
   - regexp_parser
-  - rexml
   - rubocop
   - rubocop-ast
   - ruby-progressbar
