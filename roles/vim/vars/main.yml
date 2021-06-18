@@ -31,6 +31,9 @@ vim_plugins:
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
     version: HEAD
+  # - name: jinja
+  #   repo: https://github.com/HiPhish/jinja.vim.git
+  #   version: HEAD
   - name: mjml
     repo: https://github.com/amadeus/vim-mjml.git
     version: HEAD
