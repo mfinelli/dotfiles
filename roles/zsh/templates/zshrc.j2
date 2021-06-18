@@ -41,6 +41,7 @@ function unlockw() {
   gpg -qd ~/.zsh/4DA7BCBA.asc > /dev/null
 }
 
+export BAT_THEME="Monokai Extended"
 # https://github.com/sharkdp/bat#git-diff
 function batdiff() {
   git diff --name-only --diff-filter=d | xargs bat --diff
