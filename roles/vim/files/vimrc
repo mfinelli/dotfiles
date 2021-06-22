@@ -73,3 +73,5 @@ endif
 " https://stackoverflow.com/a/60655244
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['\.git$']
+
+let g:gutentags_cache_dir = $HOME . '/.cache/gutentags'

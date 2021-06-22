@@ -27,9 +27,12 @@ vim_plugins:
     version: v1.1.1
   - name: fugitive
     repo: https://github.com/tpope/vim-fugitive.git
-    version: v3.2
+    version: v3.3
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
+    version: HEAD
+  - name: gutentags
+    repo: https://github.com/ludovicchabant/vim-gutentags.git
     version: HEAD
   # - name: jinja
   #   repo: https://github.com/HiPhish/jinja.vim.git
@@ -42,7 +45,7 @@ vim_plugins:
   #   version: HEAD
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
-    version: 6.9.11
+    version: 6.10.9
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
     version: HEAD
