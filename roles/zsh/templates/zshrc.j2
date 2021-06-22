@@ -75,11 +75,23 @@ fi
 if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
   source /usr/local/share/chruby/chruby.sh
 fi
+
+if [[ -f /usr/local/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /usr/local/opt/fzf/shell/key-bindings.zsh
+fi
 {% else %}
 if [[ -f /usr/share/chruby/chruby.sh ]]; then
   source /usr/share/chruby/chruby.sh
 fi
+
+if [[ -f usr/share/fzf/key-bindings.zsh ]]; then
+  source usr/share/fzf/key-bindings.zsh
+fi
 {% endif %}
+
+export FZF_DEFAULT_COMMAND='fd -H --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_R_OPTS='--reverse'
 
 {% if ansible_os_family == "Darwin" %}
 # disable homebrew analytics
