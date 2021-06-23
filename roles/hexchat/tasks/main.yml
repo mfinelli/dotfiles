@@ -10,14 +10,14 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: symlink hexchat config file
   file:
-    dest: "{{ ansible_user_dir }}/.config/hexchat.conf"
+    dest: "{{ ansible_user_dir }}/.config/hexchat/hexchat.conf"
     src: "{{ playbook_dir }}/roles/hexchat/files/hexchat.conf"
     state: link
     force: true
 
 - name: copy hexchat server list
   template:
-    dest: "{{ ansible_user_dir }}/.config/servlist.conf"
+    dest: "{{ ansible_user_dir }}/.config/hexchat/servlist.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0600
