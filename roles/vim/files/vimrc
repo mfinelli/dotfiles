@@ -59,6 +59,10 @@ endif
 autocmd FileType gitcommit setlocal spell spelllang=en
 autocmd FileType markdown setlocal spell spelllang=en
 
+" enable syntax highlighting in markdown code blocks
+" https://github.com/tpope/vim-markdown
+let g:markdown_fenced_languages = ['ruby', 'shell=sh']
+
 set colorcolumn=80
 
 if executable("ag")
