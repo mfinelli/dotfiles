@@ -15,6 +15,15 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+{% if ansible_os_family == "Darwin" %}
+{% elif ansible_os_family == "Archlinux" %}
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+{% elif ansible_os_family == "Debian"  %}
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+{% endif %}
+
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
 source {{ ansible_user_dir }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
