@@ -13,6 +13,9 @@ vim_plugins:
   - name: airline-themes
     repo: https://github.com/vim-airline/vim-airline-themes.git
     version: HEAD
+  - name: ansible
+    repo: https://github.com/pearofducks/ansible-vim.git
+    version: '3.2'
   - name: characterize
     repo: https://github.com/tpope/vim-characterize.git
     version: HEAD
@@ -34,9 +37,6 @@ vim_plugins:
   - name: gutentags
     repo: https://github.com/ludovicchabant/vim-gutentags.git
     version: HEAD
-  # - name: jinja
-  #   repo: https://github.com/HiPhish/jinja.vim.git
-  #   version: HEAD
   - name: mjml
     repo: https://github.com/amadeus/vim-mjml.git
     version: HEAD
