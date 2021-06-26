@@ -25,7 +25,11 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
+{% if ansible_os_family == "Archlinux" %}
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+{% else %}
 source {{ ansible_user_dir }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+{% endif %}
 
 # take some of the good parts of oh-my-zsh
 source {{ ansible_user_dir }}/.zsh/ohmyzsh/lib/clipboard.zsh
