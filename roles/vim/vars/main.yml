@@ -33,7 +33,7 @@ vim_plugins:
     version: v1.1.1
   - name: fugitive
     repo: https://github.com/tpope/vim-fugitive.git
-    version: v3.3
+    version: HEAD
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
     version: HEAD
