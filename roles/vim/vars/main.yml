@@ -67,9 +67,9 @@ vim_plugins:
   - name: systemd
     repo: https://github.com/wgwoods/vim-systemd-syntax.git
     version: HEAD
-  # - name: tagbar
-  #   repo: https://github.com/preservim/tagbar.git
-  #   version: HEAD
+  - name: tagbar
+    repo: https://github.com/preservim/tagbar.git
+    version: HEAD
   - name: terraform
     repo: https://github.com/hashivim/vim-terraform.git
     version: HEAD
