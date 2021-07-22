@@ -25,6 +25,9 @@ vim_plugins:
   - name: ctrlp
     repo: https://github.com/ctrlpvim/ctrlp.vim.git
     version: HEAD  # 1.80 is also _old_
+  - name: devicons
+    repo: https://github.com/ryanoasis/vim-devicons.git
+    version: HEAD
   - name: editorconfig
     repo: https://github.com/editorconfig/editorconfig-vim.git
     version: v1.1.1
