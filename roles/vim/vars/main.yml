@@ -40,6 +40,9 @@ vim_plugins:
   - name: gutentags
     repo: https://github.com/ludovicchabant/vim-gutentags.git
     version: HEAD
+  - name: helm
+    repo: https://github.com/towolf/vim-helm.git
+    version: HEAD
   - name: mjml
     repo: https://github.com/amadeus/vim-mjml.git
     version: HEAD
