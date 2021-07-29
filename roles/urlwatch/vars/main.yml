@@ -37,17 +37,19 @@ urlwatch_rubygems:
   # aur packages
   - airbrussh
   - bump
+  - capistrano
   - cliver
   - coderay
-  - fast_gettext
-  - gettext-setup
+  - formatador
   - git
+  - ice_nine
   - jaro_winkler
   - librarianp
+  - minitest-reporters
   - mimemagic
-  - minitar
   - mini_magick
   - netrc
+  - oedipus_lex
   - oj
   - parallel
   - parser
@@ -55,6 +57,7 @@ urlwatch_rubygems:
   - racc
   - rchardet
   - regexp_parser
+  - regexp_property_values
   - rubocop
   - rubocop-ast
   - ruby-progressbar
