@@ -60,6 +60,7 @@ urlwatch_rubygems:
   - regexp_property_values
   - rubocop
   - rubocop-ast
+  - rubocop-performance
   - ruby-progressbar
   - sshkit
 
