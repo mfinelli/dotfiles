@@ -9,6 +9,9 @@ gist_function_aliases:
   - alias: dcu
     filename: dcu.bash
     repo: https://gist.github.com/a861c27c2c8bc264f815ff39a11c49be.git
+  - alias: aurorphans
+    filename: aurorphans.bash
+    repo: https://gist.github.com/8dcbaf3e6fb1e7cee9990aee7be631c9.git
 
 cloudflare_api_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
