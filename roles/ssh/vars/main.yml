@@ -5,6 +5,7 @@ ssh_keys:
   - emerald
   - github
   - google
+  - pkgs
   - sculch
   - sculch_old
 

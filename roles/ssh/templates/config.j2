@@ -49,6 +49,14 @@ Host *.scul.ch
     HashKnownHosts no
     VisualHostKey yes
 
+Host *.mfpkg.net
+    User mario
+    IdentityFile ~/.ssh/pkgs
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    HashKnownHosts yes
+    VisualHostKey yes
+
 Host source.developers.google.com
     User mario@scul.ch
     IdentityFile ~/.ssh/google
