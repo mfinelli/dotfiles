@@ -175,4 +175,13 @@ fi
 
 {% endfor %}
 
+{% if ansible_os_family == "Archlinux" %}
+# "standard" chroot
+# mkarchroot $CHROOT/root base-devel
+export CHROOT=$HOME/chroot
+# supermario chroot with pkgs.finelli.dev enabled
+# mkarchroot -C /etc/pacman.conf $SMCHROOT/root base-devel
+export SMCHROOT=$HOME/smchroot
+{% endif %}
+
 # vim: ft=zsh.jinja2
