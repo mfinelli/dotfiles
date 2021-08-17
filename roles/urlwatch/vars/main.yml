@@ -22,6 +22,11 @@ urlwatch_github_releases_complex:
   - mikefarah/yq
   - houmain/keymapper
   - IBM-Cloud/redli
+  - hayorov/helm-gcs
+  - hypnoglow/helm-s3
+  - jkroepke/helm-secrets
+  - newrelic/newrelic-cli
+  - FairwindsOps/pluto
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/kube-state-metrics
