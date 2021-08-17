@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - {role: arch, when: "mtype == 'personal'"}
     - {role: aws, when: "mtype == 'personal'"}
     - {role: bash, when: "mtype == 'personal'"}
     - {role: git, when: "mtype == 'personal' or mtype == 'work'"}
