@@ -168,6 +168,10 @@ function jumpbox() {
     -- /bin/bash
 }
 
+function certexp() {
+  openssl x509 -text -noout -in "$1" | grep Not\ After
+}
+
 {% for gfa in gist_function_aliases %}
 if [[ -f "{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
   alias {{ gfa.alias }}="{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}"
