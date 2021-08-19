@@ -41,33 +41,67 @@ urlwatch_rubygems:
 
   # aur packages
   - airbrussh
+  - benchmark-ips
+  - buftok
   - bump
   - capistrano
   - cliver
   - coderay
+  - digest-crc
+  - docile
+  - exifr
   - formatador
+  - fuubar
   - git
+  - guard-compat
+  - guard-rspec
+  - haml
+  - hashie
+  - http-accept
   - ice_nine
+  - image_size
   - jaro_winkler
   - librarianp
-  - minitest-reporters
+  - logger-application
+  - mechanize
+  - memoizable
   - mimemagic
+  - minitest-reporters
   - mini_magick
+  - mono_logger
+  - net-http-digest_auth
   - netrc
+  - notiffany
   - oedipus_lex
   - oj
   - parallel
   - parser
+  - powerpack
   - pry
   - racc
   - rchardet
   - regexp_parser
   - regexp_property_values
+  - rest-client
+  - rspec-pending_for
+  - rspectacular
   - rubocop
   - rubocop-ast
   - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
   - ruby-progressbar
+  - rubygems-tasks
+  - ruby_engine
+  - ruby_version
+  - set
+  - shellany
+  - slim
+  - sorted_set
   - sshkit
+  - test-queue
+  - timecop
+  - uber
 
 urlwatch_npm_packages:
   - autoprefixer
