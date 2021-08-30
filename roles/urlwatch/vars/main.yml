@@ -90,6 +90,7 @@ urlwatch_rubygems:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rake
+  - rubocop-rspec
   - ruby-progressbar
   - rubygems-tasks
   - ruby_engine
