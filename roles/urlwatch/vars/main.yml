@@ -27,6 +27,7 @@ urlwatch_github_releases_complex:
   - jkroepke/helm-secrets
   - newrelic/newrelic-cli
   - FairwindsOps/pluto
+  - kewlfft/ansible-aur
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/kube-state-metrics
