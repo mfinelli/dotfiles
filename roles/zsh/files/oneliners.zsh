@@ -14,3 +14,24 @@ function chartcheck() {
 
   curl -Ls "${1}" | xmllint --format - | grep "${2}"
 }
+
+function azvmipfind() {
+  # example: azvmipfind
+  # example: azvmipfind '^vm-'
+  # example: azvmipfind '^vm-' prd
+
+  if ! command -v az > /dev/null 2>&1; then
+    echo >&2 "error: please install the azure-cli"
+    return 1
+  fi
+
+  local query="'[].{Name:name, IP:ipConfigurations[0].privateIpAddress}'"
+  local cmd="az network nic list -o table --query $query"
+
+  for s in ${@}; do
+    cmd="$cmd | grep '${s}'"
+  done
+
+  # set -x
+  eval $cmd
+}
