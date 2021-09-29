@@ -168,6 +168,8 @@ function jumpbox() {
     -- /bin/bash
 }
 
+source "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
+
 function certexp() {
   openssl x509 -text -noout -in "$1" | grep Not\ After
 }

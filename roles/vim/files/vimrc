@@ -72,7 +72,7 @@ augroup END
 
 " enable syntax highlighting in markdown code blocks
 " https://github.com/tpope/vim-markdown
-let g:markdown_fenced_languages = ['ruby', 'shell=sh']
+let g:markdown_fenced_languages = ['ruby', 'shell=sh', 'terraform', 'yaml']
 
 set colorcolumn=80
 

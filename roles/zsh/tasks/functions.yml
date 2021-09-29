@@ -1,4 +1,11 @@
 ---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: symlink one liner functions
+  file:
+    dest: "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
+    src: "{{ playbook_dir }}/roles/zsh/files/oneliners.zsh"
+    state: link
+
 - name: ensure functions directory
   file:
     path: "{{ ansible_user_dir }}/.zsh/_functions"
