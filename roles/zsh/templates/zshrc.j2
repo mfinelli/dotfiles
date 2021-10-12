@@ -162,6 +162,16 @@ if [[ -f /usr/local/share/java/bfg.jar ]]; then
 fi
 {% endif %}
 
+{% if mtype == "work" and ansible_os_family == "Darwin" %}
+# https://arnon.me/2021/09/replace-docker-with-minikube/
+# https://gist.github.com/protosam/11800faea25a3f89af9ece4f11c72f1d
+if command -v minikube > /dev/null 2>&1; then
+  if minikube status > /dev/null 2>&1; then
+    eval "$(minikube docker-env)"
+  fi
+fi
+{% endif %}
+
 function jumpbox() {
   kubectl -n jumpbox exec -it \
     "$(kubectl -n jumpbox get pods | grep -m1 Running | awk '{print $1}')" \
