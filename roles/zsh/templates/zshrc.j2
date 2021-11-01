@@ -169,6 +169,7 @@ fi
 {% if mtype == "work" and ansible_os_family == "Darwin" %}
 # https://arnon.me/2021/09/replace-docker-with-minikube/
 # https://gist.github.com/protosam/11800faea25a3f89af9ece4f11c72f1d
+# https://itnext.io/goodbye-docker-desktop-hello-minikube-3649f2a1c469
 if command -v minikube > /dev/null 2>&1; then
   if minikube status > /dev/null 2>&1; then
     eval "$(minikube docker-env)"
