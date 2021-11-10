@@ -1,7 +1,24 @@
 ---
+# Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
 - name: don't use "natural scrolling"
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: com.apple.swipescrolldirection
     type: bool
     value: false
+
+# Settings -> Security & Privacy -> Privacy -> Apple Advertising -> Personalized Ads
+- name: turn off personalized ads
+  community.general.osx_defaults:
+    domain: com.apple.AdLib
+    key: allowApplePersonalizedAdvertising
+    type: bool
+    value: false
+
+# I'm not sure where in the GUI this lives
+- name: turn on force limit add tracking
+  community.general.osx_defaults:
+    domain: com.apple.AdLib
+    key: forceLimitAdTracking
+    type: bool
+    value: true
