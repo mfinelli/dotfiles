@@ -62,3 +62,11 @@
     key: autohide
     type: bool
     value: true
+
+# Settings -> Dock & Menu Bar -> Clock -> *
+- name: set menubar clock format
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: DateFormat
+    type: string
+    value: EEE MMM d  H:mm:ss
