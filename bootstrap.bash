@@ -31,6 +31,8 @@ fi
 
 curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
 
+ansible-galaxy install -r requirements.yml
+
 ansible-playbook --vault-id ${VAULT_ID} \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
