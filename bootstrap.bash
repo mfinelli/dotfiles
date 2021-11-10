@@ -26,7 +26,7 @@ gpg --quiet --import 4DA7BCBA.asc
 
 if [[ $mtype == work ]]; then
   # make sure the yubikey is loaded
-  gpg --quiet --card-status
+  gpg --card-status > /dev/null
 fi
 
 curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
