@@ -7,6 +7,7 @@
     - {role: git, when: "mtype == 'personal' or mtype == 'work'"}
     - {role: gnupg, when: "mtype == 'personal' or mtype == 'work'"}
     - {role: hexchat, when: "mtype == 'personal' and ansible_os_family != 'Darwin'"}
+    - {role: macos, when: "ansible_os_family == 'Darwin'"}
     - {role: ruby, when: "mtype == 'personal'"}
     - {role: ssh, when: "mtype == 'personal' or mtype == 'work'"}
     - {role: tmux, when: "mtype == 'personal' or mtype == 'work'"}
