@@ -38,3 +38,27 @@
     key: ShowPathbar
     type: bool
     value: true
+
+# I'm not sure how to set this from the finder GUI
+# - name: show hidden files in finder
+#   community.general.osx_defaults:
+#     domain: com.apple.finder
+#     key: AppleShowAllFiles
+#     type: bool
+#     value: true
+
+# Finder -> Preferences -> Show warning before changing an extension
+- name: disable warning when changing extensions
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXEnableExtensionChangeWarning
+    type: bool
+    value: false
+
+# Settings -> Dock & Menu Bar -> Dock & Menu Bar -> Automatically hide and show the Dock
+- name: enable dock autohide
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
