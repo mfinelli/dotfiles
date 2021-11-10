@@ -15,7 +15,9 @@
 [core]
 	excludesfile = {{ ansible_user_dir }}/.gitignore_global
 	precomposeunicode = true
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_os_family == "Darwin" and ansible_architecture == "amd64" %}
+	editor = /opt/homebrew/bin/git
+{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
 	editor = /usr/local/bin/vim
 {% else %}
 	editor = /usr/bin/vim
