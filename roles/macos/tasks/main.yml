@@ -22,3 +22,19 @@
     key: forceLimitAdTracking
     type: bool
     value: true
+
+# Finder -> Preferences -> Show all filename extensions
+- name: always show file extensions
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowAllExtensions
+    type: bool
+    value: true
+
+# Finder -> View -> Show Path Bar
+- name: turn on finder pathbar
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: true
