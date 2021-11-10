@@ -3,6 +3,9 @@
 {% if mtype == "work" %}
 AddKeysToAgent yes
 User {{ work_ssh_username }}
+{% if ansible_os_family == "Darwin" %}
+UseKeychain yes
+{% endif %}
 {% else %}
 Host aur aur.archlinux.org
     User aur
@@ -16,6 +19,9 @@ Host aur aur.archlinux.org
     MACs hmac-sha2-512-etm@openssh.com
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host bitbucket.org
     User git
@@ -24,6 +30,9 @@ Host bitbucket.org
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host gist.github.com
     User git
@@ -32,6 +41,9 @@ Host gist.github.com
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host github.com
     User git
@@ -40,6 +52,9 @@ Host github.com
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host *.scul.ch
     User mario
@@ -48,6 +63,9 @@ Host *.scul.ch
     AddKeysToAgent yes
     HashKnownHosts no
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host *.mfpkg.net
     User mario
@@ -56,12 +74,18 @@ Host *.mfpkg.net
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host source.developers.google.com
     User mario@scul.ch
     IdentityFile ~/.ssh/google
     IdentitiesOnly yes
     AddKeysToAgent yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 Host {{ ssh_emerald_host }}
     User {{ ssh_emerald_user }}
@@ -70,6 +94,9 @@ Host {{ ssh_emerald_host }}
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 {% for region in ssh_codecommit_regions %}
 Host git-codecommit.{{ region }}.amazonaws.com
@@ -77,6 +104,9 @@ Host git-codecommit.{{ region }}.amazonaws.com
     IdentityFile ~/.ssh/sculch_old
     IdentitiesOnly yes
     AddKeysToAgent yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 {% endfor %}
 
@@ -86,6 +116,9 @@ Host git-codecommit.{{ region }}.amazonaws.com
     IdentityFile ~/.ssh/sculch_old
     IdentitiesOnly yes
     AddKeysToAgent yes
+    {%- if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+    {%- endif %}
 
 {% endfor %}
 {% endif %}
