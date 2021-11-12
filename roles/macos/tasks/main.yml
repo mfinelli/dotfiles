@@ -1,4 +1,9 @@
 ---
+- include: general.yml
+- include: desktop.yml
+- include: dock.yml
+- include: finder.yml
+
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
 - name: don't use "natural scrolling"
   community.general.osx_defaults:
@@ -20,79 +25,5 @@
   community.general.osx_defaults:
     domain: com.apple.AdLib
     key: forceLimitAdTracking
-    type: bool
-    value: true
-
-# Finder -> Preferences -> Show all filename extensions
-- name: always show file extensions
-  community.general.osx_defaults:
-    domain: NSGlobalDomain
-    key: AppleShowAllExtensions
-    type: bool
-    value: true
-
-# Finder -> View -> Show Path Bar
-- name: turn on finder pathbar
-  community.general.osx_defaults:
-    domain: com.apple.finder
-    key: ShowPathbar
-    type: bool
-    value: true
-
-# I'm not sure how to set this from the finder GUI
-# - name: show hidden files in finder
-#   community.general.osx_defaults:
-#     domain: com.apple.finder
-#     key: AppleShowAllFiles
-#     type: bool
-#     value: true
-
-# Finder -> Preferences -> Show warning before changing an extension
-- name: disable warning when changing extensions
-  community.general.osx_defaults:
-    domain: com.apple.finder
-    key: FXEnableExtensionChangeWarning
-    type: bool
-    value: false
-
-# Settings -> Dock & Menu Bar -> Dock & Menu Bar -> Automatically hide and show the Dock
-- name: enable dock autohide
-  community.general.osx_defaults:
-    domain: com.apple.dock
-    key: autohide
-    type: bool
-    value: true
-
-# Settings -> Dock & Menu Bar -> Clock -> *
-- name: set menubar clock format
-  community.general.osx_defaults:
-    domain: com.apple.menuextra.clock
-    key: DateFormat
-    type: string
-    value: EEE MMM d  H:mm:ss
-
-# Settings -> General -> Appearance
-- name: set light/dark mode automatically
-  community.general.osx_defaults:
-    domain: NSGlobalDomain
-    key: AppleInterfaceStyleSwitchesAutomatically
-    type: bool
-    value: true
-
-# Settings -> Desktop & Screen Saver -> Screen Saver -> Show screen saver after
-- name: set screen save to start after 20 minutes idle
-  community.general.osx_defaults:
-    host: currentHost
-    domain: com.apple.screensaver
-    key: idleTime
-    type: int
-    value: 1200
-
-# Settings -> Desktop & Screen Saver -> Screen Saver -> Show with clock
-- name: enable clock on screen saver
-  community.general.osx_defaults:
-    host: currentHost
-    domain: com.apple.screensaver
-    key: showClock
     type: bool
     value: true
