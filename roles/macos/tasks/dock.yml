@@ -10,7 +10,8 @@
 # Settings -> Dock & Menu Bar -> Bluetooth -> Show in Menu Bar
 - name: show bluetooth in menu bar
   community.general.osx_defaults:
-    domain: "{{ ansible_user_dir }}/Library/Preferences/ByHost/com.apple.controlcenter"
+    domain: com.apple.controlcenter
+    host: currentHost
     key: Bluetooth
     type: int
     value: 2 # 8 is off
@@ -18,7 +19,8 @@
 # Settings -> Dock & Menu Bar -> Sound -> Show in Menu Bar (always)
 - name: always show sound in the menu bar
   community.general.osx_defaults:
-    domain: "{{ ansible_user_dir }}/Library/Preferences/ByHost/com.apple.controlcenter"
+    domain: com.apple.controlcenter
+    host: currentHost
     key: Sound
     type: int
     value: 18 # 8 is off; 2 is when active
@@ -26,7 +28,8 @@
 # Settings -> Dock & Menu Bar -> Battery -> *
 - name: show battery in the menu bar and control center
   community.general.osx_defaults:
-    domain: "{{ ansible_user_dir }}/Library/Preferences/ByHost/com.apple.controlcenter"
+    domain: com.apple.controlcenter
+    host: currentHost
     key: Battery
     type: int
     value: 19 # 24 is off; 18 is show in menu bar only; 25 is show in control center only
@@ -34,7 +37,8 @@
 # Settings -> Dock & Menu Bar -> Battery -> Show percentage
 - name: show battery percentage in the menu bar
   community.general.osx_defaults:
-    domain: "{{ ansible_user_dir }}/Library/Preferences/ByHost/com.apple.controlcenter"
+    domain: com.apple.controlcenter
+    host: currentHost
     key: BatteryShowPercentage
     type: bool
     value: true
