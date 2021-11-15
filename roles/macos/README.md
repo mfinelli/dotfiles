@@ -20,3 +20,6 @@ here:
   (I'm currently using the default dynamic wallpaper for the macOS release)
 - Screen saver style: Settings -> Desktop & Screen Saver -> Screen Saver
   (I'm currently using "Flurry" with the default options)
+- Mission control keyboard shortcuts -> Mission Control (I'm setting "Mission
+  Control" to ^↑ [Ctrl + Up Arrow], "Application windows" to ^↓ [Ctrl + Down
+  Arrow], and leaving "Show Desktop" with the default F11)
