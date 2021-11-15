@@ -3,6 +3,7 @@
 - include: desktop.yml
 - include: dock.yml
 - include: finder.yml
+- include: missioncontrol.yml
 
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
 - name: don't use "natural scrolling"
