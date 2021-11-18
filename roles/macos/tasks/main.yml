@@ -28,3 +28,11 @@
     key: forceLimitAdTracking
     type: bool
     value: true
+
+# Settings -> Language & Region -> Time format
+- name: set time format to 24 hour
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleICUForce24HourTime
+    type: bool
+    value: true
