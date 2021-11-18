@@ -23,3 +23,5 @@ here:
 - Mission control keyboard shortcuts -> Mission Control (I'm setting "Mission
   Control" to ^↑ [Ctrl + Up Arrow], "Application windows" to ^↓ [Ctrl + Down
   Arrow], and leaving "Show Desktop" with the default F11)
+- Night shift: Settings -> Displays -> Night Shift (I currently enable it on
+  schedule from sunset to sunrise)
