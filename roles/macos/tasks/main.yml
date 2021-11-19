@@ -36,3 +36,15 @@
     key: AppleICUForce24HourTime
     type: bool
     value: true
+
+# I don't think it's possible to set this via GUI
+# https://apple.stackexchange.com/a/296000
+- name: don't write .DS_Store files to USB drives or network shares
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: "{{ item }}"
+    type: bool
+    value: true
+  loop:
+    - DSDontWriteNetworkStores
+    - DSDontWriteUSBStores
