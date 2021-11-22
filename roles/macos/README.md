@@ -25,3 +25,19 @@ here:
   Arrow], and leaving "Show Desktop" with the default F11)
 - Night shift: Settings -> Displays -> Night Shift (I currently enable it on
   schedule from sunset to sunrise)
+- Allow unlock with Apple Watch: Settings -> Security and Privacy -> General ->
+  allow Apple Watch to unlock mac and apps (I currently enable this)
+
+## other
+
+I think some of these settings may be defaults or depend on options that you
+choose when first setting up a new macOS system, and I have had mixed results
+testing `defaults` options that always work (and in some cases they require
+`sudo` which isn't very desirable for a dotfiles workflow) so I'm just
+documenting them here. I manage my own updates on my own schedule, thank you
+very much. (Plus I like to read the release notes!)
+
+- Make sure that in the App Store updates are not set to automatically
+  download or install and that Apps downloaded/purchased on other systems are
+  also not set to automatically install.
+- In system preferences ensure that "Keep my mac up-to-date" is not checked.
