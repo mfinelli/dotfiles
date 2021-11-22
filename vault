@@ -29,12 +29,8 @@ if [[ $1 == -v || $1 == --view ]]; then
       exit 1
     fi
 
-    t="$(mktemp)"
-    yq e ".${3}" "$2" > "$t"
-
-    ansible-vault decrypt --vault-id ${VAULT_ID} "$t" > /dev/null
-    cat "$t"
-    rm "$t"
+    yq e ".${3}" "$2" |
+      ansible-vault decrypt --vault-id ${VAULT_ID} - 2> /dev/null
   else
     echo >&2 "usage: $(basename "$0") [-w] -v ./to/file OR ./roles/file.yml var"
   fi
