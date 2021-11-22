@@ -33,7 +33,12 @@ curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
 
 ansible-galaxy install -r requirements.yml
 
-ansible-playbook --vault-id ${VAULT_ID} \
+# if [[ $(uname) == Darwin ]]; then
+#   # on macos we set some settings (software update) that require admin
+#   needsudo=-K # --ask-become-password
+# fi
+
+ansible-playbook $needsudo --vault-id ${VAULT_ID} \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
