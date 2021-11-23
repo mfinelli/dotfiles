@@ -15,14 +15,16 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-{% if ansible_os_family == "Darwin" %}
-export MF_HOMEBREW_PREFIX="$(brew --prefix)"
+{% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
+eval "$(/usr/local/bin/brew shellenv)"
 {% endif %}
 
 {% if ansible_os_family == "Darwin" %}
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="${MF_HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters"
-source "${MF_HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "${MF_HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters"
+source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 {% elif ansible_os_family == "Archlinux" %}
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -86,7 +88,7 @@ fi
 
 {% if ansible_os_family == "Darwin" %}
 # Use GNU coreutils ls if it's installed on osx
-if [[ -f $MF_HOMEBREW_PREFIX/bin/gls ]]; then
+if [[ -f $HOMEBREW_PREFIX/bin/gls ]]; then
   alias ls="gls --color"
 fi
 {% else %}
@@ -108,12 +110,12 @@ if command -v zoxide > /dev/null 2>&1; then
 fi
 
 {% if ansible_os_family == "Darwin" %}
-if [[ -f $MF_HOMEBREW_PREFIX/share/chruby/chruby.sh ]]; then
-  source "${MF_HOMEBREW_PREFIX}/share/chruby/chruby.sh"
+if [[ -f $HOMEBREW_PREFIX/share/chruby/chruby.sh ]]; then
+  source "${HOMEBREW_PREFIX}/share/chruby/chruby.sh"
 fi
 
-if [[ -f $MF_HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh ]]; then
-  source "${MF_HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+if [[ -f $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh ]]; then
+  source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
 fi
 {% else %}
 if [[ -f /usr/share/chruby/chruby.sh ]]; then
@@ -153,10 +155,10 @@ export VULTR_API_KEY={{ vultr_api_key }}
 {% endif %}
 
 {% if ansible_os_family == "Darwin" and mtype == "personal" %}
-if [[ -f ${MF_HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
-  export CLOUDSDK_PYTHON="${MF_HOMEBREW_PREFIX}/opt/python@3.8/libexec/bin/python"
-  source "${MF_HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  source "${MF_HOMEBREW_PREFIX}/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
+  export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.8/libexec/bin/python"
+  source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  source "${HOMEBREW_PREFIX}/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 {% endif %}
 
@@ -166,7 +168,7 @@ if [[ -f /usr/local/share/java/bfg.jar ]]; then
 fi
 {% endif %}
 
-{% if mtype == "work" and ansible_os_family == "Darwin" %}
+{% if ansible_os_family == "Darwin" %}
 # https://arnon.me/2021/09/replace-docker-with-minikube/
 # https://gist.github.com/protosam/11800faea25a3f89af9ece4f11c72f1d
 # https://itnext.io/goodbye-docker-desktop-hello-minikube-3649f2a1c469
