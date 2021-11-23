@@ -12,5 +12,9 @@ trim_trailing_whitespace = true
 indent_style = tabs
 indent_size = 8
 
+[roles/macos/templates/iterm2.plist.j2]
+indent_style = tabs
+indent_size = 8
+
 [roles/ssh/templates/config.j2]
 indent_size = 4

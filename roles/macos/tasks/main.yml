@@ -1,0 +1,51 @@
+---
+- include: general.yml
+- include: desktop.yml
+- include: dock.yml
+- include: finder.yml
+- include: missioncontrol.yml
+- include: iterm.yml
+
+# Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
+- name: don't use "natural scrolling"
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.swipescrolldirection
+    type: bool
+    value: false
+
+# Settings -> Security & Privacy -> Privacy -> Apple Advertising -> Personalized Ads
+- name: turn off personalized ads
+  community.general.osx_defaults:
+    domain: com.apple.AdLib
+    key: allowApplePersonalizedAdvertising
+    type: bool
+    value: false
+
+# I'm not sure where in the GUI this lives
+- name: turn on force limit add tracking
+  community.general.osx_defaults:
+    domain: com.apple.AdLib
+    key: forceLimitAdTracking
+    type: bool
+    value: true
+
+# Settings -> Language & Region -> Time format
+- name: set time format to 24 hour
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleICUForce24HourTime
+    type: bool
+    value: true
+
+# I don't think it's possible to set this via GUI
+# https://apple.stackexchange.com/a/296000
+- name: don't write .DS_Store files to USB drives or network shares
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: "{{ item }}"
+    type: bool
+    value: true
+  loop:
+    - DSDontWriteNetworkStores
+    - DSDontWriteUSBStores

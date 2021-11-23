@@ -1,0 +1,15 @@
+---
+# Settings -> Mission Control -> Hot Corners
+- name: set hot corners configuration
+  # i would prefer to use the `block` syntax but it's not currently supported
+  # to use `loop` with `block` so we need to use `include_tasks` instead
+  include_tasks: _hotcorners.yml
+  loop:
+    - location: bl # bottom left
+      value: 3 # Application Windows
+    - location: br # bottom right
+      value: 4 # Desktop
+    - location: tl # top left
+      value: 2 # Mission Control
+    - location: tr # top right
+      value: 13 # Lock Screen
