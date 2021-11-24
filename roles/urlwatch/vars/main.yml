@@ -11,6 +11,7 @@ urlwatch_github_releases:
   - docker/login-action
   - docker/build-push-action
   - docker/setup-buildx-action
+  - ansible-collections/community.general
 
 urlwatch_github_releases_complex:
   # aur packages
@@ -25,6 +26,7 @@ urlwatch_github_releases_complex:
   - FairwindsOps/pluto
   - kewlfft/ansible-aur
   - tj/n
+  - ansible-collections/kubernetes.core
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/kube-state-metrics
