@@ -16,6 +16,10 @@ if [[ $os == Darwin || $os == Linux ]]; then
     exit 1
   fi
 
+  if [[ $os == Darwin ]] && [[ $(uname -m) == arm64 ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+
   git clone https://github.com/mfinelli/dotfiles.git $saveas
 
   cd $saveas
