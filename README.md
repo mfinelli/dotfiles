@@ -13,7 +13,7 @@ Get up and running by either cloning this repository and running,
 `bootstrap.bash`, or all-in-one:
 
 ```shell
-curl -Ls https://mfgo.link/dotfiles | bash
+bash -c "$(curl -fsSL https://mfgo.link/dotfiles)"
 ```
 
 ## vault
