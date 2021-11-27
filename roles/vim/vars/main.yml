@@ -9,83 +9,56 @@ vim_plugins_dirs:
 vim_plugins:
   - name: airline
     repo: https://github.com/vim-airline/vim-airline.git
-    version: HEAD  # v0.11 is _old_
   - name: airline-themes
     repo: https://github.com/vim-airline/vim-airline-themes.git
-    version: HEAD
   - name: ansible
     repo: https://github.com/pearofducks/ansible-vim.git
-    version: '3.2'
   - name: characterize
     repo: https://github.com/tpope/vim-characterize.git
-    version: HEAD
   - name: commentary
     repo: https://github.com/tpope/vim-commentary.git
-    version: HEAD
   - name: ctrlp
     repo: https://github.com/ctrlpvim/ctrlp.vim.git
-    version: HEAD  # 1.80 is also _old_
   - name: devicons
     repo: https://github.com/ryanoasis/vim-devicons.git
-    version: HEAD
   - name: editorconfig
     repo: https://github.com/editorconfig/editorconfig-vim.git
-    version: v1.1.1
   - name: fugitive
     repo: https://github.com/tpope/vim-fugitive.git
-    version: HEAD
   - name: gitgutter
     repo: https://github.com/airblade/vim-gitgutter.git
-    version: HEAD
   - name: gutentags
     repo: https://github.com/ludovicchabant/vim-gutentags.git
-    version: HEAD
   # - name: helm
   #   repo: https://github.com/towolf/vim-helm.git
-  #   version: HEAD
   - name: mjml
     repo: https://github.com/amadeus/vim-mjml.git
-    version: HEAD
   # - name: indentline
   #   repo: https://github.com/Yggdroot/indentLine.git
-  #   version: HEAD
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
-    version: 6.10.9
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
-    version: HEAD
   - name: nginx
     repo: https://github.com/chr4/nginx.vim.git
-    version: HEAD
   - name: pug
     repo: https://github.com/digitaltoad/vim-pug.git
-    version: HEAD
   - name: slim
     repo: https://github.com/slim-template/vim-slim.git
-    version: HEAD
   - name: svelte
     repo: https://github.com/leafOfTree/vim-svelte-plugin.git
-    version: HEAD
   - name: systemd
     repo: https://github.com/wgwoods/vim-systemd-syntax.git
-    version: HEAD
   - name: tagbar
     repo: https://github.com/preservim/tagbar.git
-    version: HEAD
   - name: terraform
     repo: https://github.com/hashivim/vim-terraform.git
-    version: HEAD
   - name: toml
     repo: https://github.com/cespare/vim-toml.git
-    version: HEAD
   - name: typescript
     repo: https://github.com/leafgarland/typescript-vim.git
-    version: HEAD
 
   - name: bubblegum
     repo: https://github.com/baskerville/bubblegum.git
-    version: HEAD
   - name: jellybeans
     repo: https://github.com/nanotech/jellybeans.vim.git
-    version: v1.7

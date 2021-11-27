@@ -12,7 +12,7 @@
   git:
     dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
     repo: "{{ item.repo }}"
-    version: "{{ item.version }}"
+    version: HEAD
   loop: "{{ vim_plugins }}"
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
