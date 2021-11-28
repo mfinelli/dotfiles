@@ -207,7 +207,7 @@ export CHROOT=$HOME/chroot
 export SMCHROOT=$HOME/smchroot
 {% endif %}
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" and mtype == "personal" %}
 # starting tmux on macos seems to reverse the path order so set it correctly
 export PATH=/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/MacGPG2/bin
 {% endif %}
