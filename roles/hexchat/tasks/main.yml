@@ -1,6 +1,6 @@
 ---
 - name: ensure hexchat directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/hexchat"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -9,14 +9,14 @@
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: symlink hexchat config file
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/hexchat/hexchat.conf"
     src: "{{ playbook_dir }}/roles/hexchat/files/hexchat.conf"
     state: link
     force: true
 
 - name: copy hexchat server list
-  template:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.config/hexchat/servlist.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"

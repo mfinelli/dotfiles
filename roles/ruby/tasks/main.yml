@@ -1,6 +1,6 @@
 ---
 - name: ensure .gem directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.gem"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -8,7 +8,7 @@
     state: directory
 
 - name: install gem credentials
-  template:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gem/credentials"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"

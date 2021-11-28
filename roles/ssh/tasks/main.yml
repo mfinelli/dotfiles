@@ -1,6 +1,6 @@
 ---
 - name: ensure .ssh directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.ssh"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -9,7 +9,7 @@
 
 - name: write out public keys
   when: mtype == 'personal'
-  copy:
+  ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -19,7 +19,7 @@
 
 - name: write out private keys
   when: mtype == 'personal'
-  copy:
+  ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -29,7 +29,7 @@
 
 - name: write out public key
   when: mtype == 'work'
-  copy:
+  ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -38,7 +38,7 @@
 
 - name: write out private key
   when: mtype == 'work'
-  copy:
+  ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -46,7 +46,7 @@
     src: keys/work
 
 - name: install ssh config
-  template:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.ssh/config"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"

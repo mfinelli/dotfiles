@@ -1,6 +1,6 @@
 ---
 - name: ensure zsh config download directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.zsh"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -8,19 +8,19 @@
     state: directory
 
 - name: download grml-zsh-config
-  git:
+  ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
     version: v0.19.0
 
 - name: download powerlevel10k
-  git:
+  ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
     version: v1.15.0
 
 - name: download oh-my-zsh
-  git:
+  ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
     repo: https://github.com/ohmyzsh/ohmyzsh.git
 
@@ -29,7 +29,7 @@
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
 - name: install zshrc
-  template:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.zshrc"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -38,21 +38,21 @@
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the p10k configuration
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the dummy file for the unlockmf function
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/36FDA306.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/36FDA306.asc"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the dummy file for the unlockw function
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/4DA7BCBA.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc"
     state: link

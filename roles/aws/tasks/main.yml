@@ -1,6 +1,6 @@
 ---
 - name: ensure aws directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.aws"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -9,13 +9,13 @@
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link aws config
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.aws/config"
     src: "{{ playbook_dir }}/roles/aws/files/config"
     state: link
 
 - name: install aws credentials
-  template:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.aws/credentials"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"

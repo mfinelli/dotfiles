@@ -6,7 +6,7 @@
 
 - name: download meslo nerd font
   when: ansible_os_family == "Darwin"
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item }}.ttf"
     mode: 0664
@@ -20,7 +20,7 @@
 
 - name: ensure local fonts directory
   when: ansible_os_family == "Debian"
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -29,7 +29,7 @@
 
 - name: ensure directory for nerd fonts
   when: ansible_os_family == "Debian"
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -41,7 +41,7 @@
 
 - name: download meslo nerd font
   when: ansible_os_family == "Debian"
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
     mode: 0644
@@ -57,7 +57,7 @@
 
 - name: download jetbrains nerd font
   when: ansible_os_family == "Debian"
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
     mode: 0644

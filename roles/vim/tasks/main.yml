@@ -1,6 +1,6 @@
 ---
 - name: ensure .vim directory
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
@@ -9,7 +9,7 @@
   loop: "{{ vim_plugins_dirs }}"
 
 - name: install vim plugins
-  git:
+  ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
     repo: "{{ item.repo }}"
     version: HEAD
@@ -17,13 +17,13 @@
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: install the vim configuration
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.vimrc"
     src: "{{ playbook_dir }}/roles/vim/files/vimrc"
     state: link
 
 - name: install ag ignore file
-  file:
+  ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.vim/.ignore"
     src: "{{ playbook_dir }}/roles/vim/files/ignore"
     state: link
