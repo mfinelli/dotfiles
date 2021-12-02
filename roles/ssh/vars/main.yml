@@ -2,6 +2,7 @@
 ssh_keys:
   - arch
   - bitbucket
+  - clouddev
   - emerald
   - github
   - google

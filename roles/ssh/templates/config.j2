@@ -78,6 +78,17 @@ Host *.mfpkg.net
     UseKeychain yes
 {% endif %}
 
+Host dev.finelli.dev
+    User mario
+    IdentityFile ~/.ssh/clouddev
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    HashKnownHosts no
+    VisualHostKey yes
+{% if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+{% endif %}
+
 Host source.developers.google.com
     User mario@scul.ch
     IdentityFile ~/.ssh/google
