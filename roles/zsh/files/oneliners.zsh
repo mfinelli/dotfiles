@@ -35,3 +35,12 @@ function azvmipfind() {
   # set -x
   eval $cmd
 }
+
+function prunelocalgitbranches() {
+  git fetch -p # prune remote branches first
+  git branch --merged | # only delete _merged_ branches
+    grep -v '^*' | # ignore the current branch
+    awk '{print $1}' | # trim leading whitespace
+    grep -v '^devel\|develop\|main\|master$' | # skip well known branches
+    xargs git branch -d # do the needful
+}
