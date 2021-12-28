@@ -41,6 +41,8 @@ vim_plugins:
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
   - name: nginx
     repo: https://github.com/chr4/nginx.vim.git
+  - name: pencil
+    repo: https://github.com/preservim/vim-pencil.git
   - name: pug
     repo: https://github.com/digitaltoad/vim-pug.git
   - name: slim
