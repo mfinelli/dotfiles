@@ -37,6 +37,12 @@ function azvmipfind() {
 }
 
 function prunelocalgitbranches() {
+  # some variation of this could potentially work to avoid needing to
+  # enumerate the "skip" branches directly
+  # git branch --list --format \
+  #   "%(if:equals=[gone])%(upstream:track)%(then)%(refname)%(end)" |
+  #   sed 's|^refs/heads/||' | grep .
+
   git fetch -p # prune remote branches first
   git branch --merged | # only delete _merged_ branches
     grep -v '^*' | # ignore the current branch
