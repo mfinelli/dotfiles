@@ -35,3 +35,18 @@ function azvmipfind() {
   # set -x
   eval $cmd
 }
+
+function prunelocalgitbranches() {
+  # some variation of this could potentially work to avoid needing to
+  # enumerate the "skip" branches directly
+  # git branch --list --format \
+  #   "%(if:equals=[gone])%(upstream:track)%(then)%(refname)%(end)" |
+  #   sed 's|^refs/heads/||' | grep .
+
+  git fetch -p # prune remote branches first
+  git branch --merged | # only delete _merged_ branches
+    grep -v '^*' | # ignore the current branch
+    awk '{print $1}' | # trim leading whitespace
+    grep -v '^devel\|develop\|main\|master$' | # skip well known branches
+    xargs git branch -d # do the needful
+}
