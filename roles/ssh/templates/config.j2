@@ -56,6 +56,17 @@ Host github.com
     UseKeychain yes
 {% endif %}
 
+Host gitlab.com
+    User git
+    IdentityFile ~/.ssh/gitlab
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    HashKnownHosts yes
+    VisualHostKey yes
+{% if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+{% endif %}
+
 Host *.scul.ch
     User mario
     IdentityFile ~/.ssh/sculch

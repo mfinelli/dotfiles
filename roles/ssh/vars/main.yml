@@ -5,6 +5,7 @@ ssh_keys:
   - clouddev
   - emerald
   - github
+  - gitlab
   - google
   - pkgs
   - sculch
