@@ -6,6 +6,10 @@ vim_plugins_dirs:
   - "{{ ansible_user_dir }}/.vim/pack/local/opt"
   - "{{ ansible_user_dir }}/.vim/pack/local/start"
 
+neovim_config_dirs:
+  - "{{ ansible_user_dir }}/.config"
+  - "{{ ansible_user_dir }}/.config/nvim"
+
 vim_plugins:
   - name: airline
     repo: https://github.com/vim-airline/vim-airline.git
