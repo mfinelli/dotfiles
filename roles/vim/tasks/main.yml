@@ -37,9 +37,25 @@
     state: directory
   loop: "{{ neovim_config_dirs }}"
 
+- name: ensure neovim plugin directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+  loop: "{{ neovim_plugins_dirs }}"
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: install the neovim configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/nvim/init.vim"
     src: "{{ playbook_dir }}/roles/vim/files/init.vim"
     state: link
+
+- name: install neovim plugins
+  ansible.builtin.git:
+    dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/start/{{ item.name }}"
+    repo: "{{ item.repo }}"
+    version: HEAD
+  loop: "{{ neovim_plugins }}"
