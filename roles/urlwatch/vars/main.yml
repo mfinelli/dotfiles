@@ -47,8 +47,10 @@ urlwatch_rubygems:
   - capistrano
   - cliver
   - coderay
+  - declarative
   - digest-crc
   - docile
+  - emoji_regex
   - exifr
   - formatador
   - fuubar
@@ -58,6 +60,7 @@ urlwatch_rubygems:
   - haml
   - hashie
   - http-accept
+  - http-form_data
   - ice_nine
   - image_size
   - jaro_winkler
