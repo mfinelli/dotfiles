@@ -27,6 +27,7 @@ urlwatch_github_releases_complex:
   - kewlfft/ansible-aur
   - tj/n
   - ansible-collections/kubernetes.core
+  - charite/jannovar
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/kube-state-metrics
