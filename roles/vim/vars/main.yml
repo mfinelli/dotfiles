@@ -6,6 +6,19 @@ vim_plugins_dirs:
   - "{{ ansible_user_dir }}/.vim/pack/local/opt"
   - "{{ ansible_user_dir }}/.vim/pack/local/start"
 
+neovim_plugins_dirs:
+  - "{{ ansible_user_dir }}/.local"
+  - "{{ ansible_user_dir }}/.local/share"
+  - "{{ ansible_user_dir }}/.local/share/nvim"
+  - "{{ ansible_user_dir }}/.local/share/nvim/site"
+  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack"
+  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local"
+  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/start"
+
+neovim_config_dirs:
+  - "{{ ansible_user_dir }}/.config"
+  - "{{ ansible_user_dir }}/.config/nvim"
+
 vim_plugins:
   - name: airline
     repo: https://github.com/vim-airline/vim-airline.git
@@ -64,3 +77,7 @@ vim_plugins:
     repo: https://github.com/baskerville/bubblegum.git
   - name: jellybeans
     repo: https://github.com/nanotech/jellybeans.vim.git
+
+neovim_plugins:
+  - name: gitlens
+    repo: https://github.com/APZelos/blamer.nvim.git
