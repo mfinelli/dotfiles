@@ -7,6 +7,7 @@ ssh_keys:
   - github
   - gitlab
   - google
+  - home
   - pkgs
   - sculch
   - sculch_old
