@@ -12,6 +12,7 @@ urlwatch_github_releases:
   - docker/build-push-action
   - docker/setup-buildx-action
   - ansible-collections/community.general
+  - ansible-collections/ansible.posix
 
 urlwatch_github_releases_complex:
   # aur packages
