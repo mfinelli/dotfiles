@@ -10,6 +10,7 @@
     - {role: macos, when: "ansible_os_family == 'Darwin'"}
     - {role: ruby, when: "mtype == 'personal'"}
     - {role: ssh, when: "mtype == 'personal' or mtype == 'work'"}
+    - {role: terraform, when: "mtype == 'personal'"}
     - {role: tmux, when: "mtype == 'personal' or mtype == 'work'"}
     - {role: urlwatch, when: "mtype == 'personal' or mtype == 'work'"}
     - {role: vim, when: "mtype == 'personal' or mtype == 'work'"}
