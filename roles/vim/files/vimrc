@@ -58,6 +58,7 @@ endif
 " enable spell check on markdown and git commit messages
 autocmd FileType gitcommit setlocal spell spelllang=en
 autocmd FileType markdown setlocal spell spelllang=en
+autocmd FileType tex setlocal spell spelllang=en
 
 " use foldmethod=indent but start with all folds open
 " then set the fdm to manual to allow custom folds as needed
