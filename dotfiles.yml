@@ -1,19 +1,30 @@
 ---
 - hosts: localhost
   roles:
-    - {role: arch, when: "ansible_os_family == 'Archlinux' and mtype == 'personal'"}
-    - {role: aws, when: "mtype == 'personal'"}
-    - {role: bash, when: "mtype == 'personal'"}
-    - {role: git, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: gnupg, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: hexchat, when: "mtype == 'personal' and ansible_os_family != 'Darwin'"}
-    - {role: macos, when: "ansible_os_family == 'Darwin'"}
-    - {role: ruby, when: "mtype == 'personal'"}
-    - {role: ssh, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: terraform, when: "mtype == 'personal'"}
-    - {role: tmux, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: urlwatch, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: vim, when: "mtype == 'personal' or mtype == 'work'"}
-    - {role: vpn, when: "mtype == 'personal'"}
-    - {role: xorg, when: "mtype == 'personal'"}
-    - {role: zsh, when: "mtype == 'personal' or mtype == 'work'"}
+    - role: arch
+      when: ansible_os_family == 'Archlinux' and mtype == 'personal'
+    - role: aws
+      when: mtype == 'personal'
+    - role: bash
+      when: mtype == 'personal'
+    - role: git
+    - role: gnupg
+    - role: hexchat
+      when: ansible_os_family != 'Darwin' and mtype == 'personal'
+    - role: macos
+      when: ansible_os_family == 'Darwin'
+    - role: ruby
+      when: mtype == 'personal'
+    - role: ssh
+    - role: terraform
+      when: mtype == 'personal'
+    - role: tmux
+    - role: urlwatch
+    - role: vim
+    - role: vpn
+      when: mtype == 'personal'
+    - role: xorg
+      when: ansible_os_family != 'Darwin'
+    - role: zsh
+
+# vim: ft=yaml.ansible
