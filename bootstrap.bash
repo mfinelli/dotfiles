@@ -16,9 +16,11 @@ hn="$(hostname)"
 if [[ $hn == debian || $hn == MDMBMFINELLI.local ]]; then
   VAULT_ID=w@./wvault
   mtype=work
+  wedition=genedx
 else
   VAULT_ID=p@./vault
   mtype=personal
+  wedition=none
 fi
 
 # yubikey needs this ahead of time to work
@@ -42,6 +44,7 @@ ansible-playbook $needsudo --vault-id ${VAULT_ID} \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
+  --extra-vars wedition=$wedition \
   dotfiles.yml
 
 exit 0

@@ -162,7 +162,7 @@ if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/pa
 fi
 {% endif %}
 
-{% if mtype == "work" %}
+{% if mtype == "work" and ansible_os_family == "Debian" %}
 if [[ -f /usr/local/share/java/bfg.jar ]]; then
   alias bfg='java -jar /usr/local/share/java/bfg.jar'
 fi
