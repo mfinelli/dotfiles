@@ -2,13 +2,16 @@
 - hosts: localhost
   roles:
     - role: arch
-      when: ansible_os_family == 'Archlinux' and mtype == 'personal'
+      when:
+        - ansible_os_family == 'Archlinux'
+        - mtype == 'personal' or mtype == 'server'
     - role: aws
       when: mtype == 'personal'
     - role: bash
       when: mtype == 'personal'
     - role: git
     - role: gnupg
+      when: mtype != 'server'
     - role: hexchat
       when: ansible_os_family != 'Darwin' and mtype == 'personal'
     - role: macos
@@ -19,12 +22,16 @@
     - role: terraform
       when: mtype == 'personal'
     - role: tmux
+      when: mtype != 'server'
     - role: urlwatch
     - role: vim
     - role: vpn
       when: mtype == 'personal'
     - role: xorg
-      when: ansible_os_family != 'Darwin'
+      when:
+        - ansible_os_family != 'Darwin'
+        - mtype != 'server'
     - role: zsh
+      when: mtype != 'server'
 
 # vim: ft=yaml.ansible
