@@ -8,7 +8,7 @@
     - role: aws
       when: mtype == 'personal'
     - role: bash
-      when: mtype == 'personal'
+      when: mtype == 'personal' or mtype == 'server'
     - role: git
     - role: gnupg
       when: mtype != 'server'
