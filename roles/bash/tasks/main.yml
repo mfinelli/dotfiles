@@ -19,6 +19,7 @@
     dest: "{{ ansible_user_dir }}/.bash_profile"
     src: "{{ playbook_dir }}/roles/bash/files/bash_profile"
     state: link
+    force: yes
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the bash functions
