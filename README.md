@@ -16,6 +16,10 @@ Get up and running by either cloning this repository and running,
 bash -c "$(curl -fsSL https://mfgo.link/dotfiles)"
 ```
 
+**N.B.** if you're intending to run the dotfiles on a remote server you need
+to forward your ssh agent with the public keys that you intend to write out
+unlocked.
+
 ## vault
 
 Sensitive files are encrypted with ansible-vault. The vault password was
