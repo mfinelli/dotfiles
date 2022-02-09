@@ -17,7 +17,7 @@ if [[ $hn == debian || $hn == MDMBMFINELLI.local ]]; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=genedx
-elif [[ $hn == cdev.finelli.dev ]]; then
+elif [[ $hn == cdev.finelli.dev || $hn == rome.mfpkg.net ]]; then
   mtype=server
   wedition=personal
 else
