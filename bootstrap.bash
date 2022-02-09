@@ -17,6 +17,9 @@ if [[ $hn == debian || $hn == MDMBMFINELLI.local ]]; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=genedx
+elif [[ $hn == cdev.finelli.dev ]]; then
+  mtype=server
+  wedition=personal
 else
   VAULT_ID=p@./vault
   mtype=personal
@@ -40,7 +43,13 @@ ansible-galaxy install -r requirements.yml
 #   needsudo=-K # --ask-become-password
 # fi
 
-ansible-playbook $needsudo --vault-id ${VAULT_ID} \
+if [[ $mtype == server ]]; then
+  vaultoption="--vault-id ${VAULT_ID}"
+else
+  vaultoption=""
+fi
+
+ansible-playbook $needsudo $vaultoption \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
