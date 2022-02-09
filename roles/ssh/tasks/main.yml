@@ -50,7 +50,7 @@
   when: mtype == 'server' and wedition == 'personal'
   ansible.builtin.shell:
     cmd: ssh-add -L | grep '!{{ item }}$' > {{ ansible_user_dir }}/.ssh/{{ item }}.pub
-    creates: "{{ ansible_user_dir }}/.ssh/{{ item }}"
+    creates: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
   loop:
     - arch
     - github
