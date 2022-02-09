@@ -45,6 +45,16 @@
     mode: 0600
     src: keys/work
 
+# https://serverfault.com/a/599565
+- name: write out ssh pub keys for forwarding
+  when: mtype == 'server' and wedition == 'personal'
+  ansible.builtin.shell:
+    cmd: ssh-add -L | grep '!{{ item }}$' > {{ ansible_user_dir }}/.ssh/{{ item }}.pub
+    creates: "{{ ansible_user_dir }}/.ssh/{{ item }}"
+  loop:
+    - arch
+    - github
+
 - name: install ssh config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.ssh/config"

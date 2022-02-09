@@ -1,4 +1,18 @@
 ---
+- name: create bash directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.bash"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: download bash-it
+  ansible.builtin.git:
+    dest: "{{ ansible_user_dir }}/.bash/bash-it"
+    repo: https://github.com/Bash-it/bash-it.git
+    version: v2.1.4
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the bash profile configuration
   ansible.builtin.file:
@@ -9,7 +23,7 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the bash functions
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.bash_functions"
+    dest: "{{ ansible_user_dir }}/.bash/bash_functions"
     src: "{{ playbook_dir }}/roles/bash/files/bash_functions"
     state: link
 
