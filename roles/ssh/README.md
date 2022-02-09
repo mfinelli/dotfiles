@@ -7,6 +7,10 @@ Manages ssh keys and ssh client configuration.
 We prefer Ed25519 keys when possible, but use 4096 bit RSA keys if the service
 in question does not support the newer key type.
 
+**N.B.** if you intend to enable the key on a server with agent forwarding
+the comment on the key should end in `!service` where "service" is the filename
+of the key e.g., `github`.
+
 Generate Ed25519 keys:
 
 ```shell
