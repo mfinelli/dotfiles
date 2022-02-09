@@ -43,7 +43,7 @@ ansible-galaxy install -r requirements.yml
 #   needsudo=-K # --ask-become-password
 # fi
 
-if [[ $mtype == server ]]; then
+if [[ $mtype != server ]]; then
   vaultoption="--vault-id ${VAULT_ID}"
 else
   vaultoption=""
