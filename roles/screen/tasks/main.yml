@@ -1,0 +1,23 @@
+---
+- name: ensure extra screen directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/screen"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: link the hostname script
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/screen/hn.sh"
+    src: "{{ playbook_dir }}/roles/screen/files/hn.sh"
+    state: link
+
+- name: install screenrc
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.screenrc"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0644
+    src: screenrc.j2

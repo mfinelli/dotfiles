@@ -18,6 +18,8 @@
       when: ansible_os_family == 'Darwin'
     - role: ruby
       when: mtype == 'personal'
+    - role: screen
+      when: mtype == 'server'
     - role: ssh
     - role: terraform
       when: mtype == 'personal'
