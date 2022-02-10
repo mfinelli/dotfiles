@@ -53,12 +53,12 @@ if [ -f /usr/bin/aws_completer ]; then
 fi
 
 {% if ansible_os_family != "Darwin" %}
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
   # archlinux
-  source /usr/share/fzf/key-bindings.zsh
-elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.bash
+elif [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
   # debian
-  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 export FZF_CTRL_R_OPTS='--reverse'
