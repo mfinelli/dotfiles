@@ -5,19 +5,44 @@ if [[ $(id -u) -eq 0 ]]; then
   exit 1
 fi
 
-for bin in ansible-playbook ansible-vault; do
+for bin in ansible-playbook ansible-vault hostname; do
   if ! command -v $bin > /dev/null 2>&1; then
     echo >&2 "can not find $bin in path!"
     exit 1
   fi
 done
 
+# https://stackoverflow.com/a/14367368
+array_contains() {
+  local haystack="$1[@]"
+  local needle="$2"
+  local found=1
+
+  for element in "${!haystack}"; do
+    if [[ $element == "$needle" ]]; then
+      found=0
+      break
+    fi
+  done
+
+  return $found
+}
+
+GDX=(MDMBMFINELLI.local debian)
+FACILE=(easy)
+PSERVER=(cdev.finelli.dev parkpi raipi rome.mfpkg.net)
+
 hn="$(hostname)"
-if [[ $hn == debian || $hn == MDMBMFINELLI.local ]]; then
+
+if array_contains GDX "$hn"; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=genedx
-elif [[ $hn == cdev.finelli.dev || $hn == rome.mfpkg.net ]]; then
+elif array_contains FACILE "$hn"; then
+  VAULT_ID=w@./wvault
+  mtype=work
+  wedition=facile
+elif array_contains PSERVER "$hn"; then
   mtype=server
   wedition=personal
 else
