@@ -75,6 +75,7 @@ else
 fi
 
 ansible-playbook $needsudo $vaultoption \
+  --inventory localhost \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
