@@ -24,7 +24,7 @@
     dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
     repo: https://github.com/ohmyzsh/ohmyzsh.git
 
-- include: fonts.yml
+- import_tasks: fonts.yml
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
@@ -57,4 +57,4 @@
     src: "{{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc"
     state: link
 
-- include: functions.yml
+- import_tasks: functions.yml

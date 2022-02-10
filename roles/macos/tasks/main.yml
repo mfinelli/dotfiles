@@ -1,10 +1,10 @@
 ---
-- include: general.yml
-- include: desktop.yml
-- include: dock.yml
-- include: finder.yml
-- include: missioncontrol.yml
-- include: iterm.yml
+- import_tasks: general.yml
+- import_tasks: desktop.yml
+- import_tasks: dock.yml
+- import_tasks: finder.yml
+- import_tasks: missioncontrol.yml
+- import_tasks: iterm.yml
 
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
 - name: don't use "natural scrolling"
