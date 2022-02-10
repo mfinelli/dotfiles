@@ -21,13 +21,6 @@
     state: link
     force: yes
 
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link the bash functions
-  ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.bash/bash_functions"
-    src: "{{ playbook_dir }}/roles/bash/files/bash_functions"
-    state: link
-
 - name: install bashrc
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.bashrc"
@@ -35,3 +28,9 @@
     group: "{{ whoami_group }}"
     mode: 0600
     src: bashrc.j2
+
+- name: cleanup old bash_functions
+  ansible.builtin.file: path={{ item }} state=absent
+  loop:
+    - "{{ ansible_user_dir }}/.bash/bash_functions
+    - "{{ ansible_user_dir }}/.bash_functions
