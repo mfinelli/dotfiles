@@ -52,6 +52,22 @@ if [ -f /usr/bin/aws_completer ]; then
   complete -C '/usr/bin/aws_completer' aws
 fi
 
+{% if ansible_os_family != "Darwin" %}
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  # archlinux
+  source /usr/share/fzf/key-bindings.zsh
+elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+  # debian
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+
+export FZF_CTRL_R_OPTS='--reverse'
+if command -v fd > /dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fd -H --type f'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+{% endif %}
+
 if [[ "$(uname)" == "Darwin" ]]; then
   export HOMEBREW_NO_ANALYTICS=1
 fi
