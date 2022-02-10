@@ -32,5 +32,5 @@
 - name: cleanup old bash_functions
   ansible.builtin.file: path={{ item }} state=absent
   loop:
-    - "{{ ansible_user_dir }}/.bash/bash_functions
-    - "{{ ansible_user_dir }}/.bash_functions
+    - "{{ ansible_user_dir }}/.bash/bash_functions"
+    - "{{ ansible_user_dir }}/.bash_functions"
