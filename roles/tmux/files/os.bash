@@ -20,6 +20,8 @@ elif [[ $(uname) == Linux ]]; then
       echo -e '\uF303' > "${HOME}/.tmux/os.conf"
     elif [[ $distro == "Debian GNU/Linux" ]]; then
       echo -e '\uF306' > "${HOME}/.tmux/os.conf"
+    elif [[ $distro == "Ubuntu" ]]; then
+      echo -e '\uF31b' > "${HOME}/.tmux/os.conf"
     elif [[ $distro == "CentOS Linux" ]]; then
       echo -e '\uF304' > "${HOME}/.tmux/os.conf"
     else
