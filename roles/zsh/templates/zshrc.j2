@@ -168,6 +168,11 @@ if [[ -f /usr/local/share/java/bfg.jar ]]; then
 fi
 {% endif %}
 
+{% if ansible_os_family == "Debian" %}
+export DEBFULLNAME="Mario Finelli"
+export DEBEMAIL="ubuntu@mroml.com"
+{% endif %}
+
 {% if mtype == "work" and ansible_os_family == "Darwin" %}
 # https://arnon.me/2021/09/replace-docker-with-minikube/
 # https://gist.github.com/protosam/11800faea25a3f89af9ece4f11c72f1d
