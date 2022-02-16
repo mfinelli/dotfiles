@@ -12,6 +12,7 @@
     dest: "{{ ansible_user_dir }}/.config/user-dirs.dirs"
     src: "{{ playbook_dir }}/roles/xorg/files/user-dirs.dirs"
     state: link
+    force: true
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the user dirs locale config in place
@@ -19,6 +20,7 @@
     dest: "{{ ansible_user_dir }}/.config/user-dirs.locale"
     src: "{{ playbook_dir }}/roles/xorg/files/user-dirs.locale"
     state: link
+    force: true
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link the keymapper config in place
