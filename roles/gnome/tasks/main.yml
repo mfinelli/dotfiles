@@ -3,3 +3,27 @@
   community.general.dconf:
     key: /org/gnome/desktop/input-sources/sources
     value: "[('xkb', 'us'), ('xkb', 'it')]"
+
+- name: get the ID of the gnome terminal profile
+  ansible.builtin.shell: dconf read /org/gnome/terminal/legacy/profiles:/list | awk -F\' '{print $2}'
+  register: gnome_terminal_profile
+
+- name: configure gnome terminal
+  # debug:
+  #   msg: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
+    value: "{{ item.value | string }}"
+  loop:
+    - key: visible-name
+      value: "'mario'"
+    - key: use-system-font
+      value: "false"
+    - key: font
+      value: "'JetBrainsMono Nerd Font Mono 12'"
+    - key: use-theme-colors
+      value: "false"
+    - key: foreground-color
+      value: "'rgb(255,255,255)'"
+    - key: background-color
+      value: "'rgb(0,0,0)'"
