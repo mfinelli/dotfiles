@@ -1,0 +1,5 @@
+---
+- name: enable keyboard layouts
+  community.general.dconf:
+    key: /org/gnome/desktop/input-sources/sources
+    value: "[('xkb', 'us'), ('xkb', 'it')]"
