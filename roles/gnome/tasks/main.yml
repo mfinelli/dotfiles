@@ -74,3 +74,8 @@
       value: "true"
     - key: custom-theme-shrink
       value: "true"
+
+- name: configure dock apps
+  community.general.dconf:
+    key: /org/gnome/shell/favorite-apps
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop']"
