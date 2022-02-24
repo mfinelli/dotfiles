@@ -47,3 +47,30 @@
   community.general.dconf:
     key: /org/gnome/desktop/media-handling/autorun-never
     value: "true"
+
+- name: configure top bar time
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/{{ item }}
+    value: "true"
+  loop:
+    - clock-show-weekday
+    - clock-show-seconds
+
+- name: configure gnome shell extensions
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/enabled-extensions
+    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com']"
+
+- name: configure gnome shell dash-to-dock
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/dash-to-dock/{{ item.key }}
+    value: "{{ item.value }}"
+  loop:
+    - key: dock-position
+      value: "'LEFT'"
+    - key: extend-height
+      value: "true"
+    - key: custom-theme-shrink
+      value: "true"
