@@ -9,8 +9,6 @@
   register: gnome_terminal_profile
 
 - name: configure gnome terminal
-  # debug:
-  #   msg: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
   community.general.dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
     value: "{{ item.value | string }}"
@@ -27,3 +25,25 @@
       value: "'rgb(255,255,255)'"
     - key: background-color
       value: "'rgb(0,0,0)'"
+
+- name: configure screen lock
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/desktop/screensaver/lock-delay
+      value: uint32 0
+    - key: /org/gnome/desktop/session/idle-delay
+      value: uint32 600
+    - key: /org/gnome/desktop/notifications/show-in-lock-screen
+      value: "false"
+
+- name: turn off natural scrolling
+  community.general.dconf:
+    key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
+    value: "false"
+
+- name: never prompt or start programs on media insertion
+  community.general.dconf:
+    key: /org/gnome/desktop/media-handling/autorun-never
+    value: "true"
