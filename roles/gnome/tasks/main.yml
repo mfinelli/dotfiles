@@ -21,6 +21,8 @@
       value: "'JetBrainsMono Nerd Font Mono 12'"
     - key: use-theme-colors
       value: "false"
+    - key: audible-bell
+      value: "false"
     - key: foreground-color
       value: "'rgb(255,255,255)'"
     - key: background-color
