@@ -1,0 +1,85 @@
+---
+- name: enable keyboard layouts
+  community.general.dconf:
+    key: /org/gnome/desktop/input-sources/sources
+    value: "[('xkb', 'us'), ('xkb', 'it')]"
+
+- name: get the ID of the gnome terminal profile
+  ansible.builtin.shell: dconf read /org/gnome/terminal/legacy/profiles:/list | awk -F\' '{print $2}'
+  register: gnome_terminal_profile
+
+- name: configure gnome terminal
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
+    value: "{{ item.value | string }}"
+  loop:
+    - key: visible-name
+      value: "'mario'"
+    - key: use-system-font
+      value: "false"
+    - key: font
+      value: "'JetBrainsMono Nerd Font Mono 12'"
+    - key: use-theme-colors
+      value: "false"
+    - key: audible-bell
+      value: "false"
+    - key: foreground-color
+      value: "'rgb(255,255,255)'"
+    - key: background-color
+      value: "'rgb(0,0,0)'"
+    - key: palette
+      value: "['rgb(0,0,0)', 'rgb(170,0,0)', 'rgb(0,170,0)', 'rgb(170,85,0)', 'rgb(0,0,170)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)', 'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)', 'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)', 'rgb(255,255,255)']"
+
+- name: configure screen lock
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/desktop/screensaver/lock-delay
+      value: uint32 0
+    - key: /org/gnome/desktop/session/idle-delay
+      value: uint32 600
+    - key: /org/gnome/desktop/notifications/show-in-lock-screen
+      value: "false"
+
+- name: turn off natural scrolling
+  community.general.dconf:
+    key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
+    value: "false"
+
+- name: never prompt or start programs on media insertion
+  community.general.dconf:
+    key: /org/gnome/desktop/media-handling/autorun-never
+    value: "true"
+
+- name: configure top bar time
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/{{ item }}
+    value: "true"
+  loop:
+    - clock-show-weekday
+    - clock-show-seconds
+
+- name: configure gnome shell extensions
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/enabled-extensions
+    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com']"
+
+- name: configure gnome shell dash-to-dock
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/dash-to-dock/{{ item.key }}
+    value: "{{ item.value }}"
+  loop:
+    - key: dock-position
+      value: "'LEFT'"
+    - key: extend-height
+      value: "true"
+    - key: custom-theme-shrink
+      value: "true"
+
+- name: configure dock apps
+  community.general.dconf:
+    key: /org/gnome/shell/favorite-apps
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop']"
