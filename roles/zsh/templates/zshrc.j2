@@ -144,6 +144,10 @@ export HOMEBREW_NO_ANALYTICS=1
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 {% if mtype == 'work' and wedition == 'facile' %}
+if command -v direnv > /dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 {% if ansible_os_family == 'Archlinux' %}
 if [[ -f /opt/asdf-vm/asdf.sh ]]; then
   source /opt/asdf-vm/asdf.sh
