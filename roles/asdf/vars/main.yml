@@ -1,0 +1,6 @@
+---
+asdf_plugins:
+  - name: packer
+    repo: https://github.com/asdf-community/asdf-hashicorp.git
+  - name: terraform
+    repo: https://github.com/asdf-community/asdf-hashicorp.git

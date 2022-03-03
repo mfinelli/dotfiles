@@ -6,6 +6,8 @@
   roles:
     - role: arch
       when: ansible_os_family == 'Archlinux'
+    - role: asdf
+      when: mtype == 'work' and wedition == 'facile'
     - role: aws
       when: mtype == 'personal'
     - role: bash
