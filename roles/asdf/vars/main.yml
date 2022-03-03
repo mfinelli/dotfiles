@@ -1,6 +1,16 @@
 ---
 asdf_plugins:
+  - name: ansible-base
+    repo: https://github.com/amrox/asdf-pyapp.git
+  - name: helm
+    repo: https://github.com/Antiarchitect/asdf-helm.git
+  - name: kubectl
+    repo: https://github.com/asdf-community/asdf-kubectl.git
+  - name: kustomize
+    repo: https://github.com/Banno/asdf-kustomize.git
   - name: packer
     repo: https://github.com/asdf-community/asdf-hashicorp.git
+  - name: php
+    repo: https://github.com/asdf-community/asdf-php.git
   - name: terraform
     repo: https://github.com/asdf-community/asdf-hashicorp.git
