@@ -8,6 +8,8 @@ asdf_plugins:
     repo: https://github.com/asdf-community/asdf-kubectl.git
   - name: kustomize
     repo: https://github.com/Banno/asdf-kustomize.git
+  - name: nodejs
+    repo: https://github.com/asdf-vm/asdf-nodejs.git
   - name: packer
     repo: https://github.com/asdf-community/asdf-hashicorp.git
   - name: php
