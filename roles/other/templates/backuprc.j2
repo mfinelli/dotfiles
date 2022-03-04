@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+{% if mtype == 'work' and wedition == 'facile' %}
+BACKUP_BASH_REPOSITORY=/run/media/mfinelli/473a33c2-3c63-46fc-8d6d-fa75eebd7e68/borg
+{% else %}
+BACKUP_BASH_REPOSITORY=/var/finelli/borg
+{% endif %}
+# vim: ft=sh.jinja2

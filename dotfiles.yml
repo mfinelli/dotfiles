@@ -23,6 +23,7 @@
       when: ansible_os_family != 'Darwin' and mtype == 'personal'
     - role: macos
       when: ansible_os_family == 'Darwin'
+    - role: other
     - role: ruby
       when: mtype == 'personal'
     - role: screen
