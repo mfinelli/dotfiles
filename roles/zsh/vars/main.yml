@@ -12,7 +12,7 @@ gist_function_aliases:
   - alias: aurorphans
     filename: aurorphans.bash
     repo: https://gist.github.com/8dcbaf3e6fb1e7cee9990aee7be631c9.git
-  - alias: backup
+  - alias: backup.bash
     filename: backup.bash
     repo: https://gist.github.com/6d8727f3aa2ded9a9a6494dea96fe291.git
 
