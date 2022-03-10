@@ -66,7 +66,7 @@
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
-    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com']"
+    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com', 'no-overview@fthx', 'systemd-manager@hardpixel.eu']"
 
 - name: configure gnome shell dash-to-dock
   when: ansible_os_family == 'Archlinux'
@@ -80,6 +80,25 @@
       value: "true"
     - key: custom-theme-shrink
       value: "true"
+
+- name: configure systemd manager extension
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/systemd-manager/{{ item.key }}
+    value: "{{ item.value }}"
+  loop:
+    - key: show-add
+      value: "false"
+    - key: command-method
+      value: "'systemctl'"
+
+- name: set systemd service manager services
+  when:
+    - ansible_os_family == 'Archlinux'
+    - mtype == 'work'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/systemd-manager/systemd
+    value: "['{"name":"Docker","service":"docker.service","type":"system"}']"
 
 - name: configure dock apps
   community.general.dconf:
