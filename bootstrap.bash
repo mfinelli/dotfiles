@@ -30,6 +30,7 @@ array_contains() {
 
 GDX=(MDMBMFINELLI.local debian)
 FACILE=(CLIFMI706)
+MEDIA=(zen)
 PSERVER=(cdev.finelli.dev parkpi raipi rome.mfpkg.net)
 
 hn="$(hostname)"
@@ -45,6 +46,10 @@ elif array_contains FACILE "$hn"; then
 elif array_contains PSERVER "$hn"; then
   mtype=server
   wedition=personal
+elif array_contains MEDIA "$hn"; then
+  VAULT_ID=p@./vault
+  mtype=personal
+  wedition=media
 else
   VAULT_ID=p@./vault
   mtype=personal
@@ -54,7 +59,7 @@ fi
 # yubikey needs this ahead of time to work
 gpg --quiet --import 4DA7BCBA.asc
 
-if [[ $mtype == work ]]; then
+if [[ $mtype == work || $wedition == media ]]; then
   # make sure the yubikey is loaded
   gpg --card-status > /dev/null
 fi

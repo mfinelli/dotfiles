@@ -35,6 +35,15 @@ Host github.com
     VisualHostKey yes
 {% endif %}
 {% else %}
+{% if wedition == 'media' %}
+Host {{ ssh_emerald_host }}
+    User {{ ssh_emerald_user }}
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    HashKnownHosts yes
+    VisualHostKey yes
+{% else %}
 Host aur aur.archlinux.org
     User aur
     Hostname aur.archlinux.org
@@ -181,6 +190,7 @@ Host git-codecommit.{{ region }}.amazonaws.com
 {% endif %}
 
 {% endfor %}
+{% endif %}
 {% endif %}
 
 # vim: ft=sshconfig.jinja2
