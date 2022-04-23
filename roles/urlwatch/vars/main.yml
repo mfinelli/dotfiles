@@ -113,6 +113,7 @@ urlwatch_rubygems:
   - uber
 
 urlwatch_npm_packages:
+  - '@lhci/cli'
   - autoprefixer
   - clean-css-cli
   - express-generator

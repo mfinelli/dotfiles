@@ -29,6 +29,8 @@
       value: "'rgb(0,0,0)'"
     - key: palette
       value: "['rgb(0,0,0)', 'rgb(170,0,0)', 'rgb(0,170,0)', 'rgb(170,85,0)', 'rgb(0,0,170)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)', 'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)', 'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)', 'rgb(255,255,255)']"
+    - key: bold-is-bright
+      value: "true"
 
 - name: configure screen lock
   community.general.dconf:
@@ -64,7 +66,7 @@
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
-    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com']"
+    value: "['arch-update@RaphaelRochet', 'espresso@coadmunkee.github.com', 'dash-to-dock@micxgx.gmail.com', 'no-overview@fthx', 'systemd-manager@hardpixel.eu', 'weatherintheclock@JasonLG1979.github.io', 'keymapper@houmain.github.com']"
 
 - name: configure gnome shell dash-to-dock
   when: ansible_os_family == 'Archlinux'
@@ -79,7 +81,26 @@
     - key: custom-theme-shrink
       value: "true"
 
+- name: configure systemd manager extension
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/systemd-manager/{{ item.key }}
+    value: "{{ item.value }}"
+  loop:
+    - key: show-add
+      value: "false"
+    - key: command-method
+      value: "'systemctl'"
+
+- name: set systemd service manager services
+  when:
+    - ansible_os_family == 'Archlinux'
+    - mtype == 'work'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/systemd-manager/systemd
+    value: "['{\"name\":\"Docker\",\"service\":\"docker.service\",\"type\":\"system\"}']"
+
 - name: configure dock apps
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
-    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'firefox-developer-edition.desktop', 'org.gnome.Nautilus.desktop']"

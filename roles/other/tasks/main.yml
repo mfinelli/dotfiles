@@ -1,0 +1,11 @@
+---
+- name: copy backuprc
+  when:
+    - ansible_os_family != 'Darwin'
+    - mtype != 'server' or wedition == 'personal'
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.backuprc"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: backuprc.j2

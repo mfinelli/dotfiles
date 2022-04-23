@@ -5,9 +5,9 @@
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
   roles:
     - role: arch
-      when:
-        - ansible_os_family == 'Archlinux'
-        - mtype == 'personal' or mtype == 'server'
+      when: ansible_os_family == 'Archlinux'
+    - role: asdf
+      when: mtype == 'work' and wedition == 'facile'
     - role: aws
       when: mtype == 'personal'
     - role: bash
@@ -23,6 +23,7 @@
       when: ansible_os_family != 'Darwin' and mtype == 'personal'
     - role: macos
       when: ansible_os_family == 'Darwin'
+    - role: other
     - role: ruby
       when: mtype == 'personal'
     - role: screen

@@ -23,10 +23,10 @@
     mode: 0600
     src: dirmngr.conf.j2
 
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: link gpg-agent config
-  ansible.builtin.file:
+  ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gnupg/gpg-agent.conf"
-    src: "{{ playbook_dir }}/roles/gnupg/files/gpg-agent.conf"
-    state: link
-    force: true
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: gpg-agent.conf.j2
