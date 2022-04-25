@@ -14,3 +14,11 @@
     group: "{{ whoami_group }}"
     mode: 0600
     src: oci.pem
+
+- name: install oci config
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.oci/config"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0600
+    src: config.j2
