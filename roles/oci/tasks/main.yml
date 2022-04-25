@@ -1,0 +1,16 @@
+---
+- name: ensure .oci directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.oci"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+- name: copy oci private key
+  ansible.builtin.copy:
+    dest: "{{ ansible_user_dir }}/.oci/oci.pem"
+    owner: "{{ whoami }}"
+    group: "{{ whoami }}"
+    mode: 0600
+    src: oci.pem
