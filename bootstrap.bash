@@ -31,7 +31,7 @@ array_contains() {
 GDX=(MDMBMFINELLI.local debian)
 FACILE=(CLIFMI706)
 MEDIA=(zen)
-PSERVER=(cdev.finelli.dev parkpi raipi rome.mfpkg.net)
+PSERVER=(cdev.finelli.dev odev parkpi raipi rome.mfpkg.net)
 
 hn="$(hostname)"
 
