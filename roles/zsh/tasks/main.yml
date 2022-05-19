@@ -29,6 +29,11 @@
     dest: "{{ ansible_user_dir }}/.zsh/autoquoter"
     repo: https://github.com/ianthehenry/zsh-autoquoter.git
 
+- name: download forgit
+  ansible.builtin.git:
+    dest: forgit
+    repo: https://github.com/wfxr/forgit.git
+
 - import_tasks: fonts.yml
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
