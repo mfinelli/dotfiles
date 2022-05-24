@@ -27,6 +27,7 @@ urlwatch_github_releases_complex:
   - FairwindsOps/pluto
   - kewlfft/ansible-aur
   - tj/n
+  - spf13/cobra-cli
 
   # other
   - ansible-collections/kubernetes.core
