@@ -8,6 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: mfinelli/setup-shfmt@v1
+      - run: |
+          shellcheck --version
+          shellcheck vault wvault
+          find . -name '*.bash' | xargs shellcheck
+          find . -name '*.sh' | xargs shellcheck
+      - run: |
+          shfmt --version
+          shfmt -s -i 2 -ci -sr -d vault wvault
+          find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
+          find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
       - uses: ansible-community/ansible-lint-action@v6
         with:
           path: dotfiles.yml
