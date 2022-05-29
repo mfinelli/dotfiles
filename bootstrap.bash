@@ -31,6 +31,7 @@ array_contains() {
 GDX=(MDMBMFINELLI.local debian)
 FACILE=(CLIFMI706)
 MEDIA=(zen)
+GAMING=(bowser wario)
 PSERVER=(cdev.finelli.dev odev parkpi raipi rome.mfpkg.net ubuilder)
 
 hn="$(hostname)"
@@ -39,21 +40,31 @@ if array_contains GDX "$hn"; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=genedx
+  isgaming=no
 elif array_contains FACILE "$hn"; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=facile
+  isgaming=no
 elif array_contains PSERVER "$hn"; then
   mtype=server
   wedition=personal
+  isgaming=no
 elif array_contains MEDIA "$hn"; then
   VAULT_ID=p@./vault
   mtype=personal
   wedition=media
+  isgaming=no
+elif array_contains GAMING "$hn"; then
+  VAULT_ID=p@./vault
+  mtype=personal
+  wedition=media
+  isgaming=yes
 else
   VAULT_ID=p@./vault
   mtype=personal
   wedition=none
+  isgaming=no
 fi
 
 # yubikey needs this ahead of time to work
@@ -85,6 +96,7 @@ ansible-playbook $needsudo $vaultoption \
   --extra-vars whoami_group="$(id -gn)" \
   --extra-vars mtype=$mtype \
   --extra-vars wedition=$wedition \
+  --extra-vars isgaming=$isgaming \
   dotfiles.yml
 
 exit 0
