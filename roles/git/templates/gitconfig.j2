@@ -19,6 +19,7 @@
 [alias]
 	network = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 	plog = log -p --stat
+	pbn = push -u origin HEAD
 
 [core]
 	excludesfile = {{ ansible_user_dir }}/.gitignore_global

@@ -1,0 +1,18 @@
+---
+gnome_extensions:
+  - "'arch-update@RaphaelRochet'"
+  - "'espresso@coadmunkee.github.com'"
+  - "'dash-to-dock@micxgx.gmail.com'"
+  - "'no-overview@fthx'"
+  - "'systemd-manager@hardpixel.eu'"
+  - "'weatherintheclock@JasonLG1979.github.io'"
+  - "'keymapper@houmain.github.com'"
+  - "'ubuntu-dock@ubuntu.com'"
+
+gnome_work_dock:
+  - "'firefox.desktop'"
+  - "'org.gnome.Terminal.desktop'"
+  - "'slack.desktop'"
+  - "'lens.desktop'"
+  - "'firefox-developer-edition.desktop'"
+  - "'org.gnome.Nautilus.desktop'"
