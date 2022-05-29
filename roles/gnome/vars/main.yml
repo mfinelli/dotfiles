@@ -9,6 +9,12 @@ gnome_extensions:
   - "'keymapper@houmain.github.com'"
   - "'ubuntu-dock@ubuntu.com'"
 
+gnome_personal_dock:
+  - "'firefox.desktop'"
+  - "'firefox-developer-edition.desktop'"
+  - "'org.gnome.Terminal.desktop'"
+  - "'org.gnome.Nautilus.desktop'"
+
 gnome_work_dock:
   - "'firefox.desktop'"
   - "'org.gnome.Terminal.desktop'"

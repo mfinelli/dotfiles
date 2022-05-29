@@ -115,3 +115,9 @@
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_work_dock | join(', ') }}]"
+
+- name: configure dock apps
+  when: ansible_os_family == 'Archlinux' and mtype == 'personal'
+  community.general.dconf:
+    key: /org/gnome/shell/favorite-apps
+    value: "[{{ gnome_personal_dock | join(', ') }}]"
