@@ -28,10 +28,18 @@ array_contains() {
   return $found
 }
 
+# Shellcheck returns a false positive here because these variables aren't
+# actually referenced as variables in the conditional below, but they _are_
+# used
+# shellcheck disable=SC2034
 GDX=(MDMBMFINELLI.local debian)
+# shellcheck disable=SC2034
 FACILE=(CLIFMI706)
+# shellcheck disable=SC2034
 MEDIA=(zen)
+# shellcheck disable=SC2034
 GAMING=(bowser wario)
+# shellcheck disable=SC2034
 PSERVER=(cdev.finelli.dev odev parkpi raipi rome.mfpkg.net ubuilder)
 
 hn="$(hostname)"
@@ -79,6 +87,7 @@ curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
 
 ansible-galaxy install -r requirements.yml
 
+needsudo=""
 # if [[ $(uname) == Darwin ]]; then
 #   # on macos we set some settings (software update) that require admin
 #   needsudo=-K # --ask-become-password
@@ -90,7 +99,7 @@ else
   vaultoption=""
 fi
 
-ansible-playbook $needsudo $vaultoption \
+ansible-playbook "$needsudo" "$vaultoption" \
   --inventory localhost \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
