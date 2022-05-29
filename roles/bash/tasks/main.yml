@@ -19,7 +19,7 @@
     dest: "{{ ansible_user_dir }}/.bash_profile"
     src: "{{ playbook_dir }}/roles/bash/files/bash_profile"
     state: link
-    force: yes
+    force: true
 
 - name: install bashrc
   ansible.builtin.template:

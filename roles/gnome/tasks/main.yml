@@ -5,8 +5,13 @@
     value: "[('xkb', 'us'), ('xkb', 'it')]"
 
 - name: get the ID of the gnome terminal profile
-  ansible.builtin.shell: dconf read /org/gnome/terminal/legacy/profiles:/list | awk -F\' '{print $2}'
+  ansible.builtin.shell: >
+    set -e -o pipefail
+    dconf read /org/gnome/terminal/legacy/profiles:/list | awk -F\' '{print $2}'
   register: gnome_terminal_profile
+  changed_when: false
+  args:
+    executable: /bin/bash
 
 - name: configure gnome terminal
   community.general.dconf:
