@@ -11,12 +11,12 @@ jobs:
       - uses: mfinelli/setup-shfmt@v1
       - run: |
           shellcheck --version
-          shellcheck vault wvault
+          shellcheck go vault wvault
           find . -name '*.bash' | xargs shellcheck
           find . -name '*.sh' | xargs shellcheck
       - run: |
           shfmt --version
-          shfmt -s -i 2 -ci -sr -d vault wvault
+          shfmt -s -i 2 -ci -sr -d go vault wvault
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
       - uses: ansible-community/ansible-lint-action@v6
