@@ -99,7 +99,8 @@ else
   vaultoption=""
 fi
 
-ansible-playbook "$needsudo" "$vaultoption" \
+# shellcheck disable=SC2086
+ansible-playbook $needsudo $vaultoption \
   --inventory localhost \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \
