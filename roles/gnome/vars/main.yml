@@ -8,9 +8,12 @@ gnome_extensions:
   - "'weatherintheclock@JasonLG1979.github.io'"
   - "'keymapper@houmain.github.com'"
   - "'ubuntu-dock@ubuntu.com'"
+  - 'appindicatorsupport@rgcjonas.gmail.com'
 
 gnome_personal_dock:
   - "'firefox.desktop'"
+  - "'thunderbird.dekstop'"
+  - "'1password.desktop'"
   - "'firefox-developer-edition.desktop'"
   - "'org.gnome.Terminal.desktop'"
   - "'org.gnome.Nautilus.desktop'"
