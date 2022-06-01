@@ -6,8 +6,9 @@
 
 - name: get the ID of the gnome terminal profile
   ansible.builtin.shell: >
-    set -e -o pipefail
-    dconf read /org/gnome/terminal/legacy/profiles:/list | awk -F\' '{print $2}'
+    set -e -o pipefail;
+    dconf list /org/gnome/terminal/legacy/profiles:/ | head -n1 |
+      awk -F: '{print $2}' | awk -F/ '{print $1}'
   register: gnome_terminal_profile
   changed_when: false
   args:
