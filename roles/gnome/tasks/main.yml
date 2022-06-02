@@ -106,7 +106,6 @@
 - name: set systemd service manager services
   when:
     - ansible_os_family == 'Archlinux'
-    - mtype == 'work'
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/systemd
     value: "['{\"name\":\"Docker\",\"service\":\"docker.service\",\"type\":\"system\"}']"
