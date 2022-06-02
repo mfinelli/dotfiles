@@ -8,7 +8,7 @@ gnome_extensions:
   - "'weatherintheclock@JasonLG1979.github.io'"
   - "'keymapper@houmain.github.com'"
   - "'ubuntu-dock@ubuntu.com'"
-  - 'appindicatorsupport@rgcjonas.gmail.com'
+  - "'appindicatorsupport@rgcjonas.gmail.com'"
 
 gnome_personal_dock:
   - "'firefox.desktop'"
