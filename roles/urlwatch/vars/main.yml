@@ -34,8 +34,10 @@ urlwatch_github_releases_complex:
   - charite/jannovar
 
 urlwatch_github_helm_releases:
+  - bitnami/charts/master/bitnami/common
   - bitnami/charts/master/bitnami/kube-state-metrics
   - bitnami/charts/master/bitnami/metrics-server
+  - bitnami/charts/master/bitnami/redis
   - kubernetes/ingress-nginx/master/charts/ingress-nginx
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
   - newrelic/helm-charts/master/charts/newrelic-logging
