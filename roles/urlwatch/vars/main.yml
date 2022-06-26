@@ -44,6 +44,7 @@ urlwatch_github_helm_releases:
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
   - newrelic/helm-charts/master/charts/newrelic-logging
   - prometheus-community/helm-charts/main/charts/kube-state-metrics
+  - stakater/Reloader/master/deployments/kubernetes/chart/reloader
 
 urlwatch_rubygems:
   - bankrupt
