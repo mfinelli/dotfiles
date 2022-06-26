@@ -31,16 +31,19 @@ urlwatch_github_releases_complex:
 
   # other
   - ansible-collections/kubernetes.core
+  - cert-manager/cert-manager
   - charite/jannovar
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/common
   - bitnami/charts/master/bitnami/kube-state-metrics
   - bitnami/charts/master/bitnami/metrics-server
+  - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - bitnami/charts/master/bitnami/redis
   - kubernetes/ingress-nginx/master/charts/ingress-nginx
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
   - newrelic/helm-charts/master/charts/newrelic-logging
+  - prometheus-community/helm-charts/main/charts/kube-state-metrics
 
 urlwatch_rubygems:
   - bankrupt
