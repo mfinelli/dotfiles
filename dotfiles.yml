@@ -19,6 +19,7 @@
       when:
         - ansible_os_family == 'Archlinux'
         - mtype == 'personal' or mtype == 'work'
+        - wedition != 'media' # xfce
     - role: hexchat
       when:
         - ansible_os_family != 'Darwin'
