@@ -16,3 +16,10 @@
     repo: "{{ item.repo }}"
     version: HEAD
   loop: "{{ asdf_plugins }}"
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: install global tool versions
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.tool-versions"
+    src: "{{ playbook_dir }}/roles/asdf/files/tool-versions"
+    state: link
