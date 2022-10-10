@@ -11,13 +11,13 @@
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
-    version: v0.19.0
+    version: v0.19.4
 
 - name: download powerlevel10k
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
-    version: v1.15.0
+    version: v1.16.1
 
 - name: download oh-my-zsh
   ansible.builtin.git:
