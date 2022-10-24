@@ -28,6 +28,7 @@ urlwatch_github_releases_complex:
   - kewlfft/ansible-aur
   - tj/n
   - spf13/cobra-cli
+  - asciinema/agg
 
   # other
   - ansible-collections/kubernetes.core
