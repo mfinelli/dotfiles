@@ -121,3 +121,22 @@
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_personal_dock | join(', ') }}]"
+
+- name: configure arc menu
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/shell/extensions/arcmenu/menu-layout
+      value: "'Default'"
+    - key: /org/gnome/shell/extensions/arcmenu/show-external-devices
+      value: "false"
+    - key: /org/gnome/shell/extensions/arcmenu/pinned-app-list
+      value: "@as []"
+    - key: /org/gnome/shell/extensions/arcmenu/default-menu-view
+      value: "'Frequent_Apps'"
+    - key: /org/gnome/shell/extensions/arcmenu/searchbar-default-bottom-location
+      value: "'Top'"
+    - key: /org/gnome/shell/extensions/arcmenu/distro-icon
+      value: "6" # archlinux

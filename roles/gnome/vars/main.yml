@@ -9,6 +9,7 @@ gnome_extensions:
   - "'keymapper@houmain.github.com'"
   - "'ubuntu-dock@ubuntu.com'"
   - "'appindicatorsupport@rgcjonas.gmail.com'"
+  - "'arcmenu@arcmenu.com'"
 
 gnome_personal_dock:
   - "'firefox.desktop'"
