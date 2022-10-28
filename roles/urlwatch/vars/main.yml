@@ -62,7 +62,6 @@ urlwatch_rubygems:
   - emoji_regex
   - exifr
   - faker
-  - formatador
   - fuubar
   - git
   - guard-compat
@@ -99,11 +98,9 @@ urlwatch_rubygems:
   - ruby-progressbar
   - ruby_engine
   - ruby_version
-  - shellany
   - slim
   - sshkit
   - test-queue
-  - timecop
   - uber
 
 urlwatch_npm_packages:
