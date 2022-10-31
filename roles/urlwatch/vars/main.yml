@@ -34,6 +34,7 @@ urlwatch_github_releases_complex:
   - ansible-collections/kubernetes.core
   - cert-manager/cert-manager
   - charite/jannovar
+  - kyleconroy/sqlc
 
 urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/common
