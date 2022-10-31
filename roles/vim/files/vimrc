@@ -91,3 +91,8 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['\.git$']
 
 let g:gutentags_cache_dir = $HOME . '/.cache/gutentags'
+
+" https://github.com/leafOfTree/vim-svelte-plugin#configuration
+let g:vim_svelte_plugin_use_pug = 1
+let g:vim_svelte_plugin_use_typescript = 1
+let g:vim_svelte_plugin_use_sass = 1
