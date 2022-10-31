@@ -28,6 +28,7 @@ urlwatch_github_releases_complex:
   - kewlfft/ansible-aur
   - tj/n
   - spf13/cobra-cli
+  - asciinema/agg
 
   # other
   - ansible-collections/kubernetes.core
@@ -52,19 +53,15 @@ urlwatch_rubygems:
 
   # aur packages
   - airbrussh
-  - benchmark-ips
   - buftok
-  - bump
   - capistrano
   - cliver
-  - coderay
   - declarative
   - digest-crc
   - docile
   - emoji_regex
   - exifr
   - faker
-  - formatador
   - fuubar
   - git
   - guard-compat
@@ -72,8 +69,6 @@ urlwatch_rubygems:
   - haml
   - hashie
   - http-accept
-  - http-form_data
-  - ice_nine
   - image_size
   - jaro_winkler
   - librarianp
@@ -85,18 +80,12 @@ urlwatch_rubygems:
   - mini_magick
   - mono_logger
   - net-http-digest_auth
-  - netrc
   - notiffany
   - oedipus_lex
   - oj
-  - parallel
   - parser
   - powerpack
-  - pry
-  - racc
   - rchardet
-  - regexp_parser
-  - regexp_property_values
   - rest-client
   - rspec-pending_for
   - rspectacular
@@ -107,16 +96,11 @@ urlwatch_rubygems:
   - rubocop-rake
   - rubocop-rspec
   - ruby-progressbar
-  - rubygems-tasks
   - ruby_engine
   - ruby_version
-  - set
-  - shellany
   - slim
-  - sorted_set
   - sshkit
   - test-queue
-  - timecop
   - uber
 
 urlwatch_npm_packages:
