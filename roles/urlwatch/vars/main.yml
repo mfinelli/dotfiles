@@ -67,7 +67,6 @@ urlwatch_rubygems:
   - git
   - guard-compat
   - guard-rspec
-  - haml
   - hashie
   - http-accept
   - image_size
@@ -96,10 +95,8 @@ urlwatch_rubygems:
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
-  - ruby-progressbar
   - ruby_engine
   - ruby_version
-  - slim
   - sshkit
   - test-queue
   - uber
