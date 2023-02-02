@@ -5,12 +5,6 @@ urlwatch_config_basepath:
   Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
 
 urlwatch_github_releases:
-  - actions/checkout
-  - actions/create-release
-  - ansible/ansible-lint-action
-  - docker/login-action
-  - docker/build-push-action
-  - docker/setup-buildx-action
   - ansible-collections/community.general
   - ansible-collections/ansible.posix
 
@@ -29,6 +23,7 @@ urlwatch_github_releases_complex:
   - tj/n
   - spf13/cobra-cli
   - asciinema/agg
+  - 1Password/connect-sdk-python
 
   # other
   - ansible-collections/kubernetes.core
