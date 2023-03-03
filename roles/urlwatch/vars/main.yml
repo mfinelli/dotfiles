@@ -48,6 +48,8 @@ urlwatch_rubygems:
   - ruolo
 
   # aur packages
+  - abstract_type
+  - adamantium
   - airbrussh
   - buftok
   - capistrano
@@ -56,6 +58,7 @@ urlwatch_rubygems:
   - digest-crc
   - docile
   - emoji_regex
+  - equalizer
   - exifr
   - faker
   - fuubar
