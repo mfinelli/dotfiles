@@ -54,6 +54,7 @@ urlwatch_rubygems:
   - buftok
   - capistrano
   - cliver
+  - concord
   - declarative
   - digest-crc
   - docile
@@ -98,6 +99,7 @@ urlwatch_rubygems:
   - sshkit
   - test-queue
   - uber
+  - yardstick
 
 urlwatch_npm_packages:
   - '@lhci/cli'
