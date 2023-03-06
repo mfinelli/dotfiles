@@ -13,3 +13,19 @@
     group: "{{ whoami_group }}"
     mode: 0644
     src: gitconfig.j2
+
+- name: create custom gitconfig directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}"/.config/git"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: install custom gitconfig
+  when: mtype == 'work'
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}"/.config/git/personal"
+    src: "{{ playbook_dir }}/roles/git/files/gitconfig_personal"
+    state: link

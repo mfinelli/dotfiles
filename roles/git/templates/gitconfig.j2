@@ -16,6 +16,13 @@
 {% endif %}
 	name = Mario Finelli
 
+{% if mtype == "work" %}
+[includeIf "gitdir:~/src/mfinelli"]
+	path = ~/.config/git/personal
+[includeIf "gitdir:~/src/gist"]
+	path = ~/.config/git/personal
+{% endif %}
+
 [alias]
 	network = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 	plog = log -p --stat

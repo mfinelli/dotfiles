@@ -1,0 +1,6 @@
+; Ansible managed
+
+[user]
+	email = mario@finel.li
+
+; vim: ft=gitconfig
