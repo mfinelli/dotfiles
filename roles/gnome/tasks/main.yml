@@ -108,7 +108,7 @@
     - ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/systemd
-    value: "['{\"name\":\"Docker\",\"service\":\"docker.service\",\"type\":\"system\"}']"
+    value: "['{\"name\":\"Docker\",\"service\":\"docker.service\",\"type\":\"system\"}','{\"name\":\"libvirtd\",\"service\":\"libvirtd.service\",\"type\":\"system\"}']"
 
 - name: configure dock apps
   when: ansible_os_family == 'Archlinux' and mtype == 'work'
