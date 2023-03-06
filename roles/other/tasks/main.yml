@@ -27,3 +27,15 @@
     group: "{{ whoami_group }}"
     mode: 0644
     src: imager.conf
+
+- name: ensure local libvirt image directory
+  when: ansible_os_family == 'Archlinux' and mtype != 'server'
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/{{ item }}"
+    owner: "{{ whoami }}"
+    group: "{{ whoami_group }}"
+    mode: 0755
+    state: directory
+  loop:
+    - var
+    - var/libvirt
