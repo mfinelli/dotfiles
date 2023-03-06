@@ -1,27 +1,27 @@
 ---
-- name: ensure vpn directory
+- name: Ensure vpn directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.vpn"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0700
+    mode: "0700"
     state: directory
 
-- name: decrypt vpn configuration
+- name: Decrypt vpn configuration
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: "{{ item }}.tar.gz"
   loop: "{{ vpn_configs }}"
 
-- name: extract vpn configuration
+- name: Extract vpn configuration
   ansible.builtin.unarchive:
     src: "{{ ansible_user_dir }}/.vpn/{{ item }}.tar.gz"
     dest: "{{ ansible_user_dir }}/.vpn"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0700
+    mode: "0700"
     remote_src: true
   loop: "{{ vpn_configs }}"

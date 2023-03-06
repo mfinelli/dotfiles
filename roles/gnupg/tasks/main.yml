@@ -1,32 +1,32 @@
 ---
-- name: ensure gnupg directory
+- name: Ensure gnupg directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.gnupg"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0700
+    mode: "0700"
     state: directory
 
-- name: install gnupg gpg.conf
+- name: Install gnupg gpg.conf
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gnupg/gpg.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: gpg.conf.j2
 
-- name: install dirmngr config
+- name: Install dirmngr config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gnupg/dirmngr.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: dirmngr.conf.j2
 
-- name: link gpg-agent config
+- name: Link gpg-agent config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gnupg/gpg-agent.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: gpg-agent.conf.j2

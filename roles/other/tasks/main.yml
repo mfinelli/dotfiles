@@ -1,5 +1,5 @@
 ---
-- name: copy backuprc
+- name: Copy backuprc
   when:
     - ansible_os_family != 'Darwin'
     - mtype != 'server' or wedition == 'personal'
@@ -7,34 +7,34 @@
     dest: "{{ ansible_user_dir }}/.backuprc"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: backuprc.j2
 
-- name: ensure raspberry pi config directory
+- name: Ensure raspberry pi config directory
   when: ansible_os_family != 'Darwin'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/Raspberry Pi"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
-- name: disable raspberry pi imager telemetry
+- name: Disable raspberry pi imager telemetry
   when: ansible_os_family != 'Darwin'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.config/Raspberry Pi/Imager.conf"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0644
+    mode: "0644"
     src: imager.conf
 
-- name: ensure local libvirt image directory
+- name: Ensure local libvirt image directory
   when: ansible_os_family == 'Archlinux' and mtype != 'server'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
   loop:
     - var

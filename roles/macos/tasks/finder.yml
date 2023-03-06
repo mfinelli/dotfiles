@@ -1,6 +1,6 @@
 ---
 # Finder -> Preferences -> Show all filename extensions
-- name: always show file extensions
+- name: Always show file extensions
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: AppleShowAllExtensions
@@ -8,7 +8,7 @@
     value: true
 
 # Finder -> View -> Show Path Bar
-- name: turn on finder pathbar
+- name: Turn on finder pathbar
   community.general.osx_defaults:
     domain: com.apple.finder
     key: ShowPathbar
@@ -24,7 +24,7 @@
 #     value: true
 
 # Finder -> Preferences -> Show warning before changing an extension
-- name: disable warning when changing extensions
+- name: Disable warning when changing extensions
   community.general.osx_defaults:
     domain: com.apple.finder
     key: FXEnableExtensionChangeWarning

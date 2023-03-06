@@ -1,16 +1,16 @@
 ---
-- name: ensure terraform configuration directory
+- name: Ensure terraform configuration directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.terraform.d"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
-- name: install terraform cloud credentials
+- name: Install terraform cloud credentials
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.terraform.d/credentials.tfrc.json"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: credentials.tfrc.json.j2

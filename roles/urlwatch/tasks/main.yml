@@ -1,23 +1,23 @@
 ---
-- name: ensure urlwatch directory
+- name: Ensure urlwatch directory
   ansible.builtin.file:
     path: "{{ urlwatch_config_basepath[ansible_os_family] }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link the urlwatch configuration
+- name: Link the urlwatch configuration
   ansible.builtin.file:
     dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urlwatch.yaml"
     src: "{{ playbook_dir }}/roles/urlwatch/files/urlwatch.yaml"
     state: link
 
-- name: install urlwatch list
+- name: Install urlwatch list
   ansible.builtin.template:
     dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urls.yaml"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0644
+    mode: "0644"
     src: urls.yaml.j2

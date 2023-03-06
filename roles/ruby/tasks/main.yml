@@ -1,16 +1,16 @@
 ---
-- name: ensure .gem directory
+- name: Ensure .gem directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.gem"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
-- name: install gem credentials
+- name: Install gem credentials
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gem/credentials"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
     src: credentials.j2

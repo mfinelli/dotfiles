@@ -1,13 +1,24 @@
 ---
-- import_tasks: general.yml
-- import_tasks: desktop.yml
-- import_tasks: dock.yml
-- import_tasks: finder.yml
-- import_tasks: missioncontrol.yml
-- import_tasks: iterm.yml
+- name: Set general settings
+  ansible.builtin.import_tasks: general.yml
+
+- name: Set desktop settings
+  ansible.builtin.import_tasks: desktop.yml
+
+- name: Set dock and menu bar settings
+  ansible.builtin.import_tasks: dock.yml
+
+- name: Set finder settings
+  ansible.builtin.import_tasks: finder.yml
+
+- name: Set mission control settings
+  ansible.builtin.import_tasks: missioncontrol.yml
+
+- name: Configure iTerm2
+  ansible.builtin.import_tasks: iterm.yml
 
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
-- name: don't use "natural scrolling"
+- name: Don't use "natural scrolling"
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: com.apple.swipescrolldirection
@@ -15,7 +26,7 @@
     value: false
 
 # Settings -> Security & Privacy -> Privacy -> Apple Advertising -> Personalized Ads
-- name: turn off personalized ads
+- name: Turn off personalized ads
   community.general.osx_defaults:
     domain: com.apple.AdLib
     key: allowApplePersonalizedAdvertising
@@ -23,7 +34,7 @@
     value: false
 
 # I'm not sure where in the GUI this lives
-- name: turn on force limit add tracking
+- name: Turn on force limit add tracking
   community.general.osx_defaults:
     domain: com.apple.AdLib
     key: forceLimitAdTracking
@@ -31,7 +42,7 @@
     value: true
 
 # Settings -> Language & Region -> Time format
-- name: set time format to 24 hour
+- name: Set time format to 24 hour
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: AppleICUForce24HourTime
@@ -40,7 +51,7 @@
 
 # I don't think it's possible to set this via GUI
 # https://apple.stackexchange.com/a/296000
-- name: don't write .DS_Store files to USB drives or network shares
+- name: Don't write .DS_Store files to USB drives or network shares
   community.general.osx_defaults:
     domain: com.apple.desktopservices
     key: "{{ item }}"

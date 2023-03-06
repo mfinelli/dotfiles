@@ -1,18 +1,18 @@
 ---
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link makepkg config
+- name: Link makepkg config
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.makepkg.conf"
     src: "{{ playbook_dir }}/roles/arch/files/makepkg.conf"
     state: link
 
 # TODO: i'd like to move these elsewhere
-- name: ensure arch chroot directories exist
+- name: Ensure arch chroot directories exist
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
   loop:
     - chroot
