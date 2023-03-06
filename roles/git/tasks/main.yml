@@ -16,7 +16,7 @@
 
 - name: create custom gitconfig directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}"/.config/git"
+    path: "{{ ansible_user_dir }}/.config/git"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: 0755
@@ -26,6 +26,6 @@
 - name: install custom gitconfig
   when: mtype == 'work'
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}"/.config/git/personal"
+    dest: "{{ ansible_user_dir }}/.config/git/personal"
     src: "{{ playbook_dir }}/roles/git/files/gitconfig_personal"
     state: link

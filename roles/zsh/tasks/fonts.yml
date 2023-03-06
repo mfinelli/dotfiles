@@ -4,12 +4,12 @@
 # and the nerd-fonts-jetbrains-mono package
 # https://aur.archlinux.org/packages/nerd-fonts-jetbrains-mono/
 
-- name: download meslo nerd font
+- name: Download meslo nerd font
   when: ansible_os_family == "Darwin"
   ansible.builtin.get_url:
     url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item }}.ttf"
-    mode: 0664
+    mode: "0664"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
   loop:
@@ -18,33 +18,33 @@
     - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
 
-- name: ensure local fonts directory
+- name: Ensure local fonts directory
   when: ansible_os_family == "Debian"
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
-- name: ensure directory for nerd fonts
+- name: Ensure directory for nerd fonts
   when: ansible_os_family == "Debian"
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
   loop:
     - MesloLGS NF
     - JetBrains Mono NF
 
-- name: download meslo nerd font
+- name: Download meslo nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
     url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
-    mode: 0644
+    mode: "0644"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
   loop:
@@ -53,14 +53,14 @@
     - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
   notify:
-    - rebuild local font cache
+    - Rebuild local font cache
 
-- name: download jetbrains nerd font
+- name: Download jetbrains nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/NoLigatures/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
-    mode: 0644
+    mode: "0644"
     owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
   loop:
@@ -97,4 +97,4 @@
     - kind: ThinItalic
       font: JetBrains Mono NL Thin Italic Nerd Font Complete Mono
   notify:
-    - rebuild local font cache
+    - Rebuild local font cache
