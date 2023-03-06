@@ -21,8 +21,9 @@ gnome_personal_dock:
 
 gnome_work_dock:
   - "'firefox.desktop'"
+  - "'1password.desktop'"
   - "'org.gnome.Terminal.desktop'"
   - "'slack.desktop'"
   - "'lens.desktop'"
-  - "'firefox-developer-edition.desktop'"
+  - "'firefoxdeveloperedition.desktop'"
   - "'org.gnome.Nautilus.desktop'"
