@@ -24,6 +24,7 @@ urlwatch_github_releases_complex:
   - spf13/cobra-cli
   - asciinema/agg
   - 1Password/connect-sdk-python
+  - leighmcculloch/vangen
 
   # other
   - ansible-collections/kubernetes.core
