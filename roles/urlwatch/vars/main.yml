@@ -5,26 +5,26 @@ urlwatch_config_basepath:
   Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
 
 urlwatch_github_releases:
-  - ansible-collections/community.general
   - ansible-collections/ansible.posix
+  - ansible-collections/community.general
 
 urlwatch_github_releases_complex:
   # aur packages
-  - vrana/adminer
-  - mikefarah/yq
-  - houmain/keymapper
+  - 1Password/connect-sdk-python
+  - FairwindsOps/pluto
   - IBM-Cloud/redli
+  - asciinema/agg
   - hayorov/helm-gcs
+  - houmain/keymapper
   - hypnoglow/helm-s3
   - jkroepke/helm-secrets
-  - newrelic/newrelic-cli
-  - FairwindsOps/pluto
   - kewlfft/ansible-aur
-  - tj/n
-  - spf13/cobra-cli
-  - asciinema/agg
-  - 1Password/connect-sdk-python
   - leighmcculloch/vangen
+  - mikefarah/yq
+  - newrelic/newrelic-cli
+  - spf13/cobra-cli
+  - tj/n
+  - vrana/adminer
 
   # other
   - ansible-collections/kubernetes.core
@@ -36,8 +36,8 @@ urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/common
   - bitnami/charts/master/bitnami/kube-state-metrics
   - bitnami/charts/master/bitnami/metrics-server
-  - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - bitnami/charts/master/bitnami/redis
+  - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - kubernetes/ingress-nginx/master/charts/ingress-nginx
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
   - newrelic/helm-charts/master/charts/newrelic-logging
@@ -76,8 +76,8 @@ urlwatch_rubygems:
   - mechanize
   - memoizable
   - mimemagic
-  - minitest-reporters
   - mini_magick
+  - minitest-reporters
   - mono_logger
   - net-http-digest_auth
   - notiffany
