@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Setup dotfiles
+  hosts: localhost
   connection: local
   vars:
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
@@ -51,5 +52,4 @@
       when:
         - mtype != 'server'
         - wedition != 'media'
-
 # vim: ft=yaml.ansible

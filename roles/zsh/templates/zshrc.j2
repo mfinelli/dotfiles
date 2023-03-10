@@ -2,8 +2,8 @@
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zhistfile
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=500000
+SAVEHIST=500000
 setopt appendhistory autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
@@ -227,11 +227,11 @@ fi
 # "standard" chroot
 # create: mkarchroot $CHROOT/root base-devel
 # update: arch-nspawn $CHROOT/root pacman -Syu
-export CHROOT=$HOME/chroot
+export CHROOT=$HOME/.local/var/chroot
 # supermario chroot with pkgs.finelli.dev enabled
 # create: mkarchroot -C /etc/pacman.conf $SMCHROOT/root base-devel
 # update: arch-nspawn $SMCHROOT/root pacman -Syu
-export SMCHROOT=$HOME/smchroot
+export SMCHROOT=$HOME/.local/var/smchroot
 {% endif %}
 
 {% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" and mtype == "personal" %}

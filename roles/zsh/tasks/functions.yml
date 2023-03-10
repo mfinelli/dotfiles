@@ -1,20 +1,20 @@
 ---
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: symlink one liner functions
+- name: Symlink one liner functions
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/oneliners.zsh"
     state: link
 
-- name: ensure functions directory
+- name: Ensure functions directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.zsh/_functions"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.zsh/_functions"
     state: directory
 
-- name: clone gist function alias repos
+- name: Clone gist function alias repos
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/_functions/{{ item.alias }}"
     repo: "{{ item.repo }}"

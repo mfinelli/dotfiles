@@ -2,19 +2,23 @@ root = true
 
 [*]
 charset = utf-8
-indent_style = space
-indent_size = 2
 end_of_line = lf
+indent_size = 2
+indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[roles/git/templates/gitconfig.j2]
-indent_style = tabs
+[roles/git/files/gitconfig_personal]
 indent_size = 8
+indent_style = tabs
+
+[roles/git/templates/gitconfig.j2]
+indent_size = 8
+indent_style = tabs
 
 [roles/macos/templates/iterm2.plist.j2]
-indent_style = tabs
 indent_size = 8
+indent_style = tabs
 
 [roles/ssh/templates/config.j2]
 indent_size = 4

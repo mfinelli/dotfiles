@@ -1,15 +1,31 @@
 ---
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link gitignore_global
+- name: Link gitignore_global
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.gitignore_global"
     src: "{{ playbook_dir }}/roles/git/files/gitignore_global"
     state: link
 
-- name: install user global git config
+- name: Install user global git config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gitconfig"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0644
+    mode: "0644"
+    owner: "{{ whoami }}"
     src: gitconfig.j2
+
+- name: Create custom gitconfig directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.config/git"
+    state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Install custom gitconfig
+  when: mtype == 'work'
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/git/personal"
+    src: "{{ playbook_dir }}/roles/git/files/gitconfig_personal"
+    state: link

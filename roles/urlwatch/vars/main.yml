@@ -1,36 +1,33 @@
 ---
 urlwatch_config_basepath:
+  Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
   Darwin: "{{ ansible_user_dir }}/Library/Application Support/urlwatch"
   Debian: "{{ ansible_user_dir }}/.config/urlwatch"
-  Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
 
 urlwatch_github_releases:
-  - actions/checkout
-  - actions/create-release
-  - ansible/ansible-lint-action
-  - docker/login-action
-  - docker/build-push-action
-  - docker/setup-buildx-action
-  - ansible-collections/community.general
   - ansible-collections/ansible.posix
+  - ansible-collections/community.general
 
 urlwatch_github_releases_complex:
   # aur packages
-  - vrana/adminer
-  - mikefarah/yq
-  - houmain/keymapper
+  - 1Password/connect-sdk-python
+  - FairwindsOps/pluto
   - IBM-Cloud/redli
+  - asciinema/agg
   - hayorov/helm-gcs
+  - houmain/keymapper
   - hypnoglow/helm-s3
   - jkroepke/helm-secrets
-  - newrelic/newrelic-cli
-  - FairwindsOps/pluto
   - kewlfft/ansible-aur
-  - tj/n
+  - leighmcculloch/vangen
+  - mikefarah/yq
+  - newrelic/newrelic-cli
   - spf13/cobra-cli
-  - asciinema/agg
+  - tj/n
+  - vrana/adminer
 
   # other
+  - Bash-it/bash-it
   - ansible-collections/kubernetes.core
   - cert-manager/cert-manager
   - charite/jannovar
@@ -40,8 +37,8 @@ urlwatch_github_helm_releases:
   - bitnami/charts/master/bitnami/common
   - bitnami/charts/master/bitnami/kube-state-metrics
   - bitnami/charts/master/bitnami/metrics-server
-  - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - bitnami/charts/master/bitnami/redis
+  - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - kubernetes/ingress-nginx/master/charts/ingress-nginx
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
   - newrelic/helm-charts/master/charts/newrelic-logging
@@ -53,21 +50,24 @@ urlwatch_rubygems:
   - ruolo
 
   # aur packages
+  - abstract_type
+  - adamantium
   - airbrussh
   - buftok
   - capistrano
   - cliver
+  - concord
   - declarative
   - digest-crc
   - docile
   - emoji_regex
+  - equalizer
   - exifr
   - faker
   - fuubar
   - git
   - guard-compat
   - guard-rspec
-  - haml
   - hashie
   - http-accept
   - image_size
@@ -77,35 +77,27 @@ urlwatch_rubygems:
   - mechanize
   - memoizable
   - mimemagic
-  - minitest-reporters
   - mini_magick
+  - minitest-reporters
   - mono_logger
   - net-http-digest_auth
   - notiffany
   - oedipus_lex
   - oj
-  - parser
   - powerpack
   - rchardet
   - rest-client
   - rspec-pending_for
   - rspectacular
-  - rubocop
-  - rubocop-ast
-  - rubocop-performance
   - rubocop-rails
-  - rubocop-rake
-  - rubocop-rspec
-  - ruby-progressbar
   - ruby_engine
   - ruby_version
-  - slim
   - sshkit
-  - test-queue
   - uber
+  - yardstick
 
 urlwatch_npm_packages:
-  - '@lhci/cli'
+  - "@lhci/cli"
   - autoprefixer
   - clean-css-cli
   - express-generator

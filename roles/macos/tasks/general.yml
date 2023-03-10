@@ -1,6 +1,6 @@
 ---
 # Settings -> General -> Appearance
-- name: set light/dark mode automatically
+- name: Set light/dark mode automatically
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: AppleInterfaceStyleSwitchesAutomatically

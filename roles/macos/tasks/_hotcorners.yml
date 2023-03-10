@@ -1,17 +1,18 @@
 ---
-- name: set hot corner modifier
+- name: Set hot corner modifier
   community.general.osx_defaults:
     domain: com.apple.dock
     key: wvous-{{ item.location }}-modifier
     type: int
     value: 0 # 1048576: off (plus off corner)
   notify:
-    - restart dock
-- name: set hot corner
+    - Restart dock
+
+- name: Set hot corner
   community.general.osx_defaults:
     domain: com.apple.dock
     key: wvous-{{ item.location }}-corner
     type: int
     value: "{{ item.value }}" # 1: off (plus off modifier)
   notify:
-    - restart dock
+    - Restart dock

@@ -1,70 +1,72 @@
 ---
-- name: ensure zsh config download directory
+- name: Ensure zsh config download directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.zsh"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0755
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.zsh"
     state: directory
 
-- name: download grml-zsh-config
+- name: Download grml-zsh-config
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
-    version: v0.19.4
+    version: v0.19.5
 
-- name: download powerlevel10k
+- name: Download powerlevel10k
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
     version: v1.16.1
 
-- name: download oh-my-zsh
+- name: Download oh-my-zsh
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
     repo: https://github.com/ohmyzsh/ohmyzsh.git
 
-- name: download zsh-autoquoter
+- name: Download zsh-autoquoter
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/autoquoter"
     repo: https://github.com/ianthehenry/zsh-autoquoter.git
 
-- name: download forgit
+- name: Download forgit
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/forgit"
     repo: https://github.com/wfxr/forgit.git
 
-- import_tasks: fonts.yml
+- name: Install nerd fonts locally
+  ansible.builtin.import_tasks: fonts.yml
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
-- name: install zshrc
+- name: Install zshrc
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.zshrc"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: zshrc.j2
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link the p10k configuration
+- name: Link the p10k configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link the dummy file for the unlockmf function
+- name: Link the dummy file for the unlockmf function
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/36FDA306.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/36FDA306.asc"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: link the dummy file for the unlockw function
+- name: Link the dummy file for the unlockw function
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/4DA7BCBA.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc"
     state: link
 
-- import_tasks: functions.yml
+- name: Create gist aliases
+  ansible.builtin.import_tasks: functions.yml

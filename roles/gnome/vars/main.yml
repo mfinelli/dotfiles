@@ -1,15 +1,15 @@
 ---
 gnome_extensions:
+  - "'appindicatorsupport@rgcjonas.gmail.com'"
   - "'arch-update@RaphaelRochet'"
-  - "'espresso@coadmunkee.github.com'"
+  - "'arcmenu@arcmenu.com'"
   - "'dash-to-dock@micxgx.gmail.com'"
+  - "'espresso@coadmunkee.github.com'"
+  - "'keymapper@houmain.github.com'"
   - "'no-overview@fthx'"
   - "'systemd-manager@hardpixel.eu'"
-  - "'weatherintheclock@JasonLG1979.github.io'"
-  - "'keymapper@houmain.github.com'"
   - "'ubuntu-dock@ubuntu.com'"
-  - "'appindicatorsupport@rgcjonas.gmail.com'"
-  - "'arcmenu@arcmenu.com'"
+  - "'weatherintheclock@JasonLG1979.github.io'"
 
 gnome_personal_dock:
   - "'firefox.desktop'"
@@ -21,8 +21,9 @@ gnome_personal_dock:
 
 gnome_work_dock:
   - "'firefox.desktop'"
+  - "'1password.desktop'"
   - "'org.gnome.Terminal.desktop'"
   - "'slack.desktop'"
   - "'lens.desktop'"
-  - "'firefox-developer-edition.desktop'"
+  - "'firefoxdeveloperedition.desktop'"
   - "'org.gnome.Nautilus.desktop'"

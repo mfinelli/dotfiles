@@ -1,6 +1,6 @@
 ---
 name: Lint
-on: push
+on: push # yamllint disable-line rule:truthy
 
 jobs:
   main:
@@ -8,17 +8,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: mfinelli/setup-shfmt@v1
-      - run: |
+      - uses: actions/cache@v3
+        with:
+          path: ~/.ansible
+          key: ansible-${{ hashFiles('requirements.yml') }}
+      - uses: mfinelli/setup-shfmt@v2
+      - run: pip3 install ansible ansible-lint
+      - run: npm install -g prettier
+      - run: ansible-galaxy install -r requirements.yml
+      - name: Run shellcheck
+        run: |
           shellcheck --version
           shellcheck go vault wvault
           find . -name '*.bash' | xargs shellcheck
           find . -name '*.sh' | xargs shellcheck
-      - run: |
+      - name: Run shfmt
+        run: |
           shfmt --version
           shfmt -s -i 2 -ci -sr -d go vault wvault
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
-      - uses: ansible-community/ansible-lint-action@v6
-        with:
-          path: dotfiles.yml
+      - name: Run prettier
+        run: |
+          prettier --version
+          find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
+      - name: Run yamllint
+        run: |
+          yamllint --version
+          find . -name '*.yaml' -o -name '*.yml' | xargs yamllint -f github
+      - name: Run ansible-lint
+        run: |
+          ansible-lint --version
+          ansible-lint dotfiles.yml
