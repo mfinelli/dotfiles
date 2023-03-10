@@ -8,8 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: ~/.ansible
+          key: ansible-${{ hashFiles('requirements.yml') }}
       - uses: mfinelli/setup-shfmt@v2
+      - run: pip3 install ansible ansible-lint
       - run: npm install -g prettier
+      - run: ansible-galaxy install -r requirements.yml
       - run: |
           shellcheck --version
           shellcheck go vault wvault
@@ -21,7 +27,5 @@ jobs:
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
       - run: find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
-      - run: find . -name '*.yaml' -o -name '*.yml' | yamllint -f github
-      - uses: ansible-community/ansible-lint-action@v6
-        with:
-          path: dotfiles.yml
+      - run: find . -name '*.yaml' -o -name '*.yml' | xargs yamllint -f github
+      - run: ansible-lint dotfiles.yml
