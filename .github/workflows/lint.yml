@@ -21,6 +21,7 @@ jobs:
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
       - run: find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
+      - run: find . -name '*.yaml' -o -name '*.yml' | yamllint -f github
       - uses: ansible-community/ansible-lint-action@v6
         with:
           path: dotfiles.yml
