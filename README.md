@@ -9,8 +9,8 @@ letting stow create a bunch of symbolic links but it allows greater control
 and ease-of-use for managing differences across systems and dealing with
 secrets.
 
-Get up and running by either cloning this repository and running,
-`bootstrap.bash`, or all-in-one:
+Get up and running by either cloning this repository and running, `run.bash`,
+or all-in-one:
 
 ```shell
 bash -c "$(curl -fsSL https://mfgo.link/dotfiles)"
@@ -19,6 +19,9 @@ bash -c "$(curl -fsSL https://mfgo.link/dotfiles)"
 **N.B.** if you're intending to run the dotfiles on a remote server you need
 to forward your ssh agent with the public keys that you intend to write out
 unlocked.
+
+The initial installation will install the dotfiles into `$HOME/.dotfiles` and
+afterwards everything can be updated with `git pull` and `./run.bash`.
 
 ## vault
 

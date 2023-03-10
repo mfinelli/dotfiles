@@ -24,7 +24,7 @@ if [[ $os == Darwin || $os == Linux ]]; then
 
   cd $saveas
 
-  ./bootstrap.bash
+  ./run.bash
 
   remote="$(git remote -v | grep origin | grep fetch | awk '{print $2}')"
 
