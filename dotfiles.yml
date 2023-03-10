@@ -52,5 +52,4 @@
       when:
         - mtype != 'server'
         - wedition != 'media'
-
 # vim: ft=yaml.ansible

@@ -104,7 +104,7 @@ urlwatch_rubygems:
   - yardstick
 
 urlwatch_npm_packages:
-  - '@lhci/cli'
+  - "@lhci/cli"
   - autoprefixer
   - clean-css-cli
   - express-generator

@@ -10,7 +10,7 @@ job_defaults:
 report:
   email:
     enabled: false
-    from: ''
+    from: ""
     html: false
     method: smtp
     sendmail:
@@ -20,52 +20,52 @@ report:
       host: localhost
       port: 25
       starttls: true
-      user: ''
-    subject: '{count} changes: {jobs}'
-    to: ''
+      user: ""
+    subject: "{count} changes: {jobs}"
+    to: ""
   html:
     diff: unified
   ifttt:
     enabled: false
-    event: ''
-    key: ''
+    event: ""
+    key: ""
   mailgun:
-    api_key: ''
-    domain: ''
+    api_key: ""
+    domain: ""
     enabled: false
-    from_mail: ''
-    from_name: ''
+    from_mail: ""
+    from_name: ""
     region: us
-    subject: '{count} changes: {jobs}'
-    to: ''
+    subject: "{count} changes: {jobs}"
+    to: ""
   markdown:
     details: true
     footer: true
     minimal: false
   matrix:
-    access_token: ''
+    access_token: ""
     enabled: false
-    homeserver: ''
-    room_id: ''
+    homeserver: ""
+    room_id: ""
   pushbullet:
-    api_key: ''
+    api_key: ""
     enabled: false
   pushover:
-    app: ''
+    app: ""
     device: null
     enabled: false
     priority: normal
     sound: spacealarm
-    user: ''
+    user: ""
   slack:
     enabled: false
-    webhook_url: ''
+    webhook_url: ""
   stdout:
     color: true
     enabled: true
   telegram:
-    bot_token: ''
-    chat_id: ''
+    bot_token: ""
+    chat_id: ""
     enabled: false
   text:
     details: true
@@ -74,5 +74,5 @@ report:
     minimal: false
   xmpp:
     enabled: false
-    recipient: ''
-    sender: ''
+    recipient: ""
+    sender: ""
