@@ -32,8 +32,6 @@ array_contains() {
 # actually referenced as variables in the conditional below, but they _are_
 # used
 # shellcheck disable=SC2034
-GDX=(MDMBMFINELLI.local debian)
-# shellcheck disable=SC2034
 FACILE=(CLIFMI706)
 # shellcheck disable=SC2034
 MEDIA=(liveusb zen)
@@ -44,12 +42,7 @@ PSERVER=(cdev.finelli.dev odev parkpi raipi rome.mfpkg.net ubuilder)
 
 hn="$(hostname)"
 
-if array_contains GDX "$hn"; then
-  VAULT_ID=w@./wvault
-  mtype=work
-  wedition=genedx
-  isgaming=no
-elif array_contains FACILE "$hn"; then
+if array_contains FACILE "$hn"; then
   VAULT_ID=w@./wvault
   mtype=work
   wedition=facile
