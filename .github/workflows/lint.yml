@@ -16,16 +16,27 @@ jobs:
       - run: pip3 install ansible ansible-lint
       - run: npm install -g prettier
       - run: ansible-galaxy install -r requirements.yml
-      - run: |
+      - name: Run shellcheck
+        run: |
           shellcheck --version
           shellcheck go vault wvault
           find . -name '*.bash' | xargs shellcheck
           find . -name '*.sh' | xargs shellcheck
-      - run: |
+      - name: Run shfmt
+        run: |
           shfmt --version
           shfmt -s -i 2 -ci -sr -d go vault wvault
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
-      - run: find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
-      - run: find . -name '*.yaml' -o -name '*.yml' | xargs yamllint -f github
-      - run: ansible-lint dotfiles.yml
+      - name: Run prettier
+        run: |
+          prettier --version
+          find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
+      - name: Run yamllint
+        run: |
+          yamllint --version
+          find . -name '*.yaml' -o -name '*.yml' | xargs yamllint -f github
+      - name: Run ansible-lint
+        run: |
+          ansible-lint --version
+          ansible-lint dotfiles.yml
