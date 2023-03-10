@@ -78,7 +78,7 @@ fi
 
 curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
 
-ansible-galaxy install -r requirements.yml
+ansible-galaxy collection install -U -r requirements.yml
 
 needsudo=""
 # if [[ $(uname) == Darwin ]]; then
