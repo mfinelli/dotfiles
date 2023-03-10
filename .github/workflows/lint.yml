@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: mfinelli/setup-shfmt@v1
+      - uses: mfinelli/setup-shfmt@v2
+      - run: npm install -g prettier
       - run: |
           shellcheck --version
           shellcheck go vault wvault
@@ -19,6 +20,7 @@ jobs:
           shfmt -s -i 2 -ci -sr -d go vault wvault
           find . -name '*.bash' | xargs shfmt -s -i 2 -ci -sr -d
           find . -name '*.sh' | xargs shfmt -s -i 2 -ci -sr -d
+      - run: find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
       - uses: ansible-community/ansible-lint-action@v6
         with:
           path: dotfiles.yml
