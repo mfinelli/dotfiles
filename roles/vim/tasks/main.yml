@@ -1,10 +1,10 @@
 ---
 - name: Ensure .vim directory
   ansible.builtin.file:
-    path: "{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ item }}"
     state: directory
   loop: "{{ vim_plugins_dirs }}"
 
@@ -30,19 +30,19 @@
 
 - name: Ensure neovim config directory
   ansible.builtin.file:
-    path: "{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ item }}"
     state: directory
   loop: "{{ neovim_config_dirs }}"
 
 - name: Ensure neovim plugin directory
   ansible.builtin.file:
-    path: "{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ item }}"
     state: directory
   loop: "{{ neovim_plugins_dirs }}"
 

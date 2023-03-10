@@ -7,62 +7,62 @@
 - name: Download meslo nerd font
   when: ansible_os_family == "Darwin"
   ansible.builtin.get_url:
-    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item }}.ttf"
+    group: "{{ whoami_group }}"
     mode: "0664"
     owner: "{{ whoami }}"
-    group: "{{ whoami_group }}"
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
   loop:
-    - MesloLGS NF Regular
     - MesloLGS NF Bold
-    - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
+    - MesloLGS NF Italic
+    - MesloLGS NF Regular
 
 - name: Ensure local fonts directory
   when: ansible_os_family == "Debian"
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.local/share/fonts"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.local/share/fonts"
     state: directory
 
 - name: Ensure directory for nerd fonts
   when: ansible_os_family == "Debian"
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
     state: directory
   loop:
-    - MesloLGS NF
     - JetBrains Mono NF
+    - MesloLGS NF
 
 - name: Download meslo nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
-    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
+    group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
-    group: "{{ whoami_group }}"
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
   loop:
-    - MesloLGS NF Regular
     - MesloLGS NF Bold
-    - MesloLGS NF Italic
     - MesloLGS NF Bold Italic
+    - MesloLGS NF Italic
+    - MesloLGS NF Regular
   notify:
     - Rebuild local font cache
 
 - name: Download jetbrains nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/NoLigatures/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
+    group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
-    group: "{{ whoami_group }}"
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/NoLigatures/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
   loop:
     - kind: Bold
       font: JetBrains Mono NL Bold Nerd Font Complete Mono

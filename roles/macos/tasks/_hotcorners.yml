@@ -7,6 +7,7 @@
     value: 0 # 1048576: off (plus off corner)
   notify:
     - Restart dock
+
 - name: Set hot corner
   community.general.osx_defaults:
     domain: com.apple.dock

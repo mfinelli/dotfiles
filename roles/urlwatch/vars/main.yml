@@ -1,8 +1,8 @@
 ---
 urlwatch_config_basepath:
+  Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
   Darwin: "{{ ansible_user_dir }}/Library/Application Support/urlwatch"
   Debian: "{{ ansible_user_dir }}/.config/urlwatch"
-  Archlinux: "{{ ansible_user_dir }}/.config/urlwatch"
 
 urlwatch_github_releases:
   - ansible-collections/ansible.posix
@@ -27,6 +27,7 @@ urlwatch_github_releases_complex:
   - vrana/adminer
 
   # other
+  - Bash-it/bash-it
   - ansible-collections/kubernetes.core
   - cert-manager/cert-manager
   - charite/jannovar

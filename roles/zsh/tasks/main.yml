@@ -1,10 +1,10 @@
 ---
 - name: Ensure zsh config download directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.zsh"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.zsh"
     state: directory
 
 - name: Download grml-zsh-config
@@ -42,9 +42,9 @@
 - name: Install zshrc
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.zshrc"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0600"
+    owner: "{{ whoami }}"
     src: zshrc.j2
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook

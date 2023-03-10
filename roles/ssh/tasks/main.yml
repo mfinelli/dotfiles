@@ -1,70 +1,70 @@
 ---
-- name: ensure .ssh directory
+- name: Ensure .ssh directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.ssh"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0700
+    mode: "0700"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.ssh"
     state: directory
 
-- name: write out public keys
+- name: Write out public keys
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/{{ item }}.pub
   loop: "{{ ssh_keys }}"
 
-- name: write out private keys
+- name: Write out private keys
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/{{ item }}
   loop: "{{ ssh_keys }}"
 
-- name: write out public key
+- name: Write out public key
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/emerald.pub
 
-- name: write out private key
+- name: Write out private key
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/emerald
 
-- name: write out public key
+- name: Write out public key
   when: mtype == 'work'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/work.pub
 
-- name: write out private key
+- name: Write out private key
   when: mtype == 'work'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: keys/work
 
 # https://serverfault.com/a/599565
-- name: write out ssh pub keys for forwarding
+- name: Write out ssh pub keys for forwarding
   when: mtype == 'server' and wedition == 'personal'
   ansible.builtin.shell:
     cmd: ssh-add -L | grep '!{{ item }}$' > {{ ansible_user_dir }}/.ssh/{{ item }}.pub
@@ -73,10 +73,10 @@
     - arch
     - github
 
-- name: install ssh config
+- name: Install ssh config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.ssh/config"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
-    mode: 0600
+    mode: "0600"
+    owner: "{{ whoami }}"
     src: config.j2

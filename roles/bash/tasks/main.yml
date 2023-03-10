@@ -1,10 +1,10 @@
 ---
 - name: Create bash directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.bash"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.bash"
     state: directory
 
 - name: Download bash-it
@@ -17,16 +17,16 @@
 - name: Link the bash profile configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.bash_profile"
+    force: true
     src: "{{ playbook_dir }}/roles/bash/files/bash_profile"
     state: link
-    force: true
 
 - name: Install bashrc
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.bashrc"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0600"
+    owner: "{{ whoami }}"
     src: bashrc.j2
 
 - name: Cleanup old bash_functions

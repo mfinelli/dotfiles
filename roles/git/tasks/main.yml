@@ -9,17 +9,17 @@
 - name: Install user global git config
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gitconfig"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0644"
+    owner: "{{ whoami }}"
     src: gitconfig.j2
 
 - name: Create custom gitconfig directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/git"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.config/git"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook

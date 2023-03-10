@@ -2,8 +2,8 @@
 # Settings -> Desktop & Screen Saver -> Screen Saver -> Show screen saver after
 - name: Set screen save to start after 20 minutes idle
   community.general.osx_defaults:
-    host: currentHost
     domain: com.apple.screensaver
+    host: currentHost
     key: idleTime
     type: int
     value: 1200
@@ -11,8 +11,8 @@
 # Settings -> Desktop & Screen Saver -> Screen Saver -> Show with clock
 - name: Enable clock on screen saver
   community.general.osx_defaults:
-    host: currentHost
     domain: com.apple.screensaver
+    host: currentHost
     key: showClock
     type: bool
     value: true

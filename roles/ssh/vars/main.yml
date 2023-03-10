@@ -29,8 +29,8 @@ ssh_emerald_user: !vault |
   3235
 
 ssh_codecommit_regions:
-  - us-east-2
   - eu-central-1
+  - us-east-2
 
 ssh_codecommit_user: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
@@ -41,8 +41,8 @@ ssh_codecommit_user: !vault |
   35616337326537333333613061656263373166376563313438653465643739376433
 
 ssh_mariomoney_regions:
-  - us-east-1
   - eu-west-1
+  - us-east-1
 
 ssh_mariomoney_user: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p

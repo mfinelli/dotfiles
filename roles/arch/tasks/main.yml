@@ -6,14 +6,27 @@
     src: "{{ playbook_dir }}/roles/arch/files/makepkg.conf"
     state: link
 
-# TODO: i'd like to move these elsewhere
+# TODO: remove these
 - name: Ensure arch chroot directories exist
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/{{ item }}"
     state: directory
   loop:
     - chroot
     - smchroot
+
+- name: Ensure arch chroot directories exist
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - .local
+    - .local/var
+    - .local/var/chroot
+    - .local/var/smchroot

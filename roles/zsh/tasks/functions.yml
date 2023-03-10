@@ -8,10 +8,10 @@
 
 - name: Ensure functions directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.zsh/_functions"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.zsh/_functions"
     state: directory
 
 - name: Clone gist function alias repos

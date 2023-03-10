@@ -8,10 +8,10 @@
 
 - name: Ensure extra tmux directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.tmux"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.tmux"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook

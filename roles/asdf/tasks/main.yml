@@ -1,10 +1,10 @@
 ---
 - name: Ensure .asdf directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/{{ item }}"
-    owner: "{{ whoami }}"
     group: "{{ whoami_group }}"
     mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/{{ item }}"
     state: directory
   loop:
     - .asdf

@@ -70,8 +70,8 @@
     key: /org/gnome/desktop/interface/{{ item }}
     value: "true"
   loop:
-    - clock-show-weekday
     - clock-show-seconds
+    - clock-show-weekday
 
 - name: Configure gnome shell extensions
   when: ansible_os_family == 'Archlinux'
