@@ -11,7 +11,8 @@
     group: "{{ whoami_group }}"
     mode: "0664"
     owner: "{{ whoami }}"
-    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
+    url: "https://github.com/romkatv/powerlevel10k-media/raw/master/\
+      {{ item | urlencode }}.ttf"
   loop:
     - MesloLGS NF Bold
     - MesloLGS NF Bold Italic
@@ -33,7 +34,8 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/{{ item }}"
+    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
+      TrueType/{{ item }}"
     state: directory
   loop:
     - JetBrains Mono NF
@@ -42,11 +44,13 @@
 - name: Download meslo nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
-    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
+      TrueType/MesloLGS NF/{{ item | replace(' ', '_') }}.ttf"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
-    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item | urlencode }}.ttf
+    url: "https://github.com/romkatv/powerlevel10k-media/raw/\
+      master/{{ item | urlencode }}.ttf"
   loop:
     - MesloLGS NF Bold
     - MesloLGS NF Bold Italic
@@ -58,11 +62,14 @@
 - name: Download jetbrains nerd font
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
-    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
+      TrueType/JetBrains Mono NF/{{ item.font | replace(' ', '_') }}.ttf"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
-    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/NoLigatures/{{ item.kind }}/complete/{{ item.font | urlencode }}.ttf
+    url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/\
+      JetBrainsMono/NoLigatures/{{ item.kind }}/complete/\
+      {{ item.font | urlencode }}.ttf"
   loop:
     - kind: Bold
       font: JetBrains Mono NL Bold Nerd Font Complete Mono

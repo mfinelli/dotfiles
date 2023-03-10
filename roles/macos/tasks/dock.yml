@@ -1,5 +1,6 @@
 ---
-# Settings -> Dock & Menu Bar -> Dock & Menu Bar -> Automatically hide and show the Dock
+# Settings -> Dock & Menu Bar -> Dock & Menu Bar ->
+# Automatically hide and show the Dock
 - name: Enable dock autohide
   community.general.osx_defaults:
     domain: com.apple.dock
@@ -32,7 +33,9 @@
     host: currentHost
     key: Battery
     type: int
-    value: 19 # 24 is off; 18 is show in menu bar only; 25 is show in control center only
+    value:
+      19 # 24 is off; 18 is show in menu bar only;
+      # 25 is show in control center only
 
 # Settings -> Dock & Menu Bar -> Battery -> Show percentage
 - name: Show battery percentage in the menu bar

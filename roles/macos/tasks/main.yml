@@ -25,7 +25,8 @@
     type: bool
     value: false
 
-# Settings -> Security & Privacy -> Privacy -> Apple Advertising -> Personalized Ads
+# Settings -> Security & Privacy -> Privacy -> Apple Advertising ->
+# Personalized Ads
 - name: Turn off personalized ads
   community.general.osx_defaults:
     domain: com.apple.AdLib

@@ -55,7 +55,8 @@
 
 - name: Install neovim plugins
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/start/{{ item.name }}"
+    dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/\
+      start/{{ item.name }}"
     repo: "{{ item.repo }}"
     version: HEAD
   loop: "{{ neovim_plugins }}"

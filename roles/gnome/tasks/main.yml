@@ -16,7 +16,8 @@
 
 - name: Configure gnome terminal
   community.general.dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ gnome_terminal_profile.stdout }}/{{ item.key }}"
+    key: "/org/gnome/terminal/legacy/profiles:/:\
+      {{ gnome_terminal_profile.stdout }}/{{ item.key }}"
     value: "{{ item.value | string }}"
   loop:
     - key: visible-name
