@@ -26,6 +26,8 @@ vim_plugins:
     repo: https://github.com/vim-airline/vim-airline-themes.git
   - name: ansible
     repo: https://github.com/pearofducks/ansible-vim.git
+  - name: brewfile
+    repo: https://github.com/bfontaine/Brewfile.vim.git
   - name: characterize
     repo: https://github.com/tpope/vim-characterize.git
   - name: commentary
