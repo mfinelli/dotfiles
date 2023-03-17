@@ -72,6 +72,8 @@
       ssh-add -L | grep '!{{ item }}$'
       > {{ ansible_user_dir }}/.ssh/{{ item }}.pub
     creates: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
+  args:
+    executable: /bin/bash
   loop:
     - arch
     - github
