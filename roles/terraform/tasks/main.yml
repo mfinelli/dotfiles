@@ -1,5 +1,5 @@
 ---
-- name: Ensure terraform configuration directory
+- name: Creating terraform configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -7,7 +7,7 @@
     path: "{{ ansible_user_dir }}/.terraform.d"
     state: directory
 
-- name: Install terraform cloud credentials
+- name: Copying Terraform Cloud credentials
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.terraform.d/credentials.tfrc.json"
     group: "{{ whoami_group }}"

@@ -1,6 +1,6 @@
 ---
 # Settings -> Mission Control -> Hot Corners
-- name: Set hot corners configuration
+- name: Configuring Hot Corners
   # i would prefer to use the `block` syntax but it's not currently supported
   # to use `loop` with `block` so we need to use `include_tasks` instead
   ansible.builtin.include_tasks: _hotcorners.yml

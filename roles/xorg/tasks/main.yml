@@ -1,13 +1,13 @@
 ---
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the xresources config in place
+- name: Linking `.Xresources`
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.Xresources"
     src: "{{ playbook_dir }}/roles/xorg/files/Xresources"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the user dirs config in place
+- name: Linking XDG user directories configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/user-dirs.dirs"
     force: true
@@ -15,7 +15,7 @@
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the user dirs locale config in place
+- name: Linking XDG user directories locale configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/user-dirs.locale"
     force: true
@@ -23,7 +23,7 @@
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the keymapper config in place
+- name: Linking keymapper configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/keymapper.conf"
     src: "{{ playbook_dir }}/roles/xorg/files/keymapper.conf"

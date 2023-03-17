@@ -1,24 +1,24 @@
 ---
-- name: Set general settings
+- name: Configuring General settings
   ansible.builtin.import_tasks: general.yml
 
-- name: Set desktop settings
+- name: Configuring Desktop & Screen Saver
   ansible.builtin.import_tasks: desktop.yml
 
-- name: Set dock and menu bar settings
+- name: Configuring Dock & Menu Bar
   ansible.builtin.import_tasks: dock.yml
 
-- name: Set finder settings
+- name: Configuring Finder
   ansible.builtin.import_tasks: finder.yml
 
-- name: Set mission control settings
+- name: Configuring Mission Control
   ansible.builtin.import_tasks: missioncontrol.yml
 
-- name: Configure iTerm2
+- name: Configuring iTerm2
   ansible.builtin.import_tasks: iterm.yml
 
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
-- name: Don't use "natural scrolling"
+- name: Disabling "natural scrolling"
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: com.apple.swipescrolldirection
@@ -27,7 +27,7 @@
 
 # Settings -> Security & Privacy -> Privacy -> Apple Advertising ->
 # Personalized Ads
-- name: Turn off personalized ads
+- name: Disabling personalized ads
   community.general.osx_defaults:
     domain: com.apple.AdLib
     key: allowApplePersonalizedAdvertising
@@ -35,7 +35,7 @@
     value: false
 
 # I'm not sure where in the GUI this lives
-- name: Turn on force limit add tracking
+- name: Enabling force limit ad tracking
   community.general.osx_defaults:
     domain: com.apple.AdLib
     key: forceLimitAdTracking
@@ -43,7 +43,7 @@
     value: true
 
 # Settings -> Language & Region -> Time format
-- name: Set time format to 24 hour
+- name: Setting time format to 24 hour
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: AppleICUForce24HourTime
@@ -52,7 +52,7 @@
 
 # I don't think it's possible to set this via GUI
 # https://apple.stackexchange.com/a/296000
-- name: Don't write .DS_Store files to USB drives or network shares
+- name: Disabling writing `.DS_Store` files to USB drives or network shares
   community.general.osx_defaults:
     domain: com.apple.desktopservices
     key: "{{ item }}"

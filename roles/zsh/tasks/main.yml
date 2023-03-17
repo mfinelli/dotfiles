@@ -1,5 +1,5 @@
 ---
-- name: Ensure zsh config download directory
+- name: Creating zsh configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -7,39 +7,39 @@
     path: "{{ ansible_user_dir }}/.zsh"
     state: directory
 
-- name: Download grml-zsh-config
+- name: Installing grml-zsh-config
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
     version: v0.19.5
 
-- name: Download powerlevel10k
+- name: Installing powerlevel10k
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
     version: v1.16.1
 
-- name: Download oh-my-zsh
+- name: Installing oh-my-zsh
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
     repo: https://github.com/ohmyzsh/ohmyzsh.git
 
-- name: Download zsh-autoquoter
+- name: Installing zsh-autoquoter
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/autoquoter"
     repo: https://github.com/ianthehenry/zsh-autoquoter.git
 
-- name: Download forgit
+- name: Installing forgit
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/forgit"
     repo: https://github.com/wfxr/forgit.git
 
-- name: Install nerd fonts locally
+- name: Installing Nerd Fonts
   ansible.builtin.import_tasks: fonts.yml
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
-- name: Install zshrc
+- name: Copying zsh configuration
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.zshrc"
     group: "{{ whoami_group }}"
@@ -48,25 +48,25 @@
     src: zshrc.j2
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the p10k configuration
+- name: Linking p10k configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the dummy file for the unlockmf function
+- name: Linking dummy file for the "unlockmf" function
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/36FDA306.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/36FDA306.asc"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the dummy file for the unlockw function
+- name: Linking the dummy file for the "unlockw" function
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.zsh/4DA7BCBA.asc"
     src: "{{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc"
     state: link
 
-- name: Create gist aliases
+- name: Configuring gist aliases
   ansible.builtin.import_tasks: functions.yml

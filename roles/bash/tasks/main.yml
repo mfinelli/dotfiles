@@ -1,5 +1,5 @@
 ---
-- name: Create bash directory
+- name: Creating bash configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -7,32 +7,24 @@
     path: "{{ ansible_user_dir }}/.bash"
     state: directory
 
-- name: Download bash-it
+- name: Installing bash-it
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.bash/bash-it"
     repo: https://github.com/Bash-it/bash-it.git
     version: v3.0.3
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the bash profile configuration
+- name: Linking `.bash_profile`
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.bash_profile"
     force: true
     src: "{{ playbook_dir }}/roles/bash/files/bash_profile"
     state: link
 
-- name: Install bashrc
+- name: Copying `.bashrc`
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.bashrc"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
     src: bashrc.j2
-
-- name: Cleanup old bash_functions
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - "{{ ansible_user_dir }}/.bash/bash_functions"
-    - "{{ ansible_user_dir }}/.bash_functions"

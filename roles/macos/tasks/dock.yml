@@ -1,7 +1,7 @@
 ---
 # Settings -> Dock & Menu Bar -> Dock & Menu Bar ->
 # Automatically hide and show the Dock
-- name: Enable dock autohide
+- name: Enabling dock autohide
   community.general.osx_defaults:
     domain: com.apple.dock
     key: autohide
@@ -9,7 +9,7 @@
     value: true
 
 # Settings -> Dock & Menu Bar -> Bluetooth -> Show in Menu Bar
-- name: Show bluetooth in menu bar
+- name: Enabling showing bluetooth in menu bar
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -18,7 +18,7 @@
     value: 2 # 8 is off
 
 # Settings -> Dock & Menu Bar -> Sound -> Show in Menu Bar (always)
-- name: Always show sound in the menu bar
+- name: Enabling always show sound in the menu bar
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -27,7 +27,7 @@
     value: 18 # 8 is off; 2 is when active
 
 # Settings -> Dock & Menu Bar -> Battery -> *
-- name: Show battery in the menu bar and control center
+- name: Configuring battery settings for menu bar
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -38,7 +38,7 @@
       # 25 is show in control center only
 
 # Settings -> Dock & Menu Bar -> Battery -> Show percentage
-- name: Show battery percentage in the menu bar
+- name: Enabling battery percentage in the menu bar
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -47,7 +47,7 @@
     value: true
 
 # Settings -> Dock & Menu Bar -> Clock -> *
-- name: Set menubar clock format
+- name: Configuring menu bar clock format
   community.general.osx_defaults:
     domain: com.apple.menuextra.clock
     key: DateFormat

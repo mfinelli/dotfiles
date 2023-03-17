@@ -1,12 +1,12 @@
 ---
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link tmux conf
+- name: Linking tmux configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.tmux.conf"
     src: "{{ playbook_dir }}/roles/tmux/files/tmux.conf"
     state: link
 
-- name: Ensure extra tmux directory
+- name: Creating tmux configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -15,14 +15,14 @@
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the os configure script
+- name: Linking tmux OS icon script
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.tmux/os.bash"
     src: "{{ playbook_dir }}/roles/tmux/files/os.bash"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the utc date script
+- name: Linking tmux UTC date script
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.tmux/date.sh"
     src: "{{ playbook_dir }}/roles/tmux/files/date.sh"

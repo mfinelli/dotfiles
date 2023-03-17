@@ -4,7 +4,29 @@
 # and the nerd-fonts-jetbrains-mono package
 # https://aur.archlinux.org/packages/nerd-fonts-jetbrains-mono/
 
-- name: Download meslo nerd font
+- name: Creating local fonts directory
+  when: ansible_os_family == "Debian"
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.local/share/fonts"
+    state: directory
+
+- name: Creating Nerd Fonts directory
+  when: ansible_os_family == "Debian"
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
+      TrueType/{{ item }}"
+    state: directory
+  loop:
+    - JetBrains Mono NF
+    - MesloLGS NF
+
+- name: Downloading MesloLGS Nerd Font (on macOS)
   when: ansible_os_family == "Darwin"
   ansible.builtin.get_url:
     dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item }}.ttf"
@@ -19,29 +41,7 @@
     - MesloLGS NF Italic
     - MesloLGS NF Regular
 
-- name: Ensure local fonts directory
-  when: ansible_os_family == "Debian"
-  ansible.builtin.file:
-    group: "{{ whoami_group }}"
-    mode: "0755"
-    owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.local/share/fonts"
-    state: directory
-
-- name: Ensure directory for nerd fonts
-  when: ansible_os_family == "Debian"
-  ansible.builtin.file:
-    group: "{{ whoami_group }}"
-    mode: "0755"
-    owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
-      TrueType/{{ item }}"
-    state: directory
-  loop:
-    - JetBrains Mono NF
-    - MesloLGS NF
-
-- name: Download meslo nerd font
+- name: Downloading MesloLGS Nerd Font (on Debian)
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\
@@ -59,7 +59,7 @@
   notify:
     - Rebuild local font cache
 
-- name: Download jetbrains nerd font
+- name: Downloading Jetbrains Nerd Font (on Debian)
   when: ansible_os_family == "Debian"
   ansible.builtin.get_url:
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Bitstream/\

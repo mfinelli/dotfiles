@@ -1,6 +1,6 @@
 ---
 # Finder -> Preferences -> Show all filename extensions
-- name: Always show file extensions
+- name: Enabling always show file extensions
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: AppleShowAllExtensions
@@ -8,7 +8,7 @@
     value: true
 
 # Finder -> View -> Show Path Bar
-- name: Turn on finder pathbar
+- name: Enabling finder pathbar
   community.general.osx_defaults:
     domain: com.apple.finder
     key: ShowPathbar
@@ -16,7 +16,7 @@
     value: true
 
 # I'm not sure how to set this from the finder GUI
-# - name: show hidden files in finder
+# - name: Enabling always show hidden files
 #   community.general.osx_defaults:
 #     domain: com.apple.finder
 #     key: AppleShowAllFiles
@@ -24,7 +24,7 @@
 #     value: true
 
 # Finder -> Preferences -> Show warning before changing an extension
-- name: Disable warning when changing extensions
+- name: Disabling warning when changing extensions
   community.general.osx_defaults:
     domain: com.apple.finder
     key: FXEnableExtensionChangeWarning

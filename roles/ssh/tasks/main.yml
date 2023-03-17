@@ -1,5 +1,5 @@
 ---
-- name: Ensure .ssh directory
+- name: Creating SSH configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0700"
@@ -7,7 +7,7 @@
     path: "{{ ansible_user_dir }}/.ssh"
     state: directory
 
-- name: Write out public keys
+- name: Copying non-media public keys (at home)
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
@@ -17,7 +17,7 @@
     src: keys/{{ item }}.pub
   loop: "{{ ssh_keys }}"
 
-- name: Write out private keys
+- name: Copying non-media private keys (at home)
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
@@ -27,7 +27,7 @@
     src: keys/{{ item }}
   loop: "{{ ssh_keys }}"
 
-- name: Write out public key
+- name: Copying media public keys (at home)
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
@@ -36,7 +36,7 @@
     owner: "{{ whoami }}"
     src: keys/emerald.pub
 
-- name: Write out private key
+- name: Copying media private keys (at home)
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
@@ -45,7 +45,7 @@
     owner: "{{ whoami }}"
     src: keys/emerald
 
-- name: Write out public key
+- name: Copying public key (at work)
   when: mtype == 'work'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
@@ -54,7 +54,7 @@
     owner: "{{ whoami }}"
     src: keys/work.pub
 
-- name: Write out private key
+- name: Copying private key (at work)
   when: mtype == 'work'
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
@@ -64,7 +64,7 @@
     src: keys/work
 
 # https://serverfault.com/a/599565
-- name: Write out ssh pub keys for forwarding
+- name: Writing out SSH public keys for forwarding
   when: mtype == 'server' and wedition == 'personal'
   ansible.builtin.shell:
     cmd: >
@@ -78,7 +78,7 @@
     - arch
     - github
 
-- name: Install ssh config
+- name: Copying SSH configuration
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.ssh/config"
     group: "{{ whoami_group }}"

@@ -1,5 +1,5 @@
 ---
-- name: Set hot corner modifier
+- name: Setting hot corner modifier
   community.general.osx_defaults:
     domain: com.apple.dock
     key: wvous-{{ item.location }}-modifier
@@ -8,7 +8,7 @@
   notify:
     - Restart dock
 
-- name: Set hot corner
+- name: Setting hot corner
   community.general.osx_defaults:
     domain: com.apple.dock
     key: wvous-{{ item.location }}-corner

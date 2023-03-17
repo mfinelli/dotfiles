@@ -1,5 +1,5 @@
 ---
-- name: Ensure .vim directory
+- name: Creating vim plugin directories
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -8,7 +8,7 @@
     state: directory
   loop: "{{ vim_plugins_dirs }}"
 
-- name: Install vim plugins
+- name: Installing vim plugins
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
     repo: "{{ item.repo }}"
@@ -16,19 +16,19 @@
   loop: "{{ vim_plugins }}"
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Install the vim configuration
+- name: Linking the vim configuration file
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.vimrc"
     src: "{{ playbook_dir }}/roles/vim/files/vimrc"
     state: link
 
-- name: Install ag ignore file
+- name: Linking silver searcher ignore file
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.vim/.ignore"
     src: "{{ playbook_dir }}/roles/vim/files/ignore"
     state: link
 
-- name: Ensure neovim config directory
+- name: Creating neovim configuration directories
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -37,7 +37,7 @@
     state: directory
   loop: "{{ neovim_config_dirs }}"
 
-- name: Ensure neovim plugin directory
+- name: Creating neovim plugin directories
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -47,13 +47,13 @@
   loop: "{{ neovim_plugins_dirs }}"
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Install the neovim configuration
+- name: Linking neovim configuration file
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/nvim/init.vim"
     src: "{{ playbook_dir }}/roles/vim/files/init.vim"
     state: link
 
-- name: Install neovim plugins
+- name: Installing neovim plugins
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/\
       start/{{ item.name }}"

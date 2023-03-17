@@ -1,5 +1,5 @@
 ---
-- name: Ensure extra screen directory
+- name: Creating screen configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -8,13 +8,13 @@
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link the hostname script
+- name: Linking screen hostname script
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.config/screen/hn.sh"
     src: "{{ playbook_dir }}/roles/screen/files/hn.sh"
     state: link
 
-- name: Install screenrc
+- name: Copying screen configuration
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.screenrc"
     group: "{{ whoami_group }}"

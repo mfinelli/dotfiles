@@ -1,10 +1,10 @@
 ---
-- name: Enable keyboard layouts
+- name: Enabling keyboard layouts
   community.general.dconf:
     key: /org/gnome/desktop/input-sources/sources
     value: "[('xkb', 'us'), ('xkb', 'it')]"
 
-- name: Get the ID of the gnome terminal profile
+- name: Getting the internal ID of the GNOME Terminal profile
   ansible.builtin.shell: >-
     set -e -o pipefail;
     dconf list /org/gnome/terminal/legacy/profiles:/ | head -n1 |
@@ -14,7 +14,7 @@
   args:
     executable: /bin/bash
 
-- name: Configure gnome terminal
+- name: Configuring GNOME Terminal
   community.general.dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:\
       {{ gnome_terminal_profile.stdout }}/{{ item.key }}"
@@ -44,7 +44,7 @@
     - key: bold-is-bright
       value: "true"
 
-- name: Configure screen lock
+- name: Configuring screen lock settings
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -56,17 +56,17 @@
     - key: /org/gnome/desktop/notifications/show-in-lock-screen
       value: "false"
 
-- name: Turn off natural scrolling
+- name: Disabling natural scrolling
   community.general.dconf:
     key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
     value: "false"
 
-- name: Never prompt or start programs on media insertion
+- name: Disabling prompt and start program on media insertion
   community.general.dconf:
     key: /org/gnome/desktop/media-handling/autorun-never
     value: "true"
 
-- name: Configure top bar time
+- name: Configuring top-bar clock
   community.general.dconf:
     key: /org/gnome/desktop/interface/{{ item }}
     value: "true"
@@ -74,13 +74,13 @@
     - clock-show-seconds
     - clock-show-weekday
 
-- name: Configure gnome shell extensions
+- name: Enabling GNOME Shell extensions
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
     value: "[{{ gnome_extensions | join(', ') }}]"
 
-- name: Configure gnome shell dash-to-dock
+- name: Configuring GNOME Shell dash-to-dock extension
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/dash-to-dock/{{ item.key }}
@@ -93,7 +93,7 @@
     - key: custom-theme-shrink
       value: "true"
 
-- name: Configure systemd manager extension
+- name: Configuring GNOME Shell systemd manager extension
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/{{ item.key }}
@@ -104,7 +104,7 @@
     - key: command-method
       value: "'systemctl'"
 
-- name: Set systemd service manager services
+- name: Configuring GNOME Shell systemd manager extension systemd services
   when:
     - ansible_os_family == 'Archlinux'
   community.general.dconf:
@@ -113,19 +113,19 @@
       ['{"name":"Docker","service":"docker.service","type":"system"}',
       '{"name":"libvirtd","service":"libvirtd.service","type":"system"}']
 
-- name: Configure dock apps
+- name: Configuring dock applications (at work)
   when: ansible_os_family == 'Archlinux' and mtype == 'work'
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_work_dock | join(', ') }}]"
 
-- name: Configure dock apps
+- name: Configuring dock applications (at home)
   when: ansible_os_family == 'Archlinux' and mtype == 'personal'
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_personal_dock | join(', ') }}]"
 
-- name: Configure arc menu
+- name: Configuring GNOME Shell Arc Menu extension
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: "{{ item.key }}"

@@ -1,6 +1,6 @@
 ---
 # http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/
-- name: Write out iterm preferences
+- name: Copying iTerm2 preferences
   ansible.builtin.template:
     dest: "{{ playbook_dir }}/roles/macos/templates/com.googlecode.iterm2.plist"
     group: "{{ whoami_group }}"
@@ -8,14 +8,14 @@
     owner: "{{ whoami }}"
     src: iterm2.plist.j2
 
-- name: Set iterm2 preferences directory
+- name: Configuring iTerm2 preferences directory
   community.general.osx_defaults:
     domain: com.googlecode.iterm2
     key: PrefsCustomFolder
     type: string
     value: "{{ playbook_dir }}/roles/macos/templates"
 
-- name: Tell iterm2 to use the preferences directory
+- name: Enabling using the iTerm2 preferences directory
   community.general.osx_defaults:
     domain: com.googlecode.iterm2
     key: LoadPrefsFromCustomFolder

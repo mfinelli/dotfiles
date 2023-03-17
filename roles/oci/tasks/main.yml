@@ -1,5 +1,5 @@
 ---
-- name: Ensure .oci directory
+- name: Creating OCI configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -7,7 +7,7 @@
     path: "{{ ansible_user_dir }}/.oci"
     state: directory
 
-- name: Copy oci private key
+- name: Copying OCI private key
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.oci/oci.pem"
     group: "{{ whoami_group }}"
@@ -15,7 +15,7 @@
     owner: "{{ whoami }}"
     src: oci.pem
 
-- name: Install oci config
+- name: Copying OCI configuration
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.oci/config"
     group: "{{ whoami_group }}"

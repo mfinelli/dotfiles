@@ -1,5 +1,5 @@
 ---
-- name: Ensure aws directory
+- name: Creating aws configuration directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -8,13 +8,13 @@
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Link aws config
+- name: Linking aws configuration
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/.aws/config"
     src: "{{ playbook_dir }}/roles/aws/files/config"
     state: link
 
-- name: Install aws credentials
+- name: Copying aws credentials
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.aws/credentials"
     group: "{{ whoami_group }}"
