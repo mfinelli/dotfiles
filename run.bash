@@ -78,8 +78,6 @@ fi
 
 curl -s https://finelli.pub/36FDA306.asc | gpg --quiet --import
 
-ansible-galaxy collection install -U -r requirements.yml
-
 needsudo=""
 # if [[ $(uname) == Darwin ]]; then
 #   # on macos we set some settings (software update) that require admin
