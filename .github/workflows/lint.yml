@@ -15,7 +15,7 @@ jobs:
       - uses: mfinelli/setup-shfmt@v2
       - run: pip3 install ansible ansible-lint
       - run: npm install -g prettier
-      - run: ansible-galaxy install -r requirements.yml
+      # - run: ansible-galaxy install -r requirements.yml
       - name: Run shellcheck
         run: |
           shellcheck --version
