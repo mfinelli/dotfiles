@@ -22,6 +22,7 @@ urlwatch_github_releases_complex:
   - leighmcculloch/vangen
   - mikefarah/yq
   - newrelic/newrelic-cli
+  - one2nc/cloudlens
   - spf13/cobra-cli
   - tj/n
   - vrana/adminer
