@@ -18,7 +18,7 @@ bash -c "$(curl -fsSL https://mfgo.link/dotfiles)"
 
 **N.B.** if you're intending to run the dotfiles on a remote server you need
 to forward your ssh agent with the public keys that you intend to write out
-unlocked.
+unlocked (`ssh-add ~/.ssh/key`).
 
 The initial installation will install the dotfiles into `$HOME/.dotfiles` and
 afterwards everything can be updated with `git pull` and `./run.bash`.
