@@ -28,10 +28,3 @@
     dest: "{{ ansible_user_dir }}/.config/keymapper.conf"
     src: "{{ playbook_dir }}/roles/xorg/files/keymapper.conf"
     state: link
-
-# TODO: convert into dconf community module
-# - name: ensure bluetooth download directory is correct
-#   when: mtype != 'server'
-#   gsetting:
-#     key: org.blueman.transfer.shared-path
-#     value: "'{{ ansible_user_dir }}/Downloads'"
