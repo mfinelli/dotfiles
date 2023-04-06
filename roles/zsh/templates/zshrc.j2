@@ -65,6 +65,12 @@ if [[ -d "$HOME/bin" ]]; then
   export PATH="$HOME/bin":$PATH
 fi
 
+{% if ansible_os_family == "Darwin" and mtype == "personal" %}
+if [[ -d "$HOME/.docker/bin" ]]; then
+  export PATH="$HOME/.docker/bin":$PATH
+fi
+{% endif %}
+
 if [[ -d "$HOME/src/go" ]]; then
   export GOPATH="$HOME/src/go"
 fi
