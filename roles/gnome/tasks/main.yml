@@ -77,6 +77,12 @@
 - name: Enabling GNOME Shell extensions
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
+    key: /org/gnome/shell/disable-user-extensions
+    value: "false"
+
+- name: Enabling individual GNOME Shell extensions
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
     value: "[{{ gnome_extensions | join(', ') }}]"
 
