@@ -1,3 +1,6 @@
 ---
 - name: Restart dock
   ansible.builtin.command: killall Dock
+  register: killdock
+  changed_when: killdock.rc == 0
+  failed_when: killdock.rc != 0
