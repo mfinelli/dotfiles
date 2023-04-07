@@ -4,10 +4,6 @@ urlwatch_config_basepath:
   Darwin: "{{ ansible_user_dir }}/Library/Application Support/urlwatch"
   Debian: "{{ ansible_user_dir }}/.config/urlwatch"
 
-urlwatch_github_releases:
-  - ansible-collections/ansible.posix
-  - ansible-collections/community.general
-
 urlwatch_github_releases_complex:
   # aur packages
   - 1Password/connect-sdk-python
@@ -31,7 +27,6 @@ urlwatch_github_releases_complex:
   - Bash-it/bash-it
   - ansible-collections/kubernetes.core
   - cert-manager/cert-manager
-  - charite/jannovar
   - kyleconroy/sqlc
 
 urlwatch_github_helm_releases:
@@ -42,7 +37,6 @@ urlwatch_github_helm_releases:
   - kubernetes-sigs/metrics-server/master/charts/metrics-server
   - kubernetes/ingress-nginx/master/charts/ingress-nginx
   - newrelic/helm-charts/master/charts/newrelic-infrastructure
-  - newrelic/helm-charts/master/charts/newrelic-logging
   - prometheus-community/helm-charts/main/charts/kube-state-metrics
   - stakater/Reloader/master/deployments/kubernetes/chart/reloader
 

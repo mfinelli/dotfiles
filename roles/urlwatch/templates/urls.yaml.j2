@@ -1,13 +1,4 @@
 # {{ ansible_managed }}
-{% for item in urlwatch_github_releases %}
----
-url: https://github.com/{{ item }}/releases.atom
-filter:
-  # - xpath: '(//div[contains(@class,"release-timeline-tags")]//h4)[1]/a'
-  - xpath: '//entry[1]/title'
-  - html2text: re
-  - strip
-{% endfor %}
 {% for item in urlwatch_github_releases_complex %}
 ---
 url: https://github.com/{{ item }}/tags.atom
