@@ -87,6 +87,7 @@ urlwatch_rubygems:
   - rubocop-rails
   - ruby_engine
   - ruby_version
+  - shoulda
   - shoulda-matchers
   - sshkit
   - uber
