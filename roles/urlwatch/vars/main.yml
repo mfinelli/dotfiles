@@ -97,6 +97,11 @@ urlwatch_rubygems:
   - shoulda-matchers
   - sshkit
   - toml-rb
+  - tty-color
+  - tty-cursor
+  - tty-reader
+  - tty-screen
+  - tty-which
   - uber
   - webrobots
   - yardstick
