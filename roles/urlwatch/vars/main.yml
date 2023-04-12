@@ -48,8 +48,10 @@ urlwatch_rubygems:
   - abstract_type
   - adamantium
   - airbrussh
+  - base32
   - buftok
   - capistrano
+  - citrus
   - cliver
   - concord
   - declarative
@@ -76,12 +78,16 @@ urlwatch_rubygems:
   - minitest-reporters
   - mono_logger
   - net-http-digest_auth
+  - net-ldap
+  - netaddr
   - notiffany
   - oedipus_lex
   - oj
+  - parseconfig
   - powerpack
   - rchardet
   - rest-client
+  - rotp
   - rspec-pending_for
   - rspectacular
   - rubocop-rails
@@ -90,6 +96,7 @@ urlwatch_rubygems:
   - shoulda
   - shoulda-matchers
   - sshkit
+  - toml-rb
   - uber
   - webrobots
   - yardstick
