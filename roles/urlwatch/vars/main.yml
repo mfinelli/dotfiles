@@ -59,6 +59,7 @@ urlwatch_rubygems:
   - docile
   - emoji_regex
   - equalizer
+  - equatable
   - exifr
   - faker
   - fuubar
@@ -69,6 +70,7 @@ urlwatch_rubygems:
   - http-accept
   - image_size
   - jaro_winkler
+  - java-properties
   - librarianp
   - logger-application
   - mechanize
@@ -77,6 +79,7 @@ urlwatch_rubygems:
   - mini_magick
   - minitest-reporters
   - mono_logger
+  - necromancer
   - net-http-digest_auth
   - net-ldap
   - netaddr
@@ -87,6 +90,7 @@ urlwatch_rubygems:
   - powerpack
   - rchardet
   - rest-client
+  - rhcl
   - rotp
   - rspec-pending_for
   - rspectacular
@@ -99,13 +103,17 @@ urlwatch_rubygems:
   - strings
   - toml-rb
   - tty-color
+  - tty-config
   - tty-cursor
+  - tty-logger
   - tty-pager
+  - tty-prompt
   - tty-reader
   - tty-screen
   - tty-which
   - uber
   - webrobots
+  - xml-simple
   - yardstick
 
 urlwatch_npm_packages:
