@@ -62,6 +62,8 @@ urlwatch_rubygems:
   - equatable
   - exifr
   - faker
+  - flay
+  - flog
   - fuubar
   - git
   - guard-compat
