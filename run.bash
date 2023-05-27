@@ -90,7 +90,7 @@ else
   vaultoption=""
 fi
 
-if [[ ! -z $SSH_TTY ]]; then
+if [[ -n $SSH_TTY ]]; then
   if ! ssh-add -L > /dev/null 2>&1; then
     echo "We seem to be running over SSH but ssh-agent isn't available"
     echo "Are you sure that you forwarded your keys?"
