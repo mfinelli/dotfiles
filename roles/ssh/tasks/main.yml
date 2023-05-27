@@ -70,7 +70,8 @@
     cmd: >
       set -e -o pipefail;
       ssh-add -L | grep '!{{ item }}$'
-      > {{ ansible_user_dir }}/.ssh/{{ item }}.pub
+      > {{ ansible_user_dir }}/.ssh/{{ item }}.pub &&
+      chmod 0600 {{ ansible_user_dir }}/.ssh/{{ item }}.pub
     creates: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
   args:
     executable: /bin/bash
