@@ -94,7 +94,7 @@ if [[ ! -z $SSH_TTY ]]; then
   if ! ssh-add -L > /dev/null 2>&1; then
     echo "We seem to be running over SSH but ssh-agent isn't available"
     echo "Are you sure that you forwarded your keys?"
-    read -r -n 1 -p "Continue?"
+    read -r -n 1 -p "Continue? "
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
       exit 1
     fi
