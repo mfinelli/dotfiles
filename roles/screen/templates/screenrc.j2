@@ -1,5 +1,7 @@
 # {{ ansible_managed }}
 
+defscrollback 8096
+
 # https://www.gnu.org/software/screen/manual/html_node/Backtick.html
 # refresh every 24 hours (it should basically never change...)
 backtick 0 86400 86400 {{ ansible_user_dir }}/.config/screen/hn.sh
