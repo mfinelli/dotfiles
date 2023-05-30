@@ -4,11 +4,12 @@
 # refresh every 24 hours (it should basically never change...)
 backtick 0 86400 86400 {{ ansible_user_dir }}/.config/screen/hn.sh
 backtick 1 86400 86400 /bin/date '+%Z'
+backtick 2 86400 86400 {{ ansible_user_dir }}/.config/screen/sty.sh
 
 # https://lizdenys.com/journal/articles/understanding-gnu-screens-captions.html
 # caption always '%{= kw}[ %{y}%H%{-} ][ %= %-Lw%{+b M}%n%f* %t%{-}%+LW %= ][ %{r}%l%{-} ][ %{c}%c%{-} ]'
 # https://www.gnu.org/software/screen/manual/screen.html#String-Escapes
 # caption always '%{= kw} %{c}%H%{-} %= %0c '
-caption always '%{= kw} %{+b r}SCREEN: %{-}%{c}%0`%{-} %= %D %0c %1` '
+caption always '%{= kw} %{+b r}SCREEN: %{-}%{c}%0`%{-} %2` %= %D %0c %1` '
 
 # vim: ft=screen.jinja2
