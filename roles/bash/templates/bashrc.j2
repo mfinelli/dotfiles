@@ -147,4 +147,8 @@ export CHROOT=$HOME/chroot
 export SMCHROOT=$HOME/smchroot
 {% endif %}
 
+{% if mtype == "server" and wedition == "codespace" %}
+[[ -z $LANG ]] && export LANG="$(locale -a | grep -m1 en_US)"
+{% endif %}
+
 # vim: ft=bash.jinja2
