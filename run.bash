@@ -61,6 +61,10 @@ elif array_contains GAMING "$hn"; then
   mtype=personal
   wedition=media
   isgaming=yes
+elif [[ $hn =~ ^codespaces- ]]; then
+  mtype=server
+  wedition=personal
+  isgaming=no
 else
   VAULT_ID=p@./vault
   mtype=personal
