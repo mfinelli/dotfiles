@@ -38,7 +38,7 @@ MEDIA=(liveusb zen)
 # shellcheck disable=SC2034
 GAMING=(bowser wario)
 # shellcheck disable=SC2034
-PSERVER=(cdev.finelli.dev odev parkpi raipi rome.mfpkg.net ubuilder)
+PSERVER=(homepi parkpi raipi rome.mfpkg.net)
 
 hn="$(hostname)"
 
