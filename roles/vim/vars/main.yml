@@ -18,6 +18,7 @@ neovim_plugins_dirs:
 neovim_config_dirs:
   - "{{ ansible_user_dir }}/.config"
   - "{{ ansible_user_dir }}/.config/nvim"
+  - "{{ ansible_user_dir }}/.config/nvim/lua"
 
 vim_plugins:
   - name: airline
@@ -85,3 +86,5 @@ vim_plugins:
 neovim_plugins:
   - name: gitlens
     repo: https://github.com/APZelos/blamer.nvim.git
+  - name: treesitter
+    repo: https://github.com/nvim-treesitter/nvim-treesitter.git

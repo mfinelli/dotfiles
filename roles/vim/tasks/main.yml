@@ -53,6 +53,13 @@
     src: "{{ playbook_dir }}/roles/vim/files/init.vim"
     state: link
 
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Linking neovim lua configuration file
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/nvim/lua/init.lua"
+    src: "{{ playbook_dir }}/roles/vim/files/init.lua"
+    state: link
+
 - name: Installing neovim plugins
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/\
