@@ -40,6 +40,10 @@ set complete-=i
 colorscheme jellybeans
 let g:airline_theme='jellybeans'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+
 " increase frequency of gitgutter updates
 set updatetime=100
 
