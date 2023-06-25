@@ -50,6 +50,8 @@ vim_plugins:
     repo: https://github.com/amadeus/vim-mjml.git
   # - name: indentline
   #   repo: https://github.com/Yggdroot/indentLine.git
+  - name: narrow
+    repo: https://github.com/chrisbra/NrrwRgn.git
   - name: nerdtree
     repo: https://github.com/preservim/nerdtree.git
   - name: nerdtree-git
