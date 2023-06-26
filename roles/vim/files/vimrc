@@ -90,6 +90,11 @@ else
   let g:ctrlp_show_hidden = 1
 endif
 
+" we still have a few bullseye systems with vim<9
+if has('vim9script')
+  let g:GIT_LENS_ENABLED = 1
+endif
+
 " https://stackoverflow.com/a/60655244
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['\.git$']
