@@ -17,7 +17,7 @@
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
-    version: v1.16.1
+    version: v1.18.0
 
 - name: Installing oh-my-zsh
   ansible.builtin.git:
