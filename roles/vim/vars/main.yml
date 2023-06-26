@@ -25,6 +25,8 @@ vim_plugins:
     repo: https://github.com/vim-airline/vim-airline.git
   - name: airline-themes
     repo: https://github.com/vim-airline/vim-airline-themes.git
+  - name: ale
+    repo: https://github.com/dense-analysis/ale.git
   - name: ansible
     repo: https://github.com/pearofducks/ansible-vim.git
   - name: brewfile
