@@ -176,14 +176,14 @@ fi
 {% endif %}
 
 {% if mtype == "personal" %}
-export CLOUDFLARE_API_TOKEN={{ cloudflare_api_token }}
-export CFCA_TOKEN={{ cloudflare_ca_token }}
-export CF_TOKEN={{ cloudflare_global_api_key }}
-export DIGITALOCEAN_ACCESS_TOKEN={{ digitalocean_token }}
-export GITHUB_TOKEN={{ github_token }}
-export NEW_RELIC_ACCOUNT_ID={{ newrelic_account_id }}
-export NEW_RELIC_API_KEY={{ newrelic_api_key }}
-export VULTR_API_KEY={{ vultr_api_key }}
+export CLOUDFLARE_API_TOKEN={{ zsh_cloudflare_api_token }}
+export CFCA_TOKEN={{ zsh_cloudflare_ca_token }}
+export CF_TOKEN={{ zsh_cloudflare_global_api_key }}
+export DIGITALOCEAN_ACCESS_TOKEN={{ zsh_digitalocean_token }}
+export GITHUB_TOKEN={{ zsh_github_token }}
+export NEW_RELIC_ACCOUNT_ID={{ zsh_newrelic_account_id }}
+export NEW_RELIC_API_KEY={{ zsh_newrelic_api_key }}
+export VULTR_API_KEY={{ zsh_vultr_api_key }}
 {% endif %}
 
 {% if ansible_os_family == "Darwin" and mtype == "personal" %}
@@ -222,7 +222,7 @@ function certexp() {
   openssl x509 -text -noout -in "$1" | grep Not\ After
 }
 
-{% for gfa in gist_function_aliases %}
+{% for gfa in zsh_gist_function_aliases %}
 if [[ -f "{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
   alias {{ gfa.alias }}="{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}"
 fi

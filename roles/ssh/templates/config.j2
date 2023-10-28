@@ -2,7 +2,7 @@
 
 {% if mtype == "work" %}
 AddKeysToAgent yes
-User {{ work_ssh_username[wedition] }}
+User {{ ssh_work_username[wedition] }}
 {% if ansible_os_family == "Darwin" %}
 UseKeychain yes
 {% endif %}

@@ -6,7 +6,7 @@ vim_plugins_dirs:
   - "{{ ansible_user_dir }}/.vim/pack/local/opt"
   - "{{ ansible_user_dir }}/.vim/pack/local/start"
 
-neovim_plugins_dirs:
+vim_neovim_plugins_dirs:
   - "{{ ansible_user_dir }}/.local"
   - "{{ ansible_user_dir }}/.local/share"
   - "{{ ansible_user_dir }}/.local/share/nvim"
@@ -15,7 +15,7 @@ neovim_plugins_dirs:
   - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local"
   - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/start"
 
-neovim_config_dirs:
+vim_neovim_config_dirs:
   - "{{ ansible_user_dir }}/.config"
   - "{{ ansible_user_dir }}/.config/nvim"
   - "{{ ansible_user_dir }}/.config/nvim/lua"
@@ -87,7 +87,7 @@ vim_plugins:
   - name: jellybeans
     repo: https://github.com/nanotech/jellybeans.vim.git
 
-neovim_plugins:
+vim_neovim_plugins:
   - name: gitlens
     repo: https://github.com/APZelos/blamer.nvim.git
   - name: treesitter
