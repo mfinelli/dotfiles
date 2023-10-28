@@ -80,6 +80,12 @@ if [[ -d "$HOME/.n/bin" ]]; then
   export PATH="$HOME/.n/bin":$PATH
 fi
 
+{% if ansible_os_family == "Darwin" %}
+if [[ -e "${HOMEBREW_PREFIX}/opt/ruby/bin" ]]; then
+  export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin":$PATH
+fi
+{% endif %}
+
 function unlockmf() {
   gpg -qd ~/.zsh/36FDA306.asc > /dev/null
 }
