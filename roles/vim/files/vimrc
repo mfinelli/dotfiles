@@ -10,6 +10,9 @@ set smartcase
 " show line numbers
 set relativenumber
 
+" scroll screen before reaching top/bottom
+set scrolloff=5
+
 " turn on syntax highlighting
 " https://stackoverflow.com/a/33380495
 if !exists("g:syntax_on")
