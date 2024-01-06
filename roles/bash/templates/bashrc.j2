@@ -7,13 +7,9 @@
 # if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
-
 # don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
-HISTSIZE=100000
+HISTSIZE=1000000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -22,19 +18,19 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+
 # source bash_aliases if it exists
 if [[ -f ~/.bash_aliases ]]; then
-  . ~/.bash_aliases
+  source ~/.bash_aliases
 fi
 
 export EDITOR=vim
 
 if [[ -d "$HOME/bin" ]]; then
   export PATH="$HOME/bin":$PATH
-fi
-
-if [[ -d "$HOME/src/go" ]]; then
-  export GOPATH="$HOME/src/go"
 fi
 
 alias please='eval "sudo $(fc -ln -1)"'
@@ -47,20 +43,17 @@ if command -v shfmt > /dev/null 2>&1; then
   alias mshfmt='shfmt -s -i 2 -ci -sr'
 fi
 
-# AWS completion if it exists
-if [ -f /usr/bin/aws_completer ]; then
-  complete -C '/usr/bin/aws_completer' aws
-fi
-
-{% if ansible_os_family != "Darwin" %}
+{% if ansible_os_family == "Archlinux" %}
 if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-  # archlinux
   source /usr/share/fzf/key-bindings.bash
-elif [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
-  # debian
+fi
+{% elif ansible_os_family == "Debian" %}
+if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
   source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
+{% endif %}
 
+{% if ansible_os_family != "Darwin" %}
 export FZF_CTRL_R_OPTS='--reverse'
 if command -v fd > /dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='fd -H --type f'
@@ -68,9 +61,9 @@ if command -v fd > /dev/null 2>&1; then
 fi
 {% endif %}
 
-if [[ "$(uname)" == "Darwin" ]]; then
-  export HOMEBREW_NO_ANALYTICS=1
-fi
+{% if ansible_os_family == "Darwin" %}
+export HOMEBREW_NO_ANALYTICS=1
+{% endif %}
 
 #
 # BEGIN BASH-IT CONFIGURATION
