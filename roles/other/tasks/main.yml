@@ -1,4 +1,11 @@
 ---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Linking keymapper configuration
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/keymapper.conf"
+    src: "{{ playbook_dir }}/roles/other/files/keymapper.conf"
+    state: link
+
 - name: Copying `.backuprc`
   when:
     - ansible_os_family != 'Darwin'

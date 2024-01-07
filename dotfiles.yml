@@ -40,11 +40,6 @@
     - role: vim
     - role: vpn
       when: mtype == 'personal'
-    - role: xorg
-      when:
-        - ansible_os_family != 'Darwin'
-        - mtype != 'server'
-        - wedition != 'media'
     - role: zsh
       when:
         - mtype != 'server'
