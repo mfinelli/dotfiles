@@ -1,15 +1,34 @@
 ---
+gnome_terminal_font:
+  Archlinux: JetBrainsMono Nerd Font Mono
+  Debian: FiraMono Nerd Font Mono
+
 gnome_extensions:
-  - "'appindicatorsupport@rgcjonas.gmail.com'"
-  - "'arch-update@RaphaelRochet'"
-  - "'arcmenu@arcmenu.com'"
-  - "'dash-to-dock@micxgx.gmail.com'"
-  - "'espresso@coadmunkee.github.com'"
-  - "'keymapper@houmain.github.com'"
-  - "'no-overview@fthx'"
-  - "'systemd-manager@hardpixel.eu'"
-  - "'ubuntu-dock@ubuntu.com'"
-  - "'weatherintheclock@JasonLG1979.github.io'"
+  Archlinux:
+    - "'appindicatorsupport@rgcjonas.gmail.com'"
+    - "'arch-update@RaphaelRochet'"
+    - "'arcmenu@arcmenu.com'"
+    - "'dash-to-dock@micxgx.gmail.com'"
+    - "'espresso@coadmunkee.github.com'"
+    - "'keymapper@houmain.github.com'"
+    - "'no-overview@fthx'"
+    - "'systemd-manager@hardpixel.eu'"
+    - "'ubuntu-dock@ubuntu.com'"
+    - "'weatherintheclock@JasonLG1979.github.io'"
+  Debian:
+    - "'arcmenu@arcmenu.com'"
+    - "'bluetooth-quick-connect@bjarosze.gmail.com'"
+    - "'dash-to-dock@micxgx.gmail.com'"
+    - "'debian-updates-indicator@glerro.pm.me'"
+    - "'gamemode@christian.kellner.me'"
+    - "'keymapper@houmain.github.com'"
+    - "'no-overview@fthx'"
+    - "'openWeatherMenu'"
+    - "'ubuntu-appindicators@ubuntu.com'"
+
+gnome_arcmenu_icon:
+  Archlinux: "6"
+  Debian: "1"
 
 gnome_personal_dock:
   - "'firefox.desktop'"

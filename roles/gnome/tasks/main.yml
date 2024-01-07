@@ -25,7 +25,7 @@
     - key: use-system-font
       value: "false"
     - key: font
-      value: "'JetBrainsMono Nerd Font Mono 12'"
+      value: "'{{ gnome_terminal_font[ansible_os_family] }} 12'"
     - key: use-theme-colors
       value: "false"
     - key: audible-bell
@@ -84,10 +84,10 @@
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
-    value: "[{{ gnome_extensions | join(', ') }}]"
+    value: "[{{ gnome_extensions[ansible_os_family] | join(', ') }}]"
 
 - name: Configuring GNOME Shell dash-to-dock extension
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/shell/extensions/dash-to-dock/{{ item.key }}
     value: "{{ item.value }}"
@@ -132,7 +132,7 @@
     value: "[{{ gnome_personal_dock | join(', ') }}]"
 
 - name: Configuring GNOME Shell Arc Menu extension
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
