@@ -34,9 +34,6 @@
     dest: "{{ ansible_user_dir }}/.zsh/forgit"
     repo: https://github.com/wfxr/forgit.git
 
-- name: Installing Nerd Fonts
-  ansible.builtin.import_tasks: fonts.yml
-
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
 - name: Copying zsh configuration

@@ -1,6 +1,0 @@
----
-- name: Rebuild local font cache
-  ansible.builtin.command: fc-cache -f {{ ansible_user_dir }}/.local/share/fonts
-  register: rebuildfontcache
-  changed_when: rebuildfontcache.rc == 0
-  failed_when: rebuildfontcache.rc != 0
