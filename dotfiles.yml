@@ -18,17 +18,14 @@
       when: mtype != 'server'
     - role: gnome
       when:
-        - ansible_os_family == 'Archlinux'
+        - ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
         - mtype == 'personal' or mtype == 'work'
-        - wedition != 'media' # xfce
     - role: hexchat
       when:
-        - ansible_os_family != 'Darwin'
+        - ansible_os_family == 'Archlinux'
         - mtype == 'personal' and wedition != 'media'
     - role: macos
       when: ansible_os_family == 'Darwin'
-    - role: oci
-      when: mtype == 'personal' and wedition != 'media'
     - role: other
     - role: ruby
       when: mtype == 'personal' and wedition != 'media'

@@ -3,10 +3,8 @@
 default-cache-ttl 600
 max-cache-ttl 7200
 
-{% if ansible_os_family == 'Archlinux' %}
-{% if mtype == 'personal' or mtype == 'work' %}
+{% if ansible_os_family != "Darwin" and mtype != "server" %}
 pinentry-program /usr/bin/pinentry-gnome3
-{% endif %}
 {% endif %}
 
 # vim: ft=conf.jinja2

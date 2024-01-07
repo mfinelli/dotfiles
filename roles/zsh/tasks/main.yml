@@ -11,7 +11,7 @@
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
-    version: v0.19.5
+    version: v0.19.6
 
 - name: Installing powerlevel10k
   ansible.builtin.git:
