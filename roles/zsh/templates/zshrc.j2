@@ -163,6 +163,7 @@ export HOMEBREW_NO_ANALYTICS=1
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 {% if mtype == 'work' and wedition == 'facile' %}
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 if command -v direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
