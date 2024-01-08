@@ -149,3 +149,33 @@
       value: "'Top'"
     - key: /org/gnome/shell/extensions/arcmenu/distro-icon
       value: "6" # archlinux
+
+- name: Configuring GNOME Night Light
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: night-light-enabled
+      value: "true"
+    - key: night-light-schedule-automatic
+      value: "true"
+
+- name: Configuring GNOME Interface fonts
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/desktop/interface/font-name
+      value: "'Ubuntu 11'"
+    - key: /org/gnome/desktop/wm/preferences/titlebar-font
+      value: "'Ubuntu Bold 11'"
+    - key: /org/gnome/desktop/interface/document-font-name
+      value: "'Ubuntu 11'"
+
+- name: Setting GNOME Overview shortcut to "Right Super"
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: /org/gnome/mutter/overlay-key
+    value: "'Super_R'"
