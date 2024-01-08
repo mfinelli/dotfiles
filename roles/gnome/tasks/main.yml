@@ -150,6 +150,12 @@
     - key: /org/gnome/shell/extensions/arcmenu/distro-icon
       value: "6" # archlinux
 
+- name: Enabling location services # required for night light
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: /org/gnome/system/location/enabled
+    value: "true"
+
 - name: Configuring GNOME Night Light
   when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
   community.general.dconf:
