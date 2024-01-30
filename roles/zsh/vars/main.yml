@@ -15,6 +15,9 @@ zsh_gist_function_aliases:
   - alias: backup.bash
     filename: backup.bash
     repo: https://gist.github.com/6d8727f3aa2ded9a9a6494dea96fe291.git
+  - alias: cwud.bash
+    filename: cwud.bash
+    repo: https://gist.github.com/17d3af7e013ad54f5c3516308656f304.git
 
 zsh_cloudflare_api_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
