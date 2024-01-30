@@ -119,3 +119,18 @@ let g:gutentags_cache_dir = $HOME . '/.cache/gutentags'
 let g:vim_svelte_plugin_use_pug = 1
 let g:vim_svelte_plugin_use_typescript = 1
 let g:vim_svelte_plugin_use_sass = 1
+
+" begin https://www.reddit.com/r/vim/comments/uxdgwa/comment/i9wytp0/
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" end https://www.reddit.com/r/vim/comments/uxdgwa/comment/i9wytp0/
