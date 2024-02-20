@@ -231,6 +231,11 @@ fi
 {% endfor %}
 
 {% if ansible_os_family == "Archlinux" %}
+# https://wiki.archlinux.org/title/GNOME/Keyring#Setup_gcr
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+{% endif %}
+
+{% if ansible_os_family == "Archlinux" %}
 # "standard" chroot
 # create: mkarchroot $CHROOT/root base-devel
 # update: arch-nspawn $CHROOT/root pacman -Syu
