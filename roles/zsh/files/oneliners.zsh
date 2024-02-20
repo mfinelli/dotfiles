@@ -50,3 +50,11 @@ function prunelocalgitbranches() {
     grep -v '^devel\|develop\|main\|master$' | # skip well known branches
     xargs git branch -d # do the needful
 }
+
+function k8spodswithoutcontroller() {
+  # https://stackoverflow.com/a/58613732
+
+  kubectl get pods --all-namespaces -o json |
+    jq -r ".items | map(select(.metadata.ownerReferences == null) |\
+      .metadata.name) | .[]"
+}
