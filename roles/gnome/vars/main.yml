@@ -13,6 +13,7 @@ gnome_extensions:
     - "'keymapper@houmain.github.com'"
     - "'nightthemeswitcher@romainvigier.fr'"
     - "'no-overview@fthx'"
+    - "'pano@elhan.io'"
     - "'systemd-manager@hardpixel.eu'"
     - "'ubuntu-dock@ubuntu.com'"
     - "'weatherintheclock@JasonLG1979.github.io'"
