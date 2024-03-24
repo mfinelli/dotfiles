@@ -47,6 +47,8 @@ vim_plugins:
     repo: https://github.com/airblade/vim-gitgutter.git
   - name: gitlens
     repo: https://github.com/Eliot00/git-lens.vim.git
+  - name: go
+    repo: https://github.com/fatih/vim-go.git
   - name: gutentags
     repo: https://github.com/ludovicchabant/vim-gutentags.git
   # - name: helm
