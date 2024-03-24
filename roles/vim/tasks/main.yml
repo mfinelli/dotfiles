@@ -15,6 +15,15 @@
     version: HEAD
   loop: "{{ vim_plugins }}"
 
+- name: Installing raw syntax files
+  ansible.builtin.get_url:
+    dest: "{{ ansible_user_dir }}/.vim/syntax/{{ item.name }}.vim"
+    group: "{{ whoami_group }}"
+    mode: "0644"
+    owner: "{{ whoami }}"
+    url: "{{ item.url }}"
+  loop: "{{ vim_syntax_files }}"
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking the vim configuration file
   ansible.builtin.file:
