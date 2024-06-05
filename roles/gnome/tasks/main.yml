@@ -185,3 +185,19 @@
   community.general.dconf:
     key: /org/gnome/mutter/overlay-key
     value: "'Super_R'"
+
+# ID taken from observing `dconf watch /` but I don't think that it matters
+- name: Configuring GNOME random wallpaper local source
+  when: ansible_os_family =='Archlinux'
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources/general/1717579799622/name
+      value: "'Local'"
+    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources/localFolder/1717579799622/folder
+      value: "'{{ ansible_user_dir }}/.local/share/backgrounds'"
+    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources
+      value: "['1717579799622']"
+    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/fetch-on-startup
+      value: "true"

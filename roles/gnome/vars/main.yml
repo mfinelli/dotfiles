@@ -14,6 +14,7 @@ gnome_extensions:
     - "'nightthemeswitcher@romainvigier.fr'"
     - "'no-overview@fthx'"
     - "'pano@elhan.io'"
+    - "'randomwallpaper@iflow.space'"
     - "'systemd-manager@hardpixel.eu'"
     - "'ubuntu-dock@ubuntu.com'"
     - "'weatherintheclock@JasonLG1979.github.io'"
