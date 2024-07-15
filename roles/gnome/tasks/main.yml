@@ -186,6 +186,13 @@
     key: /org/gnome/mutter/overlay-key
     value: "'Super_R'"
 
+- name: Configuring blur-my-shell-extension
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    # disables the corners on the dash-to-dock
+    key: /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/pipeline
+    value: "'pipeline_default'"
+
 # ID taken from observing `dconf watch /` but I don't think that it matters
 - name: Configuring GNOME random wallpaper local source
   when: ansible_os_family =='Archlinux'
