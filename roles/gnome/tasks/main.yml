@@ -167,6 +167,13 @@
     - key: night-light-schedule-automatic
       value: "true"
 
+# https://github.com/blueman-project/blueman/issues/2411
+- name: Setting blueman applet to use symbolic status icons
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/blueman/general/symbolic-status-icons
+    value: "true"
+
 - name: Configuring GNOME Interface fonts
   when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
   community.general.dconf:
