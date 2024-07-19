@@ -207,11 +207,14 @@
     key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:
-    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources/general/1717579799622/name
+    - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
+        sources/general/1717579799622/name"
       value: "'Local'"
-    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources/localFolder/1717579799622/folder
+    - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
+        sources/localFolder/1717579799622/folder"
       value: "'{{ ansible_user_dir }}/.local/share/backgrounds'"
     - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources
       value: "['1717579799622']"
-    - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/fetch-on-startup
+    - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
+        fetch-on-startup"
       value: "true"
