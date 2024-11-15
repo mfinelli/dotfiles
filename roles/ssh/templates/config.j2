@@ -1,10 +1,20 @@
 # {{ ansible_managed }}
 
 {% if mtype == "work" %}
-AddKeysToAgent yes
-User {{ ssh_work_username[wedition] }}
+{% if ansible_os_family == "Archlinux" %}
+Host aur aur.archlinux.org
+    User aur
+    Hostname aur.archlinux.org
+
+Host rome.mfpkg.net
+    User mario
+
+{% endif %}
+Host *
+    AddKeysToAgent yes
+    User {{ ssh_work_username[wedition] }}
 {% if ansible_os_family == "Darwin" %}
-UseKeychain yes
+    UseKeychain yes
 {% endif %}
 {% elif mtype == "server" %}
 {% if wedition == "personal" %}
