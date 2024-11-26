@@ -235,7 +235,7 @@
 
 # ID taken from observing `dconf watch /` but I don't think that it matters
 - name: Configuring GNOME random wallpaper local source
-  when: ansible_os_family =='Archlinux'
+  when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
