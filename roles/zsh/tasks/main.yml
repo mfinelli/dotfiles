@@ -67,3 +67,6 @@
 
 - name: Configuring gist aliases
   ansible.builtin.import_tasks: functions.yml
+
+- name: Configuring other shell-related tools
+  ansible.builtin.import_tasks: other.yml

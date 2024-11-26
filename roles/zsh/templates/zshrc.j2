@@ -34,6 +34,10 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
+if [[ -f /usr/bin/lsd ]]; then
+  # unalias lsd
+  alias ls=/usr/bin/lsd
+fi
 
 source {{ ansible_user_dir }}/.zsh/autoquoter/zsh-autoquoter.zsh
 ZAQ_PREFIXES+=('git commit( [^ ]##)# -[^ -]#m' 'ssh( [^ ]##)# [^ -][^ ]#')
@@ -107,11 +111,13 @@ fi
 
 {% if ansible_os_family == "Darwin" %}
 # Use GNU coreutils ls if it's installed on osx
-if [[ -f $HOMEBREW_PREFIX/bin/gls ]]; then
+if [[ -f $HOMEBREW_PREFIX/bin/gls && ! -f /usr/bin/lsd ]]; then
   alias ls="gls --color"
 fi
 {% else %}
-alias ls="ls --color"
+if [[ ! -f /usr/bin/lsd ]]; then
+  alias ls="ls --color"
+fi
 {% endif %}
 
 alias please='eval "sudo $(fc -ln -1)"'
