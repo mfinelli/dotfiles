@@ -78,6 +78,8 @@ vim_plugins:
     repo: https://github.com/wgwoods/vim-systemd-syntax.git
   - name: tagbar
     repo: https://github.com/preservim/tagbar.git
+  - name: templ
+    repo: https://github.com/joerdav/templ.vim.git
   - name: terraform
     repo: https://github.com/hashivim/vim-terraform.git
   - name: toml

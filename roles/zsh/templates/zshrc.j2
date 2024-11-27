@@ -106,12 +106,21 @@ if command -v vivid > /dev/null 2>&1; then
 fi
 
 {% if ansible_os_family == "Darwin" %}
-# Use GNU coreutils ls if it's installed on osx
-if [[ -f $HOMEBREW_PREFIX/bin/gls ]]; then
+if [[ -f $HOMEBREW_PREFIX/bin/lsd ]]; then
+  # we have lsd installed... use it
+  alias ls="$HOMEBREW_PREFIX/bin/lsd"
+elif [[ -f $HOMEBREW_PREFIX/bin/gls ]]; then
+  # Use GNU coreutils ls if it's installed on osx
   alias ls="gls --color"
+else
+  alias ls="ls --color"
 fi
 {% else %}
-alias ls="ls --color"
+if [[ ! -f /usr/bin/lsd ]]; then
+  alias ls=/usr/bin/lsd
+else
+  alias ls="ls --color"
+fi
 {% endif %}
 
 alias please='eval "sudo $(fc -ln -1)"'
@@ -189,7 +198,7 @@ export VULTR_API_KEY={{ zsh_vultr_api_key }}
 
 {% if ansible_os_family == "Darwin" and mtype == "personal" %}
 if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
-  export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.11/libexec/bin/python"
+  export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin/python"
   source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
   source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi

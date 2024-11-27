@@ -17,3 +17,7 @@ output = text
 [profile mariomoney]
 region = us-east-1
 output = text
+
+[profile mariocasa]
+region = us-west-2
+output = text

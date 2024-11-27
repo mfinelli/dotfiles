@@ -1,0 +1,11 @@
+---
+classic: false
+
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - git
+  - name

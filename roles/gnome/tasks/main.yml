@@ -235,7 +235,7 @@
 
 # ID taken from observing `dconf watch /` but I don't think that it matters
 - name: Configuring GNOME random wallpaper local source
-  when: ansible_os_family =='Archlinux'
+  when: ansible_os_family == 'Archlinux'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -251,3 +251,20 @@
     - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
         fetch-on-startup"
       value: "true"
+
+- name: Configuring OpenWeather Refined extension
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: /org/gnome/shell/extensions/openweatherrefined/simplify-degrees
+      value: "true"
+    - key: /org/gnome/shell/extensions/openweatherrefined/weather-provider
+      value: "'openweathermap'"
+    - key: /org/gnome/shell/extensions/openweatherrefined/custom-keys
+      value: "['{{ gnome_openweathermap_api_key[mtype] }}', '', '']"
+    - key: /org/gnome/shell/extensions/openweatherrefined/my-loc-prov
+      value: "'ipinfoio'"
+    - key: /org/gnome/shell/extensions/openweatherrefined/locs
+      value: "[(uint32 1, '', uint32 1, '')]"
