@@ -34,10 +34,6 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
-if [[ -f /usr/bin/lsd ]]; then
-  # unalias lsd
-  alias ls=/usr/bin/lsd
-fi
 
 source {{ ansible_user_dir }}/.zsh/autoquoter/zsh-autoquoter.zsh
 ZAQ_PREFIXES+=('git commit( [^ ]##)# -[^ -]#m' 'ssh( [^ ]##)# [^ -][^ ]#')
@@ -110,12 +106,19 @@ if command -v vivid > /dev/null 2>&1; then
 fi
 
 {% if ansible_os_family == "Darwin" %}
-# Use GNU coreutils ls if it's installed on osx
-if [[ -f $HOMEBREW_PREFIX/bin/gls && ! -f /usr/bin/lsd ]]; then
+if [[ -f $HOMEBREW_PREFIX/bin/lsd ]]; then
+  # we have lsd installed... use it
+  alias ls="$HOMEBREW_PREFIX/bin/lsd"
+elif [[ -f $HOMEBREW_PREFIX/bin/gls ]]; then
+  # Use GNU coreutils ls if it's installed on osx
   alias ls="gls --color"
+else
+  alias ls="ls --color"
 fi
 {% else %}
 if [[ ! -f /usr/bin/lsd ]]; then
+  alias ls=/usr/bin/lsd
+else
   alias ls="ls --color"
 fi
 {% endif %}
