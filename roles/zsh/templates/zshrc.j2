@@ -173,14 +173,10 @@ export HOMEBREW_NO_ANALYTICS=1
 
 {% if mtype == 'work' and wedition == 'facile' %}
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-if command -v direnv > /dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-fi
 
 {% if ansible_os_family == 'Archlinux' %}
-if [[ -f /opt/asdf-vm/asdf.sh ]]; then
-  source /opt/asdf-vm/asdf.sh
-  export ASDF_DIR=/opt/asdf-vm
+if [[ -f /usr/bin/mise ]]; then
+  eval "$(/usr/bin/mise activate zsh)"
 fi
 {% endif %}
 {% endif %}
