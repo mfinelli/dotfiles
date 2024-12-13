@@ -6,6 +6,13 @@
     src: "{{ playbook_dir }}/roles/other/files/keymapper.conf"
     state: link
 
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Linking keymapper autostart override (--no-tray)
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/autostart/keymapper.desktop"
+    src: "{{ playbook_dir }}/roles/other/files/keymapper.desktop"
+    state: link
+
 - name: Copying `.backuprc`
   when:
     - ansible_os_family != 'Darwin'
