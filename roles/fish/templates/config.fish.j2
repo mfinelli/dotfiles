@@ -1,5 +1,7 @@
 # {{ ansible_managed }}
 
+set -gx EDITOR (type -p vim)
+
 if status --is-login
     if test -d $HOME/bin
         fish_add_path $HOME/bin
