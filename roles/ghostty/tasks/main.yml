@@ -1,0 +1,7 @@
+---
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Linking starship configuration
+  ansible.builtin.file:
+    dest: "{{ ghostty_config_path[ansible_system] }}/config"
+    src: "{{ playbook_dir }}/roles/ghostty/files/config"
+    state: link

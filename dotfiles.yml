@@ -17,6 +17,10 @@
       when:
         - mtype != 'server'
         - wedition != 'media'
+    - role: ghostty
+      when:
+        - mtype != 'server'
+        - wedition != 'media'
     - role: git
     - role: gnupg
       when: mtype != 'server'
