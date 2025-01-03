@@ -1,14 +1,100 @@
 # {{ ansible_managed }}
 
+# TODO: histlength or other options?
+# TODO: pull in interesting oh-my-fish stuff
+# TODO: see if we want to convert anything from oh-my-zsh
+# TODO: $HOME/.docker/.bin to the path (osx only)
+# TODO: gist aliases
+# TODO: archchroots
+
+{% if ansible_os_family == "Darwin" %}
+# disable homebrew analytics
+set -gx HOMEBREW_NO_ANALYTICS 1
+{% endif %}
+
+{% if ansible_os_family == "Debian" %}
+set -gx DEBFULLNAME "Mario Finelli"
+set -gx DEBEMAIL "ubuntu@mroml.com"
+{% endif %}
+
 set -gx EDITOR (type -p vim)
 
-if status --is-login
-    if test -d $HOME/bin
-        fish_add_path $HOME/bin
+if test -d "$HOME/src/go"
+    set -gx GOPATH "$HOME/src/go"
+end
+
+{% if mtype == 'work' and wedition == 'facile' %}
+    set -gx USE_GKE_GCLOUD_AUTH_PLUGIN True
+{% endif %}
+
+{% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
+/opt/homebrew/bin/brew shellenv | source
+{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
+eval "$(/usr/local/bin/brew shellenv)"
+/usr/local/bin/brew shellenv | source
+{% endif %}
+
+if status is-login
+    if test -d "$HOME/bin"
+        fish_add_path "$HOME/bin"
     end
+
+    function unlockmf -d "Unlock 36FDA306 key"
+        # TODO actually write out this file...
+        gpg -qd ~/.fish/extra/36FDA306.asc > /dev/null
+    end
+
+    function unlockw -d "Unlock 4DA7BCBA key"
+        # TODO actually write out this file...
+        gpg -qd ~/.fish/extra/4DA7BCBA.asc > /dev/null
+    end
+
+    if command -v mise > /dev/null 2>&1
+        mise activate fish | source
+    end
+
+    {% if ansible_os_family == "Archlinux" %}
+    # https://wiki.archlinux.org/title/GNOME/Keyring#Setup_gcr
+    set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
+    {% endif %}
 end
 
 if status is-interactive
+    set -gx BAT_THEME "Monokai Extended"
+
+    if command -v vivid > /dev/null 2>&1
+        set -gx LS_COLORS (vivid generate solarized-dark)
+    end
+
+    {% if ansible_os_family == "Darwin" %}
+    if command -v lsd > /dev/null 2>&1
+        alias ls="lsd"
+    else if command -v gls > /dev/null 2>&1
+        # use GNU coreutils ls if it's available
+        alias ls="gls --color"
+    else
+        alias ls="ls --color"
+    end
+    {% else %}
+    if command -v lsd > /dev/null 2>&1
+        alias ls="lsd"
+    else
+        alias ls="ls --color"
+    end
+    {% endif %}
+
+    if command -v fzf > /dev/null 2>&1
+        fzf --fish | FZF_ALT_C_COMMAND= source
+
+        set -gx FZF_DEFAULT_COMMAND "fd -H --type f"
+        set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+        set -gx FZF_CTRL_R_OPTS "--reverse"
+    end
+
+    if command -v zoxide > /dev/null 2>&1
+        zoxide init fish | source
+    end
+
     mp init | source
 end
 
