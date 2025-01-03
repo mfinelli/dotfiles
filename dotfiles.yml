@@ -13,6 +13,10 @@
       when: mtype == 'personal' and wedition != 'media'
     - role: bash
       when: mtype == 'personal' or mtype == 'server'
+    - role: fish
+      when:
+        - mtype != 'server'
+        - wedition != 'media'
     - role: git
     - role: gnupg
       when: mtype != 'server'
