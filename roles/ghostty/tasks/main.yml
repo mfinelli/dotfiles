@@ -1,4 +1,12 @@
 ---
+- name: Creating ghostty configuration directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ghostty_config_path[ansible_system] }}"
+    state: directory
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking starship configuration
   ansible.builtin.file:
