@@ -1,22 +1,4 @@
 ---
-- name: Creating `.asdf` directory
-  ansible.builtin.file:
-    group: "{{ whoami_group }}"
-    mode: "0755"
-    owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/{{ item }}"
-    state: directory
-  loop:
-    - .asdf
-    - .asdf/plugins
-
-- name: Installing asdf plugins
-  ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.asdf/plugins/{{ item.name }}"
-    repo: "{{ item.repo }}"
-    version: HEAD
-  loop: "{{ asdf_plugins }}"
-
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking global tool versions file
   ansible.builtin.file:
