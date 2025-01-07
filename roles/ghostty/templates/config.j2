@@ -1,5 +1,7 @@
+# {{ ansible_managed }}
+
 font-family = "JetBrainsMonoNL Nerd Font Mono"
-font-size = 16
+font-size = {{ ghostty_font_size[ansible_system] }}
 theme = "iTerm2 Dark Background"
 window-padding-x = 0
 window-padding-y = 0

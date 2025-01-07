@@ -3,3 +3,7 @@ ghostty_config_path:
   Darwin: >-
     {{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty
   Linux: "{{ ansible_user_dir }}/.config/ghostty"
+
+ghostty_font_size:
+  Darwin: 16
+  Linux: 12
