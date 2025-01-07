@@ -35,10 +35,6 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
 
-source {{ ansible_user_dir }}/.zsh/autoquoter/zsh-autoquoter.zsh
-ZAQ_PREFIXES+=('git commit( [^ ]##)# -[^ -]#m' 'ssh( [^ ]##)# [^ -][^ ]#')
-ZSH_HIGHLIGHT_HIGHLIGHTERS+=(zaq)
-
 {% if ansible_os_family == "Archlinux" %}
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 {% elif ansible_os_family == "Darwin" %}
