@@ -43,17 +43,16 @@ gnome_personal_dock:
   - "'firefox.desktop'"
   - "'thunderbird.dekstop'"
   - "'1password.desktop'"
+  - "'com.mitchellh.ghostty.desktop'"
   - "'firefox-developer-edition.desktop'"
-  - "'org.gnome.Terminal.desktop'"
   - "'org.gnome.Nautilus.desktop'"
 
 gnome_work_dock:
   - "'firefox.desktop'"
   - "'1password.desktop'"
-  - "'org.gnome.Terminal.desktop'"
+  - "'com.mitchellh.ghostty.desktop'"
   - "'slack.desktop'"
-  - "'lens.desktop'"
-  - "'firefoxdeveloperedition.desktop'"
+  - "'firefox-developer-edition.desktop'"
   - "'org.gnome.Nautilus.desktop'"
 
 gnome_openweathermap_api_key:
