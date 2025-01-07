@@ -1,0 +1,16 @@
+---
+- name: Creating fish configuration directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0700"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.config/fish"
+    state: directory
+
+- name: Copying main fish configuration
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.config/fish/config.fish"
+    group: "{{ whoami_group }}"
+    mode: "0600"
+    owner: "{{ whoami }}"
+    src: config.fish.j2
