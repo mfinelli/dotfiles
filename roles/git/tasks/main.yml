@@ -1,11 +1,4 @@
 ---
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Linking global "gitignore"
-  ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.gitignore_global"
-    src: "{{ playbook_dir }}/roles/git/files/gitignore_global"
-    state: link
-
 - name: Copying `.gitconfig`
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.gitconfig"
@@ -21,6 +14,13 @@
     owner: "{{ whoami }}"
     path: "{{ ansible_user_dir }}/.config/git"
     state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Linking global "gitignore"
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.config/git/gitignore"
+    src: "{{ playbook_dir }}/roles/git/files/gitignore_global"
+    state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking custom git configuration

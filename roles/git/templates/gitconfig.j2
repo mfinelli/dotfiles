@@ -28,7 +28,7 @@
 	plog = log -p --stat
 
 [core]
-	excludesfile = {{ ansible_user_dir }}/.gitignore_global
+	excludesfile = {{ ansible_user_dir }}/.config/git/gitignore
 	precomposeunicode = true
 {% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
 	editor = /opt/homebrew/bin/vim
