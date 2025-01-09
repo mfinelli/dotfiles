@@ -40,8 +40,6 @@
       when: mtype != 'server'
     - role: urlwatch
     - role: vim
-    - role: vpn
-      when: mtype == 'personal'
     - role: zsh
       when:
         - mtype != 'server'
