@@ -7,20 +7,6 @@ vim_plugins_dirs:
   - "{{ ansible_user_dir }}/.vim/pack/local/start"
   - "{{ ansible_user_dir }}/.vim/syntax"
 
-vim_neovim_plugins_dirs:
-  - "{{ ansible_user_dir }}/.local"
-  - "{{ ansible_user_dir }}/.local/share"
-  - "{{ ansible_user_dir }}/.local/share/nvim"
-  - "{{ ansible_user_dir }}/.local/share/nvim/site"
-  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack"
-  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local"
-  - "{{ ansible_user_dir }}/.local/share/nvim/site/pack/local/start"
-
-vim_neovim_config_dirs:
-  - "{{ ansible_user_dir }}/.config"
-  - "{{ ansible_user_dir }}/.config/nvim"
-  - "{{ ansible_user_dir }}/.config/nvim/lua"
-
 vim_plugins:
   - name: airline
     repo: https://github.com/vim-airline/vim-airline.git
@@ -97,9 +83,3 @@ vim_syntax_files:
     url: https://github.com/fatih/vim-go/raw/master/syntax/gohtmltmpl.vim
   - name: gotexttmpl
     url: https://github.com/fatih/vim-go/raw/master/syntax/gotexttmpl.vim
-
-vim_neovim_plugins:
-  - name: gitlens
-    repo: https://github.com/APZelos/blamer.nvim.git
-  - name: treesitter
-    repo: https://github.com/nvim-treesitter/nvim-treesitter.git
