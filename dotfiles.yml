@@ -12,7 +12,7 @@
     - role: aws
       when: mtype == 'personal' and wedition != 'media'
     - role: bash
-      when: mtype == 'personal' or mtype == 'server'
+      when: mtype == 'server' or wedition == 'media'
     - role: ghostty
       when:
         - mtype != 'server'

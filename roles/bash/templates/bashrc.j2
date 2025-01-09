@@ -43,23 +43,15 @@ if command -v shfmt > /dev/null 2>&1; then
   alias mshfmt='shfmt -s -i 2 -ci -sr'
 fi
 
-{% if ansible_os_family == "Archlinux" %}
-if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-  source /usr/share/fzf/key-bindings.bash
+if command -v fzf > /dev/null 2>&1; then
+  FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
+  export FZF_CTRL_R_OPTS='--reverse'
 fi
-{% elif ansible_os_family == "Debian" %}
-if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
-  source /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-{% endif %}
 
-{% if ansible_os_family != "Darwin" %}
-export FZF_CTRL_R_OPTS='--reverse'
 if command -v fd > /dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='fd -H --type f'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-{% endif %}
 
 {% if ansible_os_family == "Darwin" %}
 export HOMEBREW_NO_ANALYTICS=1
