@@ -32,8 +32,6 @@
     - role: screen
       when: mtype == 'server'
     - role: ssh
-    - role: terraform
-      when: mtype == 'personal' and wedition != 'media'
     - role: tmux
       when: mtype != 'server'
     - role: urlwatch
