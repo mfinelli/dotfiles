@@ -58,7 +58,7 @@ source {{ ansible_user_dir }}/.zsh/ohmyzsh/plugins/urltools/urltools.plugin.zsh
 export EDITOR=vim
 
 if [[ -d "$HOME/bin" ]]; then
-  export PATH="$HOME/bin":$PATH
+  export PATH="$HOME/bin:$PATH"
 fi
 
 {% if ansible_os_family == "Darwin" and mtype == "personal" %}
@@ -71,14 +71,9 @@ if [[ -d "$HOME/src/go" ]]; then
   export GOPATH="$HOME/src/go"
 fi
 
-export N_PREFIX="$HOME/.n"
-if [[ -d "$HOME/.n/bin" ]]; then
-  export PATH="$HOME/.n/bin":$PATH
-fi
-
 {% if ansible_os_family == "Darwin" %}
 if [[ -e "${HOMEBREW_PREFIX}/opt/ruby/bin" ]]; then
-  export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin":$PATH
+  export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:$PATH"
 fi
 {% endif %}
 
@@ -133,31 +128,16 @@ if command -v zoxide > /dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
-{% if ansible_os_family == "Darwin" %}
-if [[ -f $HOMEBREW_PREFIX/share/chruby/chruby.sh ]]; then
-  source "${HOMEBREW_PREFIX}/share/chruby/chruby.sh"
+if command -v fzf > /dev/null 2>&1; then
+  FZF_ALT_C_COMMAND= source <(fzf --zsh)
+  export FZF_DEFAULT_COMMAND='fd -H --type f'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_CTRL_R_OPTS='--reverse'
 fi
 
-if [[ -f $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh ]]; then
-  source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+if command -v mise > /dev/null 2>&1; then
+  eval "$(/usr/bin/mise activate zsh)"
 fi
-{% else %}
-if [[ -f /usr/share/chruby/chruby.sh ]]; then
-  source /usr/share/chruby/chruby.sh
-fi
-
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-  # archlinux
-  source /usr/share/fzf/key-bindings.zsh
-elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
-  # debian
-  source /usr/share/doc/fzf/examples/key-bindings.zsh
-fi
-{% endif %}
-
-export FZF_DEFAULT_COMMAND='fd -H --type f'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_R_OPTS='--reverse'
 
 {% if ansible_os_family == "Darwin" %}
 # disable homebrew analytics
@@ -169,12 +149,6 @@ export HOMEBREW_NO_ANALYTICS=1
 
 {% if mtype == 'work' and wedition == 'facile' %}
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
-{% if ansible_os_family == 'Archlinux' %}
-if [[ -f /usr/bin/mise ]]; then
-  eval "$(/usr/bin/mise activate zsh)"
-fi
-{% endif %}
 {% endif %}
 
 {% if mtype == "personal" %}
@@ -205,17 +179,6 @@ fi
 {% if ansible_os_family == "Debian" %}
 export DEBFULLNAME="Mario Finelli"
 export DEBEMAIL="ubuntu@mroml.com"
-{% endif %}
-
-{% if mtype == "work" and ansible_os_family == "Darwin" %}
-# https://arnon.me/2021/09/replace-docker-with-minikube/
-# https://gist.github.com/protosam/11800faea25a3f89af9ece4f11c72f1d
-# https://itnext.io/goodbye-docker-desktop-hello-minikube-3649f2a1c469
-if command -v minikube > /dev/null 2>&1; then
-  if minikube status > /dev/null 2>&1; then
-    eval "$(minikube docker-env)"
-  fi
-fi
 {% endif %}
 
 source "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
