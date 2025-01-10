@@ -72,6 +72,8 @@ vim_plugins:
     repo: https://github.com/digitaltoad/vim-pug.git
   - name: slim
     repo: https://github.com/slim-template/vim-slim.git
+  - name: sort
+    repo: https://github.com/christoomey/vim-sort-motion.git
   - name: svelte
     repo: https://github.com/leafOfTree/vim-svelte-plugin.git
   - name: systemd
