@@ -116,6 +116,10 @@ fi
 
 alias please='eval "sudo $(fc -ln -1)"'
 
+{% if ansible_system == "Linux" %}
+alias open='xdg-open'
+{% endif %}
+
 if command -v thefuck > /dev/null 2>&1; then
   eval "$(thefuck --alias)"
 fi
