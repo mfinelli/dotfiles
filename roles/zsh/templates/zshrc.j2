@@ -33,6 +33,10 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
+source {{ ansible_user_dir }}/.zsh/abbr/zsh-abbr.zsh
+source {{ ansible_user_dir }}/.zsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
+export ZSH_AUTOSUGGEST_STRATEGY=(abbreviations $ZSH_AUTOSUGGEST_STRATEGY)
+
 source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
 
 {% if ansible_os_family == "Archlinux" %}
