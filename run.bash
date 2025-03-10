@@ -115,4 +115,8 @@ ansible-playbook $needsudo $vaultoption \
   --extra-vars isgaming=$isgaming \
   dotfiles.yml
 
+# we set ANSIBLE_HOME now, but this might be left over after the initial run:
+# remove it now and then on successive runs it'll be in the right place
+[[ -d ~/.ansible ]] && rm -rf ~/.ansible
+
 exit 0

@@ -1,9 +1,5 @@
 # {{ ansible_managed }}
 
-#
-# ~/.bashrc
-#
-
 # if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -17,6 +13,11 @@ shopt -s histappend
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -135,5 +136,9 @@ export SMCHROOT=$HOME/smchroot
 {% if mtype == "server" and wedition == "codespace" %}
 [[ -z $LANG ]] && export LANG="$(locale -a | grep -m1 en_US)"
 {% endif %}
+
+# xdg-ninja fixes
+export ANSIBLE_HOME="${XDG_DATA_HOME}/ansible"
+export HISTFILE="${XDG_STATE_HOME}/bash/history"
 
 # vim: ft=bash.jinja2

@@ -15,6 +15,11 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 {% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
@@ -70,10 +75,6 @@ if [[ -d "$HOME/.docker/bin" ]]; then
   export PATH="$HOME/.docker/bin":$PATH
 fi
 {% endif %}
-
-if [[ -d "$HOME/src/go" ]]; then
-  export GOPATH="$HOME/src/go"
-fi
 
 {% if ansible_os_family == "Darwin" %}
 if [[ -e "${HOMEBREW_PREFIX}/opt/ruby/bin" ]]; then
@@ -217,5 +218,21 @@ export CHROOT=$HOME/.local/var/chroot
 # update: arch-nspawn $SMCHROOT/root pacman -Syu
 export SMCHROOT=$HOME/.local/var/smchroot
 {% endif %}
+
+# xdg-ninja fixes
+export ANSIBLE_HOME="${XDG_DATA_HOME}/ansible"
+export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
+export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
+export AZURE_CONFIG_DIR="${XDG_DATA_HOME}/azure"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export GOPATH="${XDG_DATA_HOME}/go"
+export NPM_CONFIG_INIT_MODULE="${XDG_CONFIG_HOME}/npm/config/npm-init.js"
+export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
+export NPM_CONFIG_TMP="${XDG_RUNTIME_DIR}/npm"
+export BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle"
+export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle"
+export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle"
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
 # vim: ft=zsh.jinja2
