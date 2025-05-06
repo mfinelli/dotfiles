@@ -32,7 +32,7 @@ array_contains() {
 # actually referenced as variables in the conditional below, but they _are_
 # used
 # shellcheck disable=SC2034
-FACILE=(CLIFMI706)
+FACILE=(CLIFMI1371 CLIFMI706)
 # shellcheck disable=SC2034
 MEDIA=(liveusb zen)
 # shellcheck disable=SC2034
