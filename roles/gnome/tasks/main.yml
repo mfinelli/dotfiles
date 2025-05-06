@@ -149,8 +149,7 @@
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/systemd
     value: >-
-      ['{"name":"Docker","service":"docker.service","type":"system"}',
-      '{"name":"libvirtd","service":"libvirtd.service","type":"system"}']
+      ['{"name":"Docker","service":"docker.service","type":"system"}']
 
 - name: Configuring dock applications (at work)
   when: ansible_os_family == 'Archlinux' and mtype == 'work'
