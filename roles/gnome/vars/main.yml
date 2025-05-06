@@ -9,9 +9,9 @@ gnome_extensions:
     - "'arch-update@RaphaelRochet'"
     - "'arcmenu@arcmenu.com'"
     - "'blur-my-shell@aunetx'"
+    - "'caffeine@patapon.info'"
     - "'dash-to-dock@micxgx.gmail.com'"
     - "'emoji-copy@felipeftn'"
-    - "'espresso@coadmunkee.github.com'"
     - "'keymapper@houmain.github.com'"
     - "'nightthemeswitcher@romainvigier.fr'"
     - "'no-overview@fthx'"
@@ -23,9 +23,9 @@ gnome_extensions:
   Debian:
     - "'arcmenu@arcmenu.com'"
     - "'bluetooth-quick-connect@bjarosze.gmail.com'"
+    - "'caffeine@patapon.info'"
     - "'dash-to-dock@micxgx.gmail.com'"
     - "'debian-updates-indicator@glerro.pm.me'"
-    - "'espresso@coadmunkee.github.com'"
     - "'gamemode@christian.kellner.me'"
     - "'keymapper@houmain.github.com'"
     - "'nightthemeswitcher@romainvigier.fr'"
@@ -65,3 +65,8 @@ gnome_openweathermap_api_key:
     3335383761353332350a613061366563386564356138396333366465343538313534353638666433
     64316438336134336565663162626161626563336335383830303033373139303665346635373737
     3162363039313564346661386565383565663131353063623437
+
+gnome_openweather_locations:
+  - "(uint32 1, '', uint32 1, '')" # My location
+  - "(0, 'Siena', 0, '43.318810,11.330757')"
+  - "(0, 'Washington, DC', 0, '38.963491,-77.090995')"

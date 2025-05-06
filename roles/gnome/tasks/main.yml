@@ -149,8 +149,7 @@
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/systemd
     value: >-
-      ['{"name":"Docker","service":"docker.service","type":"system"}',
-      '{"name":"libvirtd","service":"libvirtd.service","type":"system"}']
+      ['{"name":"Docker","service":"docker.service","type":"system"}']
 
 - name: Configuring dock applications (at work)
   when: ansible_os_family == 'Archlinux' and mtype == 'work'
@@ -199,6 +198,12 @@
       value: "true"
     - key: night-light-schedule-automatic
       value: "true"
+
+- name: Configuring wellbeing
+  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: /org/gnome/desktop/break-reminders/selected-breaks
+    value: "['eyesight', 'movement']"
 
 # https://github.com/blueman-project/blueman/issues/2411
 - name: Setting blueman applet to use symbolic status icons
@@ -267,4 +272,4 @@
     - key: /org/gnome/shell/extensions/openweatherrefined/my-loc-prov
       value: "'ipinfoio'"
     - key: /org/gnome/shell/extensions/openweatherrefined/locs
-      value: "[(uint32 1, '', uint32 1, '')]"
+      value: "[{{ gnome_openweather_locations | join(', ') }}]"

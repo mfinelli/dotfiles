@@ -1,9 +1,5 @@
 # {{ ansible_managed }}
 
-#
-# ~/.bashrc
-#
-
 # if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -17,6 +13,11 @@ shopt -s histappend
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -43,23 +44,15 @@ if command -v shfmt > /dev/null 2>&1; then
   alias mshfmt='shfmt -s -i 2 -ci -sr'
 fi
 
-{% if ansible_os_family == "Archlinux" %}
-if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-  source /usr/share/fzf/key-bindings.bash
+if command -v fzf > /dev/null 2>&1; then
+  FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
+  export FZF_CTRL_R_OPTS='--reverse'
 fi
-{% elif ansible_os_family == "Debian" %}
-if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
-  source /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-{% endif %}
 
-{% if ansible_os_family != "Darwin" %}
-export FZF_CTRL_R_OPTS='--reverse'
 if command -v fd > /dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='fd -H --type f'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-{% endif %}
 
 {% if ansible_os_family == "Darwin" %}
 export HOMEBREW_NO_ANALYTICS=1
@@ -143,5 +136,9 @@ export SMCHROOT=$HOME/smchroot
 {% if mtype == "server" and wedition == "codespace" %}
 [[ -z $LANG ]] && export LANG="$(locale -a | grep -m1 en_US)"
 {% endif %}
+
+# xdg-ninja fixes
+export ANSIBLE_HOME="${XDG_DATA_HOME}/ansible"
+export HISTFILE="${XDG_STATE_HOME}/bash/history"
 
 # vim: ft=bash.jinja2

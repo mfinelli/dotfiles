@@ -11,7 +11,20 @@
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
-    version: v0.19.8
+    version: v0.19.15
+
+- name: Installing zsh-abbr
+  ansible.builtin.git:
+    dest: "{{ ansible_user_dir }}/.zsh/abbr"
+    repo: https://github.com/olets/zsh-abbr.git
+    version: v6.2.1
+
+- name: Installing zsh suggestions abbr-strategy
+  ansible.builtin.git:
+    dest: "{{ ansible_user_dir }}/.zsh/autosuggestions-abbr"
+    repo: >-
+      https://github.com/olets/zsh-autosuggestions-abbreviations-strategy.git
+    version: v1.1.1
 
 - name: Installing powerlevel10k
   ansible.builtin.git:

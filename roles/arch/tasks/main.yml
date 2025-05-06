@@ -1,8 +1,16 @@
 ---
+- name: Creating makepkg configuration directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.config/pacman"
+    state: directory
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking makepkg configuration
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.makepkg.conf"
+    dest: "{{ ansible_user_dir }}/.config/pacman/makepkg.conf"
     src: "{{ playbook_dir }}/roles/arch/files/makepkg.conf"
     state: link
 
