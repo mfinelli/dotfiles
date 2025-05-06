@@ -272,4 +272,4 @@
     - key: /org/gnome/shell/extensions/openweatherrefined/my-loc-prov
       value: "'ipinfoio'"
     - key: /org/gnome/shell/extensions/openweatherrefined/locs
-      value: "[(uint32 1, '', uint32 1, '')]"
+      value: "[{{ gnome_openweather_locations | join(', ') }}]"
