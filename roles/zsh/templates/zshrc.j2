@@ -123,6 +123,11 @@ alias please='eval "sudo $(fc -ln -1)"'
 
 {% if ansible_system == "Linux" %}
 alias open='xdg-open'
+
+if [[ -e /usr/bin/bsdtar ]]; then
+  alias gtar=/usr/bin/tar
+  alias tar=/usr/bin/bsdtar
+fi
 {% endif %}
 
 if command -v thefuck > /dev/null 2>&1; then
