@@ -1,7 +1,15 @@
 # {{ ansible_managed }}
 
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+[[ ! -d $XDG_CACHE_HOME/zsh ]] && mkdir "${XDG_CACHE_HOME}/zsh"
+[[ ! -d $XDG_STATE_HOME/zsh ]] && mkdir "${XDG_STATE_HOME}/zsh"
+
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.zhistfile
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
 HISTSIZE=500000
 SAVEHIST=500000
 setopt appendhistory autocd
@@ -12,13 +20,8 @@ bindkey -e
 zstyle :compinstall filename '{{ ansible_user_dir }}/.zshrc'
 
 autoload -Uz compinit
-compinit
+compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}"
 # End of lines added by compinstall
-
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
 
 {% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -234,6 +237,8 @@ export GOPATH="${XDG_DATA_HOME}/go"
 export NPM_CONFIG_INIT_MODULE="${XDG_CONFIG_HOME}/npm/config/npm-init.js"
 export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
 export NPM_CONFIG_TMP="${XDG_RUNTIME_DIR}/npm"
+export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql_history"
+export PYTHON_HISTORY="${XDG_DATA_HOME}/python_history"
 export BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle"
 export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle"
 export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle"
