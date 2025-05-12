@@ -215,7 +215,7 @@
 - name: Configuring GNOME Interface fonts
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
-    key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
+    key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:
     - key: /org/gnome/desktop/interface/font-name
