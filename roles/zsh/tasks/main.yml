@@ -32,10 +32,10 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     version: v1.20.0
 
-- name: Installing oh-my-zsh
-  ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
-    repo: https://github.com/ohmyzsh/ohmyzsh.git
+# - name: Installing oh-my-zsh
+#   ansible.builtin.git:
+#     dest: "{{ ansible_user_dir }}/.zsh/ohmyzsh"
+#     repo: https://github.com/ohmyzsh/ohmyzsh.git
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
