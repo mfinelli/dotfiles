@@ -164,7 +164,7 @@
     value: "[{{ gnome_personal_dock | join(', ') }}]"
 
 - name: Configuring GNOME Shell Arc Menu extension
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
