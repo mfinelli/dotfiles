@@ -1,4 +1,12 @@
 ---
+- name: Creating autostart directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.config/autostart"
+    state: directory
+
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking keymapper configuration
   when: ansible_os_family != 'Darwin'
