@@ -183,13 +183,13 @@
       value: "6" # archlinux
 
 - name: Enabling location services # required for night light
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/system/location/enabled
     value: "true"
 
 - name: Configuring GNOME Night Light
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
     value: "{{ item.value }}"
@@ -200,7 +200,7 @@
       value: "true"
 
 - name: Configuring wellbeing
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/desktop/break-reminders/selected-breaks
     value: "['eyesight', 'movement']"
@@ -213,7 +213,7 @@
     value: "true"
 
 - name: Configuring GNOME Interface fonts
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
     value: "{{ item.value }}"
@@ -226,13 +226,13 @@
       value: "'Ubuntu 11'"
 
 - name: Setting GNOME Overview shortcut to "Right Super"
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/mutter/overlay-key
     value: "'Super_R'"
 
 - name: Configuring blur-my-shell-extension
-  when: ansible_os_family == 'Archlinux' || ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     # disables the corners on the dash-to-dock
     key: /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/pipeline
