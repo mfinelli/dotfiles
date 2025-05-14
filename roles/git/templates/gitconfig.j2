@@ -15,10 +15,10 @@
 	name = Mario Finelli
 
 {% if mtype == "work" %}
-[includeIf "gitdir:~/src/mfinelli"]
+{% for gitpath in git_work_personal_dirs %}
+[includeIf "gitdir:~/{{ gitpath }}/"]
 	path = ~/.config/git/personal
-[includeIf "gitdir:~/src/gist"]
-	path = ~/.config/git/personal
+{% endfor %}
 {% endif %}
 
 [alias]
