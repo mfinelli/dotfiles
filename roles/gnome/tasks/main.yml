@@ -4,6 +4,11 @@
     key: /org/gnome/desktop/input-sources/sources
     value: "[('xkb', 'us'), ('xkb', 'it')]"
 
+- name: Enabling compose key settings
+  community.general.dconf:
+    key: /org/gnome/desktop/input-sources/xkb-options
+    value: "['lv3:ralt_switch', 'compose:ralt']"
+
 - name: Getting the internal ID of the GNOME Terminal profile
   ansible.builtin.shell: >-
     set -e -o pipefail;
