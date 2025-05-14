@@ -1,4 +1,10 @@
 ---
+- name: Enabling gcr for ssh keyring
+  ansible.builtin.systemd:
+    enabled: true
+    name: gcr-ssh-agent.socket
+    scope: user
+
 - name: Enabling keyboard layouts
   community.general.dconf:
     key: /org/gnome/desktop/input-sources/sources
