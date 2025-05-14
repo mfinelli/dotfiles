@@ -85,6 +85,14 @@
     - clock-show-seconds
     - clock-show-weekday
 
+- name: Configuring clock to use 24-hour time
+  community.general.dconf:
+    key: "{{ item }}"
+    value: "'24h'"
+  loop:
+    - /org/gnome/desktop/interface/clock-format
+    - /org/gtk/settings/file-chooser/clock-format
+
 - name: Configuring World Clocks
   community.general.dconf:
     key: "{{ item.key }}"
