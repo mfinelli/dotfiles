@@ -115,7 +115,7 @@ else
   alias ls="ls --color"
 fi
 {% else %}
-if [[ ! -f /usr/bin/lsd ]]; then
+if [[ -f /usr/bin/lsd ]]; then
   alias ls=/usr/bin/lsd
 else
   alias ls="ls --color"
