@@ -81,6 +81,17 @@ Host bitbucket.org
     UseKeychain yes
 {% endif %}
 
+Host codeberg.org
+    User git
+    IdentityFile ~/.ssh/codeberg
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    HashKnownHosts yes
+    VisualHostKey yes
+{% if ansible_os_family == "Darwin" %}
+    UseKeychain yes
+{% endif %}
+
 Host gist.github.com
     User git
     IdentityFile ~/.ssh/github

@@ -3,6 +3,7 @@ ssh_keys:
   - arch
   - bitbucket
   - clouddev
+  - codeberg
   - emerald
   - github
   - gitlab
