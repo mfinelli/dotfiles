@@ -168,6 +168,11 @@ export HOMEBREW_NO_ANALYTICS=1
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 {% endif %}
 
+{% if mtype != "server" %}
+export POCKET_PORTAL_INGEST_URL={{ zsh_pocket_portal_ingest_url  }}
+export POCKET_PORTAL_INGEST_TOKEN='{{ zsh_pocket_portal_ingest_token  }}'
+{% endif %}
+
 {% if mtype == "personal" %}
 export CLOUDFLARE_API_TOKEN={{ zsh_cloudflare_api_token }}
 export CFCA_TOKEN={{ zsh_cloudflare_ca_token }}

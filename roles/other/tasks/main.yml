@@ -63,3 +63,20 @@
   loop:
     - var
     - var/libvirt
+
+- name: Creating bin directory in $HOME
+  when: mtype != 'server'
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/bin"
+    state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Copying pocket portal submit script
+  when: mtype != 'server'
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/bin/ppq"
+    src: "{{ playbook_dir }}/roles/other/files/ppqsubmit.py"
+    state: link
