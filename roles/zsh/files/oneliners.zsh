@@ -59,6 +59,24 @@ function k8spodswithoutcontroller() {
       .metadata.name) | .[]"
 }
 
+function currentdirmd5sum() {
+  if ! command -v fd > /dev/null 2>&1; then
+    echo >&2 "error: requires 'fd' tool"
+  fi
+
+  fd --type file --print0 --strip-cwd-prefix=always | sort -z |
+    xargs -0 md5sum
+}
+
+function currentdirmd5sumb() {
+  if ! command -v fd > /dev/null 2>&1; then
+    echo >&2 "error: requires 'fd' tool"
+  fi
+
+  fd --type file --print0 --strip-cwd-prefix=always | sort -z |
+    xargs -0 md5sum -b
+}
+
 function urlencode() {
   /usr/bin/env python3 -c \
     "import sys, urllib.parse as ul; print(ul.quote(sys.argv[1]))" "$1"
