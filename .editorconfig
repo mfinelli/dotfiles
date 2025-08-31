@@ -11,6 +11,9 @@ trim_trailing_whitespace = true
 [*.fish{,.j2}]
 indent_size = 4
 
+[*.py]
+indent_size = 4
+
 [roles/git/files/gitconfig_personal]
 indent_size = 8
 indent_style = tab

@@ -13,7 +13,7 @@ jobs:
           path: ~/.ansible
           key: ansible-${{ hashFiles('requirements.yml') }}
       - uses: mfinelli/setup-shfmt@v3
-      - run: pip3 install ansible ansible-lint
+      - run: pip3 install ansible ansible-lint yapf
       - run: npm install -g prettier
       # - run: ansible-galaxy install -r requirements.yml
       - name: Run shellcheck
@@ -32,6 +32,10 @@ jobs:
         run: |
           prettier --version
           find . -name '*.yaml' -o -name '*.yml' | xargs prettier -c
+      - name: Run yapf
+        run: |
+          yapf --version
+          find . -name '*.py' | xargs yapf -d
       - name: Run yamllint
         run: |
           yamllint --version
