@@ -58,3 +58,8 @@ function k8spodswithoutcontroller() {
     jq -r ".items | map(select(.metadata.ownerReferences == null) |\
       .metadata.name) | .[]"
 }
+
+function urlencode() {
+  /usr/bin/env python3 -c \
+    "import sys, urllib.parse as ul; print(ul.quote(sys.argv[1]))" "$1"
+}
