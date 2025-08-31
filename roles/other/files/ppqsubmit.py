@@ -8,15 +8,13 @@ Usage:
   python ingest.py                 # will prompt for URL interactively
 
 Flags:
-  -y, --yes    Run non-interactively (skip prompts). If used, you MUST pass the URL
-               on the command line; otherwise the script errors.
+  -y, --yes    Run non-interactively (skip prompts). If used, you MUST pass the
+               URL on the command line; otherwise the script errors.
 
 Environment (required):
   POCKET_PORTAL_INGEST_URL   e.g. https://pocket-portal.example.com/ingest
   POCKET_PORTAL_INGEST_TOKEN Bearer token for the /ingest endpoint
 """
-
-from __future__ import annotations
 
 import argparse
 import json
@@ -46,7 +44,8 @@ def prompt(label: str) -> Optional[str]:
     return s if s else None
 
 
-def build_payload(url: str, tags: Optional[str], collection: Optional[str], note: Optional[str]) -> Dict[str, Any]:
+def build_payload(url: str, tags: Optional[str], collection: Optional[str],
+                  note: Optional[str]) -> Dict[str, Any]:
     """Only include the four allowed keys; omit nulls."""
     payload: Dict[str, Any] = {"url": url}
     if tags is not None:
@@ -59,29 +58,43 @@ def build_payload(url: str, tags: Optional[str], collection: Optional[str], note
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Submit a link to pocket-portal /ingest")
-    parser.add_argument("url", nargs="?", help="The URL to save (http/https). If omitted, you will be prompted (unless --yes).")
-    parser.add_argument("-y", "--yes", action="store_true", help="Skip interactive prompts (non-interactive mode).")
+    parser = argparse.ArgumentParser(
+        description="Submit a link to pocket-portal /ingest")
+    parser.add_argument(
+        "url",
+        nargs="?",
+        help=
+        "The URL to save (http/https). If omitted, you will be prompted (unless --yes)."
+    )
+    parser.add_argument(
+        "-y",
+        "--yes",
+        action="store_true",
+        help="Skip interactive prompts (non-interactive mode).")
     args = parser.parse_args()
 
     ingest_url = os.getenv("POCKET_PORTAL_INGEST_URL")
     token = os.getenv("POCKET_PORTAL_INGEST_TOKEN")
 
     if not ingest_url:
-        print("Error: POCKET_PORTAL_INGEST_URL env var is required.", file=sys.stderr)
+        print("Error: POCKET_PORTAL_INGEST_URL env var is required.",
+              file=sys.stderr)
         return 2
     if not token:
-        print("Error: POCKET_PORTAL_INGEST_TOKEN env var is required.", file=sys.stderr)
+        print("Error: POCKET_PORTAL_INGEST_TOKEN env var is required.",
+              file=sys.stderr)
         return 2
 
     # Determine URL (positional arg or prompt)
     url_arg = args.url
     if args.yes:
         if not url_arg:
-            print("Error: --yes was given but no URL argument provided.", file=sys.stderr)
+            print("Error: --yes was given but no URL argument provided.",
+                  file=sys.stderr)
             return 2
         if not is_http_url(url_arg):
-            print("Error: URL must be an absolute http/https URL.", file=sys.stderr)
+            print("Error: URL must be an absolute http/https URL.",
+                  file=sys.stderr)
             return 2
         url_value = url_arg.strip()
         # Non-interactive: skip prompts; treat others as None
@@ -99,7 +112,8 @@ def main() -> int:
                 print("Please enter a valid absolute http/https URL.")
         else:
             if not is_http_url(url_arg):
-                print("Error: URL must be an absolute http/https URL.", file=sys.stderr)
+                print("Error: URL must be an absolute http/https URL.",
+                      file=sys.stderr)
                 return 2
             url_value = url_arg.strip()
 
@@ -128,16 +142,18 @@ def main() -> int:
             try:
                 parsed = json.loads(resp_body.decode("utf-8"))
             except Exception:
-                print(f"Error: non-JSON response (HTTP {resp.getcode()}): {resp_body!r}", file=sys.stderr)
+                print(
+                    f"Error: non-JSON response (HTTP {resp.getcode()}): {resp_body!r}",
+                    file=sys.stderr)
                 return 1
 
             if isinstance(parsed, dict) and parsed.get("ok") is True:
                 link_id = parsed.get("id")
                 print(f"Queued OK: id={link_id}")
                 return 0
-            else:
-                print(f"Server error: {parsed}", file=sys.stderr)
-                return 1
+
+            print(f"Server error: {parsed}", file=sys.stderr)
+            return 1
 
     except HTTPError as e:
         body = e.read().decode("utf-8", errors="replace")
