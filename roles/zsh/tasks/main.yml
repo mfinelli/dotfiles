@@ -4,27 +4,30 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.zsh"
+    path: "{{ item }}"
     state: directory
+  loop:
+    - "{{ ansible_user_dir }}/.zsh" # TODO: remove
+    - "{{ ansible_user_dir }}/.local/share/zsh"
 
 - name: Installing grml-zsh-config
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
-    version: v0.19.15
+    version: v0.19.24
 
 - name: Installing zsh-abbr
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/abbr"
     repo: https://github.com/olets/zsh-abbr.git
-    version: v6.2.1
+    version: v6.3.3
 
 - name: Installing zsh suggestions abbr-strategy
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.zsh/autosuggestions-abbr"
     repo: >-
       https://github.com/olets/zsh-autosuggestions-abbreviations-strategy.git
-    version: v1.1.1
+    version: v1.1.2
 
 - name: Installing powerlevel10k
   ansible.builtin.git:
