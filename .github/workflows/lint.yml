@@ -12,7 +12,7 @@ jobs:
         with:
           path: ~/.ansible
           key: ansible-${{ hashFiles('requirements.yml') }}
-      - uses: mfinelli/setup-shfmt@v3
+      - uses: mfinelli/setup-shfmt@v4
       - run: pip3 install ansible ansible-lint yapf
       - run: npm install -g prettier
       # - run: ansible-galaxy install -r requirements.yml
