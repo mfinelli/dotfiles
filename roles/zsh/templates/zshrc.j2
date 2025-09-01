@@ -251,4 +251,9 @@ export PSQL_HISTORY="${XDG_STATE_HOME}/psql_history"
 export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
+if command -v irssi > /dev/null 2>&1; then
+  alias irssi=irssi --config="$XDG_CONFIG_HOME/irssi/config" \
+    --home="$XDG_DATA_HOME/irssi"
+fi
+
 # vim: ft=zsh.jinja2
