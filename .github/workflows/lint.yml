@@ -7,12 +7,12 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: ~/.ansible
           key: ansible-${{ hashFiles('requirements.yml') }}
-      - uses: mfinelli/setup-shfmt@v3
+      - uses: mfinelli/setup-shfmt@v4
       - run: pip3 install ansible ansible-lint yapf
       - run: npm install -g prettier
       # - run: ansible-galaxy install -r requirements.yml
