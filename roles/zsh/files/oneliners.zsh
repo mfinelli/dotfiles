@@ -59,6 +59,22 @@ function k8spodswithoutcontroller() {
       .metadata.name) | .[]"
 }
 
+function k8sallimagesmatch() {
+  kubectl get deploy,statefulset,daemonset -A -o json \
+    | jq -r "
+      .items[]
+      | {ns: .metadata.namespace,
+         kind: .kind,
+         name: .metadata.name,
+         images: (
+           .spec.template.spec.containers[]?.image,
+           .spec.template.spec.initContainers[]?.image,
+           .spec.template.spec.ephemeralContainers[]?.image
+         )}
+      | select(.images | test(\"$1\"))
+      | \"\\(.ns)\\t\\(.kind)\\t\\(.name)\\t\\(.images)\""
+}
+
 function currentdirmd5sum() {
   if ! command -v fd > /dev/null 2>&1; then
     echo >&2 "error: requires 'fd' tool"
