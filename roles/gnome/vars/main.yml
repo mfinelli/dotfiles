@@ -18,6 +18,7 @@ gnome_extensions:
     - "'openweather-extension@penguin-teal.github.io'"
     - "'pano@elhan.io'"
     - "'randomwallpaper@iflow.space'"
+    - "'search-light@icedman.github.com'"
     - "'systemd-manager@hardpixel.eu'"
     - "'ubuntu-dock@ubuntu.com'"
   Debian:
