@@ -1,8 +1,0 @@
-# {{ ansible_managed }}
-BACKUP_BASH_EXTRA_PATHS=(/var/lib/AccountsService)
-{% if mtype == 'work' and wedition == 'facile' %}
-BACKUP_BASH_REPOSITORY=/run/media/mfinelli/MFINELLI/borg
-{% else %}
-BACKUP_BASH_REPOSITORY=/var/finelli/borg
-{% endif %}
-# vim: ft=sh.jinja2

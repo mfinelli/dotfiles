@@ -1,5 +1,6 @@
 ---
 - name: Creating autostart directory
+  when: ansible_os_family != 'Darwin'
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
@@ -22,17 +23,6 @@
     dest: "{{ ansible_user_dir }}/.config/autostart/keymapper.desktop"
     src: "{{ playbook_dir }}/roles/other/files/keymapper.desktop"
     state: link
-
-- name: Copying `.backuprc`
-  when:
-    - ansible_os_family != 'Darwin'
-    - mtype != 'server' or wedition == 'personal'
-  ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.backuprc"
-    group: "{{ whoami_group }}"
-    mode: "0600"
-    owner: "{{ whoami }}"
-    src: backuprc.j2
 
 - name: Creating RaspberryPi Imager configuration directory
   when: ansible_os_family != 'Darwin'
