@@ -134,3 +134,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " end https://www.reddit.com/r/vim/comments/uxdgwa/comment/i9wytp0/
+
+" xdg-ninja fixes
+if !has('nvim') | set viminfofile=$XDG_STATE_HOME/vim/viminfo | endif

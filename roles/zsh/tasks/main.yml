@@ -8,6 +8,7 @@
     state: directory
   loop:
     - "{{ ansible_user_dir }}/.zsh" # TODO: remove
+    - "{{ ansible_user_dir }}/.cache/zsh"
     - "{{ ansible_user_dir }}/.config/zsh"
     - "{{ ansible_user_dir }}/.local/share/zsh"
 
