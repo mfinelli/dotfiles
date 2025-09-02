@@ -7,7 +7,7 @@
     path: "{{ ghostty_config_path[ansible_system] }}"
     state: directory
 
-- name: Linking starship configuration
+- name: Linking ghostty configuration
   ansible.builtin.template:
     dest: "{{ ghostty_config_path[ansible_system] }}/config"
     group: "{{ whoami_group }}"
