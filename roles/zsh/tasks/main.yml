@@ -8,6 +8,7 @@
     state: directory
   loop:
     - "{{ ansible_user_dir }}/.zsh" # TODO: remove
+    - "{{ ansible_user_dir }}/.config/zsh"
     - "{{ ansible_user_dir }}/.local/share/zsh"
 
 - name: Installing grml-zsh-config
@@ -58,7 +59,7 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking p10k configuration
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.p10k.zsh"
+    dest: "{{ ansible_user_dir }}/.config/zsh/p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
 
