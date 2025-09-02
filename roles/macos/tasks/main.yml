@@ -14,9 +14,6 @@
 - name: Configuring Mission Control
   ansible.builtin.import_tasks: missioncontrol.yml
 
-- name: Configuring iTerm2
-  ansible.builtin.import_tasks: iterm.yml
-
 # Settings -> Trackpad -> Scroll & Zoom -> Scroll Direction: natural
 - name: Disabling "natural scrolling"
   community.general.osx_defaults:
