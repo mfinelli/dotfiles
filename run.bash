@@ -124,5 +124,6 @@ ansible-playbook $needsudo $vaultoption \
 # remove it now and then on successive runs it'll be in the right place
 [[ -d ~/.ansible ]] && rm -rf ~/.ansible
 [[ -f ~/.bash_history ]] && rm -rf ~/.bash_history
+[[ -d ~/.zsh_sessions ]] && rm -rf ~/.zsh_sessions
 
 exit 0

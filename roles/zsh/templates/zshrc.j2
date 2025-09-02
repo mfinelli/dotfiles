@@ -69,6 +69,10 @@ source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/urltools/urltools
 
 export EDITOR=vim
 
+{% if ansible_os_family == "Darwin" %}
+export PATH="${HOMEBREW_PREFIX}/bin:$PATH"
+{% endif %}
+
 if [[ -d "$HOME/bin" ]]; then
   export PATH="$HOME/bin:$PATH"
 fi
@@ -239,6 +243,7 @@ export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 export AZURE_CONFIG_DIR="${XDG_DATA_HOME}/azure"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export GOPATH="${XDG_DATA_HOME}/go"
+export NODE_REPL_HISTORY="${XDG_STATE_HOME}/node_repl_history"
 export NPM_CONFIG_INIT_MODULE="${XDG_CONFIG_HOME}/npm/config/npm-init.js"
 export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
 export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql_history"
@@ -249,7 +254,12 @@ export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle"
 export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle"
 export PSQL_HISTORY="${XDG_STATE_HOME}/psql_history"
 export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
+export REDISCLI_HISTFILE="${XDG_STATE_HOME}/redis/rediscli_history"
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
+
+{% if ansible_os_family == "Darwin" %}
+export SHELL_SESSIONS_DISABLE=1
+{% endif %}
 
 if command -v irssi > /dev/null 2>&1; then
   alias irssi=irssi --config="$XDG_CONFIG_HOME/irssi/config" \
