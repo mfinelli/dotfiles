@@ -90,6 +90,11 @@ needsudo=""
 
 if [[ $mtype != server ]]; then
   vaultoption="--vault-id ${VAULT_ID}"
+
+  if [[ $VAULT_ID == p@./vault ]]; then
+    # also make w@./wvault available if needed
+    vaultoption="$vaultoption --vault-id w@./wvault"
+  fi
 else
   vaultoption=""
 fi
