@@ -118,5 +118,6 @@ ansible-playbook $needsudo $vaultoption \
 # we set ANSIBLE_HOME now, but this might be left over after the initial run:
 # remove it now and then on successive runs it'll be in the right place
 [[ -d ~/.ansible ]] && rm -rf ~/.ansible
+[[ -f ~/.bash_history ]] && rm -rf ~/.bash_history
 
 exit 0
