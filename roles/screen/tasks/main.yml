@@ -23,7 +23,7 @@
 
 - name: Copying screen configuration
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.screenrc"
+    dest: "{{ ansible_user_dir }}/.config/screen/screenrc"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
