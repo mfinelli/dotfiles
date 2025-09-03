@@ -41,18 +41,18 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
-source {{ ansible_user_dir }}/.zsh/abbr/zsh-abbr.zsh
-source {{ ansible_user_dir }}/.zsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
+source {{ ansible_user_dir }}/.local/sharezsh/abbr/zsh-abbr.zsh
+source {{ ansible_user_dir }}/.local/sharezsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
 export ZSH_AUTOSUGGEST_STRATEGY=(abbreviations $ZSH_AUTOSUGGEST_STRATEGY)
 
-source {{ ansible_user_dir }}/.zsh/grml/etc/zsh/zshrc
+source {{ ansible_user_dir }}/.local/share/zsh/grml/etc/zsh/zshrc
 
 {% if ansible_os_family == "Archlinux" %}
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 {% elif ansible_os_family == "Darwin" %}
 source "${HOMEBREW_PREFIX}/share/powerlevel10k/powerlevel10k.zsh-theme"
 {% else %}
-source {{ ansible_user_dir }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source {{ ansible_user_dir }}/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme
 {% endif %}
 
 # take some of the good parts of oh-my-zsh

@@ -14,28 +14,28 @@
 
 - name: Installing grml-zsh-config
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/grml"
+    dest: "{{ ansible_user_dir }}/.local/share/zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
     version: v0.19.24
 
 - name: Installing zsh-abbr
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/abbr"
+    dest: "{{ ansible_user_dir }}/.local/share/zsh/abbr"
     repo: https://github.com/olets/zsh-abbr.git
     version: v6.3.3
 
 - name: Installing zsh suggestions abbr-strategy
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/autosuggestions-abbr"
+    dest: "{{ ansible_user_dir }}/.local/share/zsh/autosuggestions-abbr"
     repo: >-
       https://github.com/olets/zsh-autosuggestions-abbreviations-strategy.git
     version: v1.1.2
 
 - name: Installing powerlevel10k
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/powerlevel10k"
+    dest: "{{ ansible_user_dir }}/.local/share/zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
-    version: v1.20.0
+    version: 36f3045d69d1ba402db09d09eb12b42eebe0fa3b # v1.20.15
 
 # https://stackoverflow.com/a/41029655
 - name: Installing oh-my-zsh # noqa command-instead-of-module
