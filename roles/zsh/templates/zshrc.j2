@@ -90,11 +90,11 @@ fi
 {% endif %}
 
 function unlockmf() {
-  gpg -qd ~/.zsh/36FDA306.asc > /dev/null
+  gpg -qd {{ playbook_dir }}/roles/zsh/files/36FDA306.asc > /dev/null
 }
 
 function unlockw() {
-  gpg -qd ~/.zsh/4DA7BCBA.asc > /dev/null
+  gpg -qd {{ playbook_dir }}/roles/zsh/files/4DA7BCBA.asc > /dev/null
 }
 
 export BAT_THEME="Monokai Extended"
