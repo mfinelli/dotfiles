@@ -41,8 +41,8 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
-source {{ ansible_user_dir }}/.local/sharezsh/abbr/zsh-abbr.zsh
-source {{ ansible_user_dir }}/.local/sharezsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
+source {{ ansible_user_dir }}/.local/share/zsh/abbr/zsh-abbr.zsh
+source {{ ansible_user_dir }}/.local/share/zsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
 export ZSH_AUTOSUGGEST_STRATEGY=(abbreviations $ZSH_AUTOSUGGEST_STRATEGY)
 
 source {{ ansible_user_dir }}/.local/share/zsh/grml/etc/zsh/zshrc
@@ -207,15 +207,15 @@ export DEBFULLNAME="Mario Finelli"
 export DEBEMAIL="ubuntu@mroml.com"
 {% endif %}
 
-source "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
+source "{{ playbook_dir }}/roles/zsh/files/oneliners.zsh"
 
 function certexp() {
   openssl x509 -text -noout -in "$1" | grep Not\ After
 }
 
 {% for gfa in zsh_gist_function_aliases %}
-if [[ -f "{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
-  alias {{ gfa.alias }}="{{ ansible_user_dir }}/.zsh/_functions/{{ gfa.alias }}/{{ gfa.filename }}"
+if [[ -f "{{ ansible_user_dir }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
+  alias {{ gfa.alias }}="{{ ansible_user_dir }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}"
 fi
 
 {% endfor %}

@@ -1,22 +1,15 @@
 ---
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Linking one-liner functions
-  ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.zsh/oneliners.zsh"
-    src: "{{ playbook_dir }}/roles/zsh/files/oneliners.zsh"
-    state: link
-
 - name: Creating gist directory
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.zsh/_functions"
+    path: "{{ ansible_user_dir }}/.local/share/zsh/gists"
     state: directory
 
 - name: Installing gist functions
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.zsh/_functions/{{ item.alias }}"
+    dest: "{{ ansible_user_dir }}/.local/share/zsh/gists/{{ item.alias }}"
     repo: "{{ item.repo }}"
     version: HEAD
   loop: "{{ zsh_gist_function_aliases }}"
