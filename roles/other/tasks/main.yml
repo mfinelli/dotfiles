@@ -70,3 +70,24 @@
     dest: "{{ ansible_user_dir }}/bin/ppq"
     src: "{{ playbook_dir }}/roles/other/files/ppqsubmit.py"
     state: link
+
+- name: Creating irssi directories
+  when: mtype != 'server'
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ ansible_user_dir }}/.config/irssi"
+    - "{{ ansible_user_dir }}/.local/share/irssi"
+
+- name: Copying irssi configuration
+  when: mtype != 'server'
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.config/irssi/config"
+    group: "{{ whoami_group }}"
+    mode: "0600"
+    owner: "{{ whoami }}"
+    src: irssi.config.j2
