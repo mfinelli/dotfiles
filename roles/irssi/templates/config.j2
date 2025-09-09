@@ -5,6 +5,8 @@ servers = (
     chatnet = "liberachat";
     port = "6697";
     use_tls = "yes";
+    tls_cert = "~/.config/irssi/certs/supermario.pem";
+    tls_pass = "{{ irssi_supermario_certificate_password }}";
     tls_verify = "yes";
   },
   {
@@ -24,6 +26,7 @@ chatnets = {
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";
+    sasl_mechanism = "EXTERNAL";
   };
   OFTC = {
     type = "IRC";
