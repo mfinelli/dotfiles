@@ -22,6 +22,8 @@
       when:
         - ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
         - mtype == 'personal' or mtype == 'work'
+    - role: irssi
+      when: mtype != 'server'
     - role: macos
       when: ansible_os_family == 'Darwin'
     - role: other
