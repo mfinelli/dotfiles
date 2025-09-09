@@ -38,3 +38,19 @@ cat roles/irssi/files/supermario.{crt,key} > roles/irssi/files/supermario.pem
 ```shell
 ./vault -w roles/irssi/files/supermario.pem
 ```
+
+## getting the fingerprint
+
+SHA1:
+
+```shell
+openssl x509 -in ~/.config/irssi/certs/supermario.pem -noout -fingerprint \
+  -sha1 | awk -F= '{gsub(":",""); print tolower ($2)}'
+```
+
+SHA512:
+
+```shell
+openssl x509 -in ~/.config/irssi/certs/supermario.pem -noout -fingerprint \
+  -sha512 | awk -F= '{gsub(":",""); print tolower ($2)}'
+```

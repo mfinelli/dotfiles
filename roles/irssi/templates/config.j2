@@ -12,6 +12,8 @@ servers = (
     chatnet = "OFTC";
     port = "6697";
     use_tls = "yes";
+    tls_cert = "~/.config/irssi/certs/supermario.pem";
+    tls_pass = "{{ irssi_supermario_certificate_password }}";
     tls_verify = "yes";
   },
 );

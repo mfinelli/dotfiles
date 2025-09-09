@@ -8,6 +8,7 @@
     state: directory
   loop:
     - "{{ ansible_user_dir }}/.config/irssi"
+    - "{{ ansible_user_dir }}/.config/irssi/certs"
     - "{{ ansible_user_dir }}/.local/share/irssi"
 
 - name: Copying authentication certificates
@@ -26,4 +27,4 @@
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
-    src: irssi.config.j2
+    src: config.j2
