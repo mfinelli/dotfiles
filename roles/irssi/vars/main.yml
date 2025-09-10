@@ -1,4 +1,6 @@
 ---
+irssi_homedir: "{{ ansible_user_dir }}/.local/share/irssi"
+
 irssi_supermario_certificate_password: !vault |
   $ANSIBLE_VAULT;1.2;AES256;w
   66393933643831643331373663343834393038616534626639323933306461653263376338633738

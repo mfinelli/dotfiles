@@ -9,7 +9,33 @@
   loop:
     - "{{ ansible_user_dir }}/.config/irssi"
     - "{{ ansible_user_dir }}/.config/irssi/certs"
-    - "{{ ansible_user_dir }}/.local/share/irssi"
+    - "{{ irssi_homedir }}"
+    - "{{ irssi_homedir }}/scripts"
+    - "{{ irssi_homedir }}/scripts/autorun"
+
+- name: Installing irssi scripts
+  ansible.builtin.git:
+    dest: "{{ irssi_homedir }}/scripts.irssi.org"
+    repo: https://github.com/irssi/scripts.irssi.org.git
+    version: HEAD
+
+- name: Linking upstream scripts
+  ansible.builtin.file:
+    dest: "{{ irssi_homedir }}/scripts/{{ item }}"
+    src: "{{ irssi_homedir }}/scripts.irssi.org/scripts/{{ item }}"
+    state: link
+  loop:
+    - trackbar.pl
+    - usercount.pl
+
+- name: Linking autorun scripts
+  ansible.builtin.file:
+    dest: "{{ irssi_homedir }}/scripts/autorun/{{ item }}"
+    src: "{{ irssi_homedir }}/scripts/{{ item }}"
+    state: link
+  loop:
+    - trackbar.pl
+    - usercount.pl
 
 - name: Copying authentication certificates
   ansible.builtin.copy:
