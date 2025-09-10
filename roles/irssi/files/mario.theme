@@ -248,6 +248,8 @@ abstracts = {
   ## statusbar
   ##
 
+  sbnet = "$0";   # prints just the tag; empty if not connected
+
   # default background for all statusbars. You can also give
   # the default foreground color for statusbar items.
   sb_background = "%4%w";
