@@ -118,7 +118,7 @@ if [[ -n $SSH_TTY && $wedition != codespace ]]; then
 fi
 
 tags=""
-if [[ ! -z $1 ]]; then
+if [[ -n $1 ]]; then
   tags="--tags $1"
 fi
 
