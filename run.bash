@@ -1,7 +1,14 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+
+set -e
 
 if [[ $(id -u) -eq 0 ]]; then
   echo >&2 "must not run as root!"
+  exit 1
+fi
+
+if [[ $# -gt 1 ]]; then
+  echo >&2 "usage: $(basename "$0") [tag]"
   exit 1
 fi
 
@@ -110,8 +117,13 @@ if [[ -n $SSH_TTY && $wedition != codespace ]]; then
   fi
 fi
 
+tags=""
+if [[ ! -z $1 ]]; then
+  tags="--tags $1"
+fi
+
 # shellcheck disable=SC2086
-ansible-playbook $needsudo $vaultoption \
+ansible-playbook $needsudo $vaultoption $tags \
   --inventory localhost \
   --extra-vars whoami="$(whoami)" \
   --extra-vars whoami_group="$(id -gn)" \

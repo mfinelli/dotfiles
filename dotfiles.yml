@@ -7,35 +7,52 @@
   roles:
     - role: arch
       when: ansible_os_family == 'Archlinux'
+      tags: arch
     - role: asdf
       when: mtype == 'work' and wedition == 'facile'
+      tags: asdf
     - role: aws
       when: mtype == 'personal' and wedition != 'media'
+      tags: aws
     - role: bash
       when: mtype == 'server' or wedition == 'media'
+      tags: bash
     - role: ghostty
       when: mtype != 'server' and wedition != 'media'
+      tags: ghostty
     - role: git
+      tags: git
     - role: gnupg
       when: mtype != 'server'
+      tags: gnupg
     - role: gnome
       when:
         - ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
         - mtype == 'personal' or mtype == 'work'
+      tags: gnome
     - role: irssi
       when: mtype != 'server'
+      tags: irssi
     - role: macos
       when: ansible_os_family == 'Darwin'
+      tags: macos
     - role: other
+      tags: other
     - role: screen
       when: mtype == 'server'
+      tags: screen
     - role: ssh
+      tags: ssh
     - role: tmux
       when: mtype != 'server'
+      tags: tmux
     - role: urlwatch
+      tags: urlwatch
     - role: vim
+      tags: vim
     - role: zsh
       when:
         - mtype != 'server'
         - wedition != 'media'
+      tags: zsh
 # vim: ft=yaml.ansible
