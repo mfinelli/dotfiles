@@ -44,6 +44,7 @@
     src: "{{ irssi_homedir }}/scripts/{{ item }}"
     state: link
   loop:
+    - adv_windowlist.pl
     - trackbar.pl
 
 - name: Copying authentication certificates

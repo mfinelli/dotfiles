@@ -282,6 +282,8 @@ abstracts = {
   sbservertag = ":$0 (change with ^X)";
   sbnickmode = "$0";
 
+  sb_act_none = "%K$*";
+
   # activity in statusbar
 
   # ',' separator
