@@ -19,12 +19,22 @@
     repo: https://github.com/irssi/scripts.irssi.org.git
     version: HEAD
 
+- name: Installing weed theme
+  ansible.builtin.git:
+    dest: "{{ irssi_homedir }}/weed"
+    repo: https://github.com/ronilaukkarinen/weed.git
+    version: HEAD
+
 - name: Linking upstream scripts
   ansible.builtin.file:
     dest: "{{ irssi_homedir }}/scripts/{{ item }}"
     src: "{{ irssi_homedir }}/scripts.irssi.org/scripts/{{ item }}"
     state: link
   loop:
+    - adv_windowlist.pl
+    - awaybar.pl
+    - nickcolor.pl
+    - nicklist.pl
     - trackbar.pl
     - usercount.pl
 
@@ -35,7 +45,6 @@
     state: link
   loop:
     - trackbar.pl
-    - usercount.pl
 
 - name: Copying authentication certificates
   ansible.builtin.copy:
@@ -46,6 +55,12 @@
     src: "{{ item }}.pem"
   loop:
     - supermario
+
+- name: Linking weed theme
+  ansible.builtin.file:
+    dest: "{{ irssi_homedir }}/weed.theme"
+    src: "{{ irssi_homedir }}/weed/weed.theme"
+    state: link
 
 - name: Copying irssi configuration
   ansible.builtin.template:
