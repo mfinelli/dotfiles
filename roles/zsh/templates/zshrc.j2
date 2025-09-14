@@ -163,7 +163,7 @@ fi
 if command -v atuin > /dev/null 2>&1; then
   # only load atuin if we've logged in
   if [[ -f ~/.local/share/atuin/session ]]; then
-    eval "$(atuin init zsh)"
+    eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
   fi
 fi
 

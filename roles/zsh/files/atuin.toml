@@ -4,6 +4,8 @@ update_check = false
 sync_address = "https://sh.mario.casa"
 show_help = false
 enter_accept = false
+style = "compact"
+inline_height = 20
 
 [sync]
 records = true
