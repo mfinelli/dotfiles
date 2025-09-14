@@ -1,0 +1,12 @@
+# Ansible managed
+
+update_check = false
+sync_address = "https://sh.mario.casa"
+show_help = false
+enter_accept = false
+
+[sync]
+records = true
+
+[dotfiles]
+enabled = false

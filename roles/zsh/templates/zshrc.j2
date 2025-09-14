@@ -160,6 +160,13 @@ if command -v mise > /dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+if command -v atuin > /dev/null 2>&1; then
+  # only load atuin if we've logged in
+  if [[ -f ~/.local/share/atuin/session ]]; then
+    eval "$(atuin init zsh)"
+  fi
+fi
+
 {% if ansible_os_family == "Darwin" %}
 # disable homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
