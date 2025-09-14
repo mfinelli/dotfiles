@@ -97,3 +97,8 @@ function urlencode() {
   /usr/bin/env python3 -c \
     "import sys, urllib.parse as ul; print(ul.quote(sys.argv[1]))" "$1"
 }
+
+function urldecode() {
+  /usr/bin/env python3 -c \
+    "import sys, urllib.parse as ul; print(ul.unquote(sys.argv[1]))" "$1"
+}
