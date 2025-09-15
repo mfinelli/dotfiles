@@ -82,13 +82,6 @@
     src: "{{ irssi_homedir }}/weed/weed.theme"
     state: link
 
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Linking mario theme
-  ansible.builtin.file:
-    dest: "{{ irssi_homedir }}/mario.theme"
-    src: "{{ playbook_dir }}/roles/irssi/files/mario.theme"
-    state: link
-
 - name: Copying irssi configuration
   ansible.builtin.template:
     dest: "{{ ansible_user_dir }}/.config/irssi/config"
