@@ -132,6 +132,9 @@ if [[ -n $1 ]]; then
   tags="--tags $1"
 fi
 
+# https://docs.ansible.com/ansible/latest/porting_guides/porting_guide_12.html
+export _ANSIBLE_TEMPLAR_UNTRUSTED_TEMPLATE_BEHAVIOR=error
+
 # shellcheck disable=SC2086
 ansible-playbook $needsudo $vaultoption $tags \
   --inventory localhost \
