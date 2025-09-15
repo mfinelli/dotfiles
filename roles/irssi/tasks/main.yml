@@ -33,8 +33,18 @@
   loop:
     - adv_windowlist.pl
     - awaybar.pl
-    - nickcolor.pl
-    - nicklist.pl
+    - binary.pl
+    - cmdind.pl
+    - complete_at.pl
+    - complete_lastspoke.pl
+    - desktop-notify.pl
+    - emo.pl
+    - mangle.pl
+    - nickcolor_expando.pl
+    - nm2.pl
+    - rud_emotes.pl
+    - savecmdhist.pl
+    - tmux_away.pl
     - trackbar.pl
     - usercount.pl
 
@@ -45,6 +55,15 @@
     state: link
   loop:
     - adv_windowlist.pl
+    - awaybar.pl
+    - binary.pl
+    - complete_at.pl
+    - desktop-notify.pl
+    - emo.pl # compare rud_emotes
+    - nickcolor_expando.pl
+    - nm2.pl
+    - savecmdhist.pl
+    - tmux_away.pl
     - trackbar.pl
 
 - name: Copying authentication certificates
