@@ -119,6 +119,16 @@ fi
 
 tags=""
 if [[ -n $1 ]]; then
+  # we don't have yq available on all dotfiles platforms yet so only run this
+  # check if it's available
+  if command -v yq > /dev/null 2>&1; then
+    role="$(yq ".[].roles[] | select(.tags == \"$1\").role" dotfiles.yml)"
+    if [[ -z $role ]]; then
+      echo >&2 "error: want tag '$1' but missing from dotfiles.yml"
+      exit 1
+    fi
+  fi
+
   tags="--tags $1"
 fi
 
