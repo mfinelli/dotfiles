@@ -5,6 +5,10 @@ max-cache-ttl 7200
 
 {% if ansible_os_family != "Darwin" and mtype != "server" %}
 pinentry-program /usr/bin/pinentry-gnome3
+{% elif ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
+pinentry-program /opt/homebrew/bin/pinentry-mac
+{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
+pinentry-program /usr/local/bin/pinentry-mac
 {% endif %}
 
 # vim: ft=conf.jinja2
