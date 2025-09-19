@@ -19,6 +19,7 @@
 
 # Settings -> Dock & Menu Bar -> Sound -> Show in Menu Bar (always)
 - name: Enabling always show sound in the menu bar
+  when: islaptop == 'true'
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -28,6 +29,7 @@
 
 # Settings -> Dock & Menu Bar -> Battery -> *
 - name: Configuring battery settings for menu bar
+  when: islaptop == 'true'
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost
@@ -39,6 +41,7 @@
 
 # Settings -> Dock & Menu Bar -> Battery -> Show percentage
 - name: Enabling battery percentage in the menu bar
+  when: islaptop == 'true'
   community.general.osx_defaults:
     domain: com.apple.controlcenter
     host: currentHost

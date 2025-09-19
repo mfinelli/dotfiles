@@ -95,6 +95,13 @@ needsudo=""
 #   needsudo=-K # --ask-become-password
 # fi
 
+macoslaptop="false"
+if [[ $(uname) == Darwin ]]; then
+  if pmset -g batt | grep -q InternalBattery; then
+    macoslaptop="true"
+  fi
+fi
+
 if [[ $mtype != server ]]; then
   vaultoption="--vault-id ${VAULT_ID}"
 
@@ -143,6 +150,7 @@ ansible-playbook $needsudo $vaultoption $tags \
   --extra-vars mtype=$mtype \
   --extra-vars wedition=$wedition \
   --extra-vars isgaming=$isgaming \
+  --extra-vars islaptop=$macoslaptop \
   dotfiles.yml
 
 # we set ANSIBLE_HOME now, but this might be left over after the initial run:
