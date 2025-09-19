@@ -59,8 +59,8 @@ afterwards everything can be updated with `git pull` and `./run.bash`.
 ### post-setup
 
 Some roles only install basic configuration but other steps are necessary.
-For example to activate `atuin` (in the `zsh` role) you must run the `command`.
-More information is available in the `zsh` role README.
+For example to activate `atuin` (in the `zsh` role) you must run the `login`
+command. More information is available in the `zsh` role README.
 
 ## notes
 
