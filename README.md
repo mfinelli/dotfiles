@@ -9,6 +9,39 @@ letting stow create a bunch of symbolic links but it allows greater control
 and ease-of-use for managing differences across systems and dealing with
 secrets.
 
+## usage
+
+### setup
+
+You must have the GPG key used for decrypting the vault (more information
+below) available before running the setup step below. If you're using using a
+yubikey to store the key material you're done as the setup script automatically
+loads the public keys necessary for it to work.
+
+If you're keeping the private key material on the machine then you need to copy
+the private key to the new machine and then run the following steps:
+
+```shell
+gpg --import ./path/to/key.asc
+```
+
+Then you need to edit the key to give it `ultimate` trust:
+
+```shell
+gpg --edit-key 36FDA306
+```
+
+Then enter `trust` and `5` to `ultimate`ly trust the key, and then `save` to
+exit.
+
+You can verify success with
+
+```shell
+gpg --list-keys
+```
+
+### first run
+
 Get up and running by either cloning this repository and running, `run.bash`,
 or all-in-one:
 
@@ -23,7 +56,15 @@ unlocked (`ssh-add ~/.ssh/key`).
 The initial installation will install the dotfiles into `$HOME/.dotfiles` and
 afterwards everything can be updated with `git pull` and `./run.bash`.
 
-## vault
+### post-setup
+
+Some roles only install basic configuration but other steps are necessary.
+For example to activate `atuin` (in the `zsh` role) you must run the `command`.
+More information is available in the `zsh` role README.
+
+## notes
+
+### vault
 
 Sensitive files are encrypted with ansible-vault. The vault password was
 initialized like so:
