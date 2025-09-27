@@ -132,6 +132,12 @@
     key: /org/gnome/shell/disable-user-extensions
     value: "false"
 
+- name: Activating SimpleWeather extension
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/simple-weather/is-activated
+    value: "true"
+
 - name: Enabling individual GNOME Shell extensions
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
@@ -275,6 +281,12 @@
     - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
         fetch-on-startup"
       value: "true"
+
+- name: Configuring SimpleWeather extension
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/simple-weather/theme
+    value: "'immersive'"
 
 - name: Configuring OpenWeather Refined extension
   when: ansible_os_family == 'Archlinux'

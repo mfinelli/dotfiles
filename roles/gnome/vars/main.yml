@@ -15,10 +15,10 @@ gnome_extensions:
     - "'keymapper@houmain.github.com'"
     - "'nightthemeswitcher@romainvigier.fr'"
     - "'no-overview@fthx'"
-    - "'openweather-extension@penguin-teal.github.io'"
     - "'pano@elhan.io'"
     - "'randomwallpaper@iflow.space'"
     - "'search-light@icedman.github.com'"
+    - "'simple-weather@romanlefler.com'"
     - "'systemd-manager@hardpixel.eu'"
     - "'ubuntu-dock@ubuntu.com'"
   Debian:
