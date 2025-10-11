@@ -11,7 +11,7 @@
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.bash/bash-it"
     repo: https://github.com/Bash-it/bash-it.git
-    version: v3.0.3
+    version: v3.1.2
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking `.bash_profile`
