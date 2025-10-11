@@ -8,9 +8,6 @@
     - role: arch
       when: ansible_os_family == 'Archlinux'
       tags: arch
-    - role: asdf
-      when: mtype == 'work' and wedition == 'facile'
-      tags: asdf
     - role: aws
       when: mtype == 'personal' and wedition != 'media'
       tags: aws

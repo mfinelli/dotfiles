@@ -1,7 +1,0 @@
----
-# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
-- name: Linking global tool versions file
-  ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.tool-versions"
-    src: "{{ playbook_dir }}/roles/asdf/files/tool-versions"
-    state: link
