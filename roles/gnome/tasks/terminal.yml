@@ -1,0 +1,42 @@
+---
+- name: Getting the internal ID of the GNOME Terminal profile
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.shell: >-
+    set -e -o pipefail;
+    dconf list /org/gnome/terminal/legacy/profiles:/ | head -n1 |
+      awk -F: '{print $2}' | awk -F/ '{print $1}'
+  register: gnome_terminal_profile
+  changed_when: false
+  args:
+    executable: /bin/bash
+
+- name: Configuring GNOME Terminal
+  when: ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:\
+      {{ gnome_terminal_profile.stdout }}/{{ item.key }}"
+    value: "{{ item.value | string }}"
+  loop:
+    - key: visible-name
+      value: "'mario'"
+    - key: use-system-font
+      value: "false"
+    - key: font
+      value: "'{{ gnome_terminal_font[ansible_os_family] }} 12'"
+    - key: use-theme-colors
+      value: "false"
+    - key: audible-bell
+      value: "false"
+    - key: foreground-color
+      value: "'rgb(255,255,255)'"
+    - key: background-color
+      value: "'rgb(0,0,0)'"
+    - key: palette
+      value: >-
+        ['rgb(0,0,0)', 'rgb(170,0,0)', 'rgb(0,170,0)', 'rgb(170,85,0)',
+        'rgb(0,0,170)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)',
+        'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)',
+        'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)',
+        'rgb(255,255,255)']
+    - key: bold-is-bright
+      value: "true"

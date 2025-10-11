@@ -23,7 +23,7 @@ gnome_extensions:
     - "'ubuntu-dock@ubuntu.com'"
   Debian:
     - "'arcmenu@arcmenu.com'"
-    - "'bluetooth-quick-connect@bjarosze.gmail.com'"
+    - "'blur-my-shell@aunetx'"
     - "'caffeine@patapon.info'"
     - "'dash-to-dock@micxgx.gmail.com'"
     - "'debian-updates-indicator@glerro.pm.me'"
@@ -31,9 +31,9 @@ gnome_extensions:
     - "'keymapper@houmain.github.com'"
     - "'nightthemeswitcher@romainvigier.fr'"
     - "'no-overview@fthx'"
-    - "'openWeatherMenu'"
     - "'pano@elhan.io'"
     - "'randomwallpaper@iflow.space'"
+    - "'simple-weather@romanlefler.com'"
     - "'ubuntu-appindicators@ubuntu.com'"
 
 gnome_arcmenu_icon:

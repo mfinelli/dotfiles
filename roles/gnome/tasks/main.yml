@@ -15,46 +15,6 @@
     key: /org/gnome/desktop/input-sources/xkb-options
     value: "['lv3:switch', 'compose:ralt']"
 
-- name: Getting the internal ID of the GNOME Terminal profile
-  ansible.builtin.shell: >-
-    set -e -o pipefail;
-    dconf list /org/gnome/terminal/legacy/profiles:/ | head -n1 |
-      awk -F: '{print $2}' | awk -F/ '{print $1}'
-  register: gnome_terminal_profile
-  changed_when: false
-  args:
-    executable: /bin/bash
-
-- name: Configuring GNOME Terminal
-  community.general.dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/:\
-      {{ gnome_terminal_profile.stdout }}/{{ item.key }}"
-    value: "{{ item.value | string }}"
-  loop:
-    - key: visible-name
-      value: "'mario'"
-    - key: use-system-font
-      value: "false"
-    - key: font
-      value: "'{{ gnome_terminal_font[ansible_os_family] }} 12'"
-    - key: use-theme-colors
-      value: "false"
-    - key: audible-bell
-      value: "false"
-    - key: foreground-color
-      value: "'rgb(255,255,255)'"
-    - key: background-color
-      value: "'rgb(0,0,0)'"
-    - key: palette
-      value: >-
-        ['rgb(0,0,0)', 'rgb(170,0,0)', 'rgb(0,170,0)', 'rgb(170,85,0)',
-        'rgb(0,0,170)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)',
-        'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)',
-        'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)',
-        'rgb(255,255,255)']
-    - key: bold-is-bright
-      value: "true"
-
 - name: Configuring screen lock settings
   community.general.dconf:
     key: "{{ item.key }}"
@@ -93,38 +53,8 @@
     - /org/gnome/desktop/interface/clock-format
     - /org/gtk/settings/file-chooser/clock-format
 
-- name: Configuring World Clocks
-  community.general.dconf:
-    key: "{{ item.key }}"
-    value: "{{ item.value }}"
-  loop:
-    - key: /org/gnome/clocks/world-clocks
-      value: >-
-        [{'location': <(uint32 2, <('Los Angeles', 'KCQT', true,
-        [(0.59370283970450188, -2.0644336110828618)], [(0.59432360095955872,
-        -2.063741622941031)])>)>}, {'location': <(uint32 2, <('New York',
-        'KNYC', true, [(0.71180344078725644, -1.2909618758762367)],
-        [(0.71059804659265924, -1.2916478949920254)])>)>}, {'location':
-        <(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false,
-        @a(dd) [], @a(dd) [])>)>}, {'location': <(uint32 2, <('Rome', 'LIRU',
-        true, [(0.73216562121162132, 0.21816615649929119)],
-        [(0.73129295658562399, 0.21787526247286132)])>)>}, {'location':
-        <(uint32 2, <('London', 'EGWU', false, [(0.89971722940307675,
-        -0.007272211034407213)], [(0.89971722940307675,
-        -0.007272211034407213)])>)>}]
-    - key: /org/gnome/shell/world-clocks/locations
-      value: >-
-        [<(uint32 2, <('Los Angeles', 'KCQT', true, [(0.59370283970450188,
-        -2.0644336110828618)], [(0.59432360095955872, -2.063741622941031)])>)>,
-        <(uint32 2, <('New York', 'KNYC', true, [(0.71180344078725644,
-        -1.2909618758762367)], [(0.71059804659265924,
-        -1.2916478949920254)])>)>, <(uint32 2, <('Coordinated Universal Time
-        (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>, <(uint32 2, <('Rome',
-        'LIRU', true, [(0.73216562121162132, 0.21816615649929119)],
-        [(0.73129295658562399, 0.21787526247286132)])>)>, <(uint32 2,
-        <('London', 'EGWU', false, [(0.89971722940307675,
-        -0.007272211034407213)], [(0.89971722940307675,
-        -0.007272211034407213)])>)>]
+- name: Configuring World clocks
+  ansible.builtin.import_tasks: clocks.yml
 
 - name: Enabling GNOME Shell extensions
   when: ansible_os_family == 'Archlinux'
@@ -133,13 +63,13 @@
     value: "false"
 
 - name: Activating SimpleWeather extension
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/shell/extensions/simple-weather/is-activated
     value: "true"
 
 - name: Enabling individual GNOME Shell extensions
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
     value: "[{{ gnome_extensions[ansible_os_family] | join(', ') }}]"
@@ -205,7 +135,7 @@
     - key: /org/gnome/shell/extensions/arcmenu/searchbar-default-bottom-location
       value: "'Top'"
     - key: /org/gnome/shell/extensions/arcmenu/distro-icon
-      value: "6" # archlinux
+      value: "{{ gnome_arcmenu_icon }}"
 
 - name: Enabling location services # required for night light
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
@@ -283,24 +213,19 @@
       value: "true"
 
 - name: Configuring SimpleWeather extension
-  when: ansible_os_family == 'Archlinux'
-  community.general.dconf:
-    key: /org/gnome/shell/extensions/simple-weather/theme
-    value: "'immersive'"
-
-- name: Configuring OpenWeather Refined extension
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:
-    - key: /org/gnome/shell/extensions/openweatherrefined/simplify-degrees
+    - key: /org/gnome/shell/extensions/simple-weather/theme
+      value: "'immersive'"
+    - key: /org/gnome/shell/extensions/simple-weather/symbolic-icons-panel
       value: "true"
-    - key: /org/gnome/shell/extensions/openweatherrefined/weather-provider
-      value: "'openweathermap'"
-    - key: /org/gnome/shell/extensions/openweatherrefined/custom-keys
-      value: "['{{ gnome_openweathermap_api_key[mtype] }}', '', '']"
-    - key: /org/gnome/shell/extensions/openweatherrefined/my-loc-prov
-      value: "'ipinfoio'"
-    - key: /org/gnome/shell/extensions/openweatherrefined/locs
-      value: "[{{ gnome_openweather_locations | join(', ') }}]"
+    - key: /org/gnome/shell/extensions/simple-weather/locations
+      value: >-
+        ['{"isHere":true}', '{"name":"Siena","lat":43.167206,"lon":11.467561}',
+        '{"name":"Washington","lat":38.8950368,"lon":-77.0365427}']
+
+- name: Configuring GNOME Terminal
+  ansible.builtin.import_tasks: terminal.yml
