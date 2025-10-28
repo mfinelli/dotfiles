@@ -45,23 +45,26 @@
     owner: "{{ whoami }}"
     src: keys/emerald
 
-- name: Copying public key (at work)
+- name: Creating 1Passwword SSH configuration directories
   when: mtype == 'work'
-  ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/{{ item }}"
     group: "{{ whoami_group }}"
-    mode: "0600"
+    mode: "0700"
     owner: "{{ whoami }}"
-    src: keys/work.pub
+    state: directory
+  loop:
+    - 1Password
+    - 1Password/ssh
 
-- name: Copying private key (at work)
+- name: Copying 1Password SSH agent configuration
   when: mtype == 'work'
-  ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
+  ansible.builtin.template:
+    dest: "{{ ansible_user_dir }}/.config/1Password/ssh/agent.toml"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
-    src: keys/work
+    src: agent.toml.j2
 
 # https://serverfault.com/a/599565
 - name: Writing out SSH public keys for forwarding

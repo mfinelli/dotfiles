@@ -11,11 +11,8 @@ Host rome.mfpkg.net
 
 {% endif %}
 Host *
-    AddKeysToAgent yes
+    IdentityAgent ~/.1password/agent.sock
     User {{ ssh_work_username[wedition] }}
-{% if ansible_os_family == "Darwin" %}
-    UseKeychain yes
-{% endif %}
 {% elif mtype == "server" %}
 {% if wedition == "personal" %}
 Host aur aur.archlinux.org
