@@ -118,6 +118,18 @@
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_personal_dock | join(', ') }}]"
 
+- name: Configuring GNOME Shell Arc Menu extension icon (arch)
+  when: ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/distro-icon
+    value: 6
+
+- name: Configuring GNOME Shell Arc Menu extension icon (debian)
+  when: ansible_os_family == 'Debian'
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/distro-icon
+    value: 1
+
 - name: Configuring GNOME Shell Arc Menu extension
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
   community.general.dconf:
@@ -134,8 +146,6 @@
       value: "'Frequent_Apps'"
     - key: /org/gnome/shell/extensions/arcmenu/searchbar-default-bottom-location
       value: "'Top'"
-    - key: /org/gnome/shell/extensions/arcmenu/distro-icon
-      value: "{{ gnome_arcmenu_icon }}"
 
 - name: Enabling location services # required for night light
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'

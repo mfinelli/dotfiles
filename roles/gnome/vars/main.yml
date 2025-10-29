@@ -36,10 +36,6 @@ gnome_extensions:
     - "'simple-weather@romanlefler.com'"
     - "'ubuntu-appindicators@ubuntu.com'"
 
-gnome_arcmenu_icon:
-  Archlinux: "6"
-  Debian: "1"
-
 gnome_personal_dock:
   - "'firefox.desktop'"
   - "'thunderbird.dekstop'"
