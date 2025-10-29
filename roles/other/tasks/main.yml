@@ -70,3 +70,19 @@
     dest: "{{ ansible_user_dir }}/bin/ppq"
     src: "{{ playbook_dir }}/roles/other/files/ppqsubmit.py"
     state: link
+
+- name: Creating tailscale tray startup
+  when: mtype == 'personal' and ansible_system == "Linux"
+  ansible.builtin.command:
+    cmd: tailscale configure systray --enable-startup=systemd
+    creates: >-
+      {{ ansible_user_dir }}/.config/systemd/user/tailscale-systray.service
+  register: other_tailscale_systray
+
+- name: Enabling tailscale tray
+  when: mtype == 'personal' and ansible_system == "Linux"
+  ansible.builtin.systemd:
+    daemon_reload: "{{ other_tailscale_systray.changed | bool }}"
+    enabled: true
+    name: tailscale-systray.service
+    scope: user
