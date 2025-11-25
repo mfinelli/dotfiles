@@ -197,7 +197,7 @@ export VULTR_API_KEY={{ zsh_vultr_api_key }}
 
 {% if ansible_os_family == "Darwin" and mtype == "personal" %}
 if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
-  export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin/python"
+  export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin/python"
   source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
   source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
