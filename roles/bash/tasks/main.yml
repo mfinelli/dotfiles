@@ -7,6 +7,18 @@
     path: "{{ ansible_user_dir }}/.bash"
     state: directory
 
+- name: Creating bash state directory
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ ansible_user_dir }}.local"
+    - "{{ ansible_user_dir }}.local/state"
+    - "{{ ansible_user_dir }}.local/state/bash"
+
 - name: Installing bash-it
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.bash/bash-it"
