@@ -1,0 +1,18 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "vertex-ai"
+    },
+    "disableYoloMode": true
+  },
+  "general": {
+    "disableAutoUpdate": true
+  },
+  "ui": {
+    "footer": {
+      "hideContextPercentage": false
+    },
+    "showMemoryUsage": true,
+    "showModelInfoInChat": true
+  }
+}

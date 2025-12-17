@@ -71,6 +71,23 @@
     src: "{{ playbook_dir }}/roles/other/files/ppqsubmit.py"
     state: link
 
+- name: Creating gemini configuration directory
+  when: mtype == 'work'
+  ansible.builtin.file:
+    group: "{{ whoami_group }}"
+    mode: "0755"
+    owner: "{{ whoami }}"
+    path: "{{ ansible_user_dir }}/.gemini"
+    state: directory
+
+# this is ok, because boostrap.bash calls dotfiles.yml as the playbook
+- name: Copying gemini configuration
+  when: mtype == 'work'
+  ansible.builtin.file:
+    dest: "{{ ansible_user_dir }}/.gemini/settings.json"
+    src: "{{ playbook_dir }}/roles/other/files/gemini.json"
+    state: link
+
 - name: Creating tailscale tray startup
   when: mtype == 'personal' and ansible_system == "Linux"
   ansible.builtin.command:
