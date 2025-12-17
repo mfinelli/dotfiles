@@ -177,6 +177,8 @@ export HOMEBREW_NO_ANALYTICS=1
 
 {% if mtype == 'work' and wedition == 'facile' %}
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export GOOGLE_CLOUD_PROJECT=personal-mario-finelli
+export GOOGLE_CLOUD_LOCATION=global
 {% endif %}
 
 {% if mtype != "server" %}
