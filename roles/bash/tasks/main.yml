@@ -15,9 +15,9 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ ansible_user_dir }}.local"
-    - "{{ ansible_user_dir }}.local/state"
-    - "{{ ansible_user_dir }}.local/state/bash"
+    - "{{ ansible_user_dir }}/.local"
+    - "{{ ansible_user_dir }}/.local/state"
+    - "{{ ansible_user_dir }}/.local/state/bash"
 
 - name: Installing bash-it
   ansible.builtin.git:
