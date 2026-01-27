@@ -157,8 +157,9 @@
 - name: Configuring GNOME Shell Arc Menu extension icon (arch)
   when: ansible_os_family == 'Archlinux'
   community.general.dconf:
-    key: /org/gnome/shell/extensions/arcmenu/distro-icon
-    value: 6
+    key: /org/gnome/shell/extensions/arcmenu/menu-button-icon
+    value: "'resource:///org/gnome/shell/extensions/arcmenu/icons/scalable/\
+      actions/distro-arch-symbolic.svg'"
 
 - name: Configuring GNOME Shell Arc Menu extension icon (debian)
   when: ansible_os_family == 'Debian'
