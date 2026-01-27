@@ -6,13 +6,18 @@
     "disableYoloMode": true
   },
   "general": {
-    "disableAutoUpdate": true
+    "disableAutoUpdate": true,
+    "disableUpdateNag": true
   },
   "ui": {
     "footer": {
       "hideContextPercentage": false
     },
+    "showStatusInTitle": true,
     "showMemoryUsage": true,
     "showModelInfoInChat": true
+  },
+  "privacy": {
+    "usageStatisticsEnabled": false
   }
 }
