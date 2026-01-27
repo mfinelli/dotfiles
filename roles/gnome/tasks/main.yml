@@ -98,6 +98,42 @@
     - key: command-method
       value: "'systemctl'"
 
+- name: Creating directories for highlight.js for copyous extension
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ whoami }}"
+    mode: "0755"
+    group: "{{ whoami_group }}"
+    state: directory
+  loop:
+    - "{{ ansible_user_dir }}/.local"
+    - "{{ ansible_user_dir }}/.local/share/"
+    - "{{ ansible_user_dir }}/.local/share/copyous@boerdereinar.dev"
+
+- name: Downloading highlight.js for copyous extension
+  ansible.builtin.get_url:
+    dest: "{{ ansible_user_dir }}/.local/share/copyous@boerdereinar.dev/\
+      highlight.min.js"
+    owner: "{{ whoami }}"
+    mode: "0644"
+    group: "{{ whoami_group }}"
+    url: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/es/\
+      highlight.min.js"
+
+- name: Configuring copyous extension
+  when:
+    - ansible_os_family == 'Archlinux'
+  community.general.dconf:
+    key: "{{ item.setting }}"
+    value: "{{ item.value }}"
+  loop:
+    - setting: /org/gnome/shell/extensions/copyous/history-length
+      value: "100"
+    - setting: /org/gnome/shell/extensions/copyous/clipboard-history
+      value: "'keep-all'"
+    - setting: /org/gnome/shell/extensions/copyous/paste-on-copy
+      value: "false"
+
 - name: Configuring GNOME Shell systemd manager extension systemd services
   when:
     - ansible_os_family == 'Archlinux'
