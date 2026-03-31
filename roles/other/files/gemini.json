@@ -7,7 +7,14 @@
   },
   "general": {
     "disableAutoUpdate": true,
-    "disableUpdateNag": true
+    "disableUpdateNag": true,
+    "enableAutoUpdate": false,
+    "enableAutoUpdateNotification": false,
+    "sessionRetention": {
+      "enabled": true,
+      "maxAge": "30d",
+      "warningAcknowledged": true
+    }
   },
   "ui": {
     "footer": {
