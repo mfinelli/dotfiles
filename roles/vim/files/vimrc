@@ -137,3 +137,6 @@ endfunction
 
 " xdg-ninja fixes
 if !has('nvim') | set viminfofile=$XDG_STATE_HOME/vim/viminfo | endif
+
+" make comments italic
+highlight Comment gui=italic cterm=italic
