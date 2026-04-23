@@ -133,6 +133,7 @@ def main() -> int:
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
             "Accept": "application/json",
+            "User-Agent": "pocket-portal-ingest/1.0",
         },
     )
 
