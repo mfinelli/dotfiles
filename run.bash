@@ -45,7 +45,7 @@ MEDIA=(liveusb zen)
 # shellcheck disable=SC2034
 GAMING=(bowser wario)
 # shellcheck disable=SC2034
-PSERVER=(atlas homepi iris kleio parkpi raipi rome.mfpkg.net tvpi workpi)
+PSERVER=(atlas homepi iris kleio parkpi raipi rome.mfpkg.net talos tvpi)
 
 hn="$(hostname)"
 
