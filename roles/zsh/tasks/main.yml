@@ -10,6 +10,7 @@
     - "{{ ansible_user_dir }}/.cache/zsh"
     - "{{ ansible_user_dir }}/.config/zsh"
     - "{{ ansible_user_dir }}/.local/share/zsh"
+    - "{{ ansible_user_dir }}/.local/share/zsh/completions"
 
 - name: Installing grml-zsh-config
   ansible.builtin.git:

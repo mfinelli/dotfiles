@@ -19,6 +19,9 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename '{{ ansible_user_dir }}/.zshrc'
 
+# this was _not_ added by compinstall but let's us load local completions
+fpath=($XDG_DATA_HOME/zsh/completions $fpath)
+
 autoload -Uz compinit
 compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}"
 # End of lines added by compinstall
