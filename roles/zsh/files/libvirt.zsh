@@ -115,9 +115,57 @@ vm-rm() {
 }
 
 vm-ip()      { virsh domifaddr "${1:?usage: vm-ip NAME}" | awk '/ipv4/ {split($4,a,"/"); print a[1]}'; }
-vm-ssh()     { ssh -J "$VM_HOST" "mario@$(vm-ip "${1:?usage: vm-ssh NAME}")"; }
 vm-console() { virsh console "${1:?usage: vm-console NAME}"; }
 vm-view()    { virt-viewer "${1:?usage: vm-view NAME}"; }
+
+_vm_ssh_opts=(-o IdentitiesOnly=yes -o StrictHostKeyChecking=no
+              -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR
+              -o AddKeysToAgent=yes )
+if [[ $(uname) == Darwin ]]; then
+  _vm_ssh_opts=("${_vm_ssh_opts[@]}" -o UseKeychain=yes)
+fi
+
+_vm_target() {
+  local ip
+  ip=$(vm-ip "$1")
+  [[ -n "$ip" ]] || { echo "no IP for '$1' (not running, or no lease yet)" >&2; return 1; }
+  echo "mario@$ip"
+}
+
+# vm-scp NAME [scp options] SRC DST     (prefix paths on the VM with ':')
+#
+# vm-scp test1 ./notes.txt :/tmp/            # to the VM
+# vm-scp test1 -r :~/results ./results       # from the VM
+vm-scp() {
+  local name="${1:?usage: vm-scp NAME [scp options] SRC DST   (VM paths start with ':')}" target a
+  local args=()
+  shift
+  target=$(_vm_target "$name") || return 1
+  for a in "$@"; do
+    if [[ "$a" == :* ]]; then args+=("$target$a"); else args+=("$a"); fi
+  done
+  scp -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "${args[@]}"
+}
+
+# vm-rsync NAME [rsync options] SRC DST   (prefix paths on the VM with ':')
+#
+# vm-rsync test1 -avz ./project/ :~/project/
+vm-rsync() {
+  local name="${1:?usage: vm-rsync NAME [rsync options] SRC DST   (VM paths start with ':')}" target a
+  local args=()
+  shift
+  target=$(_vm_target "$name") || return 1
+  for a in "$@"; do
+    if [[ "$a" == :* ]]; then args+=("$target$a"); else args+=("$a"); fi
+  done
+  rsync -e "ssh -J $VM_HOST -i ${VM_SSH_KEY%.pub} ${_vm_ssh_opts[*]}" "${args[@]}"
+}
+
+vm-ssh() {
+  local target
+  target=$(_vm_target "${1:?usage: vm-ssh NAME}") || return 1
+  ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target"
+}
 
 # Shutdown is asynchronous: `vm-stop` returns immediately. Check `vm-ls` or
 # `virsh domstate NAME` to see when it reaches "shut off"
