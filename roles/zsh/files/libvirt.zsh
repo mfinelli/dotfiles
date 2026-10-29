@@ -118,3 +118,12 @@ vm-ip()      { virsh domifaddr "${1:?usage: vm-ip NAME}" | awk '/ipv4/ {split($4
 vm-ssh()     { ssh -J "$VM_HOST" "mario@$(vm-ip "${1:?usage: vm-ssh NAME}")"; }
 vm-console() { virsh console "${1:?usage: vm-console NAME}"; }
 vm-view()    { virt-viewer "${1:?usage: vm-view NAME}"; }
+
+# Shutdown is asynchronous: `vm-stop` returns immediately. Check `vm-ls` or
+# `virsh domstate NAME` to see when it reaches "shut off"
+vm-stop()    { virsh shutdown "${1:?usage: vm-stop NAME}"; }
+vm-kill()    { virsh destroy  "${1:?usage: vm-kill NAME}"; }   # hard power-off, keeps the VM
+vm-start()   { virsh start    "${1:?usage: vm-start NAME}"; }
+vm-reboot()  { virsh reboot   "${1:?usage: vm-reboot NAME}"; }
+vm-reset()   { virsh reset    "${1:?usage: vm-reset NAME}"; }  # hard reset
+vm-ls()      { virsh list --all; }
