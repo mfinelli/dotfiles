@@ -198,3 +198,59 @@ vm-images-clean() {
     fi
   done <<< "$(_vm_bases | sort -r)"   # newest first
 }
+
+# basenames of every disk/cdrom source attached to any defined domain
+_vm_domain_disks() {
+  local d
+  virsh list --all --name | while read -r d; do
+    [[ -z "$d" ]] && continue
+    virsh domblklist --details "$d" 2>/dev/null |
+      awk 'NR>2 && NF && $4 != "-" {print $4}'
+  done | sed 's:.*/::' | sort -u
+}
+
+_vm_orphans_usage() {
+  cat <<'EOF'
+Usage: vm-orphans [-y]
+
+List volumes in the default pool that no VM uses: not a base image,
+not attached to any defined VM, and not a backing file of another volume.
+Typically leftovers from a failed or interrupted vm-new.
+
+  -y   delete them (default is a dry run that only prints)
+  -h   show this help
+
+Do not run while vm-new is in progress: its volumes exist briefly
+before the VM is defined and would look like orphans.
+EOF
+}
+
+vm-orphans() {
+  local OPTIND=1 opt yes=0 used backing v found=0
+  while getopts "yh" opt; do
+    case "$opt" in
+      y) yes=1 ;;
+      h) _vm_orphans_usage; return 0 ;;
+      *) _vm_orphans_usage >&2; return 2 ;;
+    esac
+  done
+
+  used=$(_vm_domain_disks)
+  backing=$(_vm_backing_map | awk '{print $2}')
+
+  while read -r v; do
+    [[ -z "$v" ]] && continue
+    [[ "$v" == ${VM_BASE_PREFIX}*.qcow2 ]] && continue
+    printf '%s\n' "$used"    | grep -Fxq -- "$v" && continue
+    printf '%s\n' "$backing" | grep -Fxq -- "$v" && continue
+    found=1
+    if (( yes )); then
+      echo "delete: $v"
+      virsh vol-delete --pool default "$v"
+    else
+      echo "orphan: $v"
+    fi
+  done <<< "$(_vm_vols)"
+
+  (( found )) || echo "no orphans"
+}
