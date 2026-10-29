@@ -127,3 +127,74 @@ vm-start()   { virsh start    "${1:?usage: vm-start NAME}"; }
 vm-reboot()  { virsh reboot   "${1:?usage: vm-reboot NAME}"; }
 vm-reset()   { virsh reset    "${1:?usage: vm-reset NAME}"; }  # hard reset
 vm-ls()      { virsh list --all; }
+
+_vm_vols()  { virsh vol-list default | awk 'NR>2 && NF {print $1}'; }
+_vm_bases() { _vm_vols | grep "^${VM_BASE_PREFIX}.*\.qcow2$" | sort; }
+
+# prints "overlay-volume base-volume" for every volume that has a backing file
+_vm_backing_map() {
+  local v p
+  _vm_vols | while read -r v; do
+    p=$(virsh vol-dumpxml --pool default "$v" 2>/dev/null |
+      sed -n '/<backingStore>/,/<\/backingStore>/s:.*<path>\(.*\)</path>.*:\1:p' | head -n1)
+    [[ -n "$p" ]] && echo "$v ${p##*/}"
+  done
+}
+
+vm-images() {
+  local map base size users
+  map=$(_vm_backing_map)
+  printf '%-48s %-10s %s\n' BASE_IMAGE DISK_USED USED_BY
+  _vm_bases | while read -r base; do
+    size=$(virsh vol-info --pool default "$base" | awk '/^Allocation/ {print $2 $3}')
+    users=$(printf '%s\n' "$map" | awk -v b="$base" '$2==b {print $1}' | tr '\n' ' ')
+    printf '%-48s %-10s %s\n' "$base" "$size" "${users:--}"
+  done
+}
+
+# Usage:
+# vm-images                    # list bases, their size on disk, and which volumes use them
+# vm-images-clean              # dry run
+# vm-images-clean -y           # delete the unused old ones, keeping the newest
+# vm-images-clean -k 2 -y      # keep the two newest
+_vm_images_clean_usage() {
+  cat <<'EOF'
+Usage: vm-images-clean [-k N] [-y]
+
+Delete old base images that no volume depends on.
+
+  -k N   always keep the newest N images (default: 1)
+  -y     actually delete (default is a dry run that only prints)
+  -h     show this help
+
+Images that any overlay disk still uses as its backing file are never deleted.
+EOF
+}
+
+vm-images-clean() {
+  local OPTIND=1 opt keep=1 yes=0 map base i=0
+  while getopts "k:yh" opt; do
+    case "$opt" in
+      k) keep="$OPTARG" ;;
+      y) yes=1 ;;
+      h) _vm_images_clean_usage; return 0 ;;
+      *) _vm_images_clean_usage >&2; return 2 ;;
+    esac
+  done
+
+  map=$(_vm_backing_map)
+  while read -r base; do
+    [[ -z "$base" ]] && continue
+    i=$((i + 1))
+    if (( i <= keep )); then echo "keep (newest $keep): $base"; continue; fi
+    if printf '%s\n' "$map" | awk -v b="$base" '$2==b {f=1} END {exit !f}'; then
+      echo "keep (in use): $base"; continue
+    fi
+    if (( yes )); then
+      echo "delete: $base"
+      virsh vol-delete --pool default "$base"
+    else
+      echo "would delete: $base"
+    fi
+  done <<< "$(_vm_bases | sort -r)"   # newest first
+}
