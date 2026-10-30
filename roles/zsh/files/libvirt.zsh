@@ -302,7 +302,7 @@ vm-provision() {
     # pipestatus has to be captured as the very next statement: any command in
     # between (even a [[ ]] test) resets it.
     $gpg --batch --quiet --decrypt "$f" |
-      ssh -J "$VM_HOST" -i "${_vm_ssh_key%.pub}" "${_vm_ssh_opts[@]}" "$target" \
+      ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target" \
         "umask 077 && cat > '$VM_SECRET_DIR/$s'"
     local -a st=("${pipestatus[@]}")
 
