@@ -4,6 +4,7 @@ export VM_SSH_KEY="$HOME/.ssh/home.pub"
 export VM_OSINFO="${VM_OSINFO:-debian13}"
 export VM_BASE_PREFIX="debian-13-base-"
 export VM_DESKTOP_BASE_PREFIX="debian-13-generic-base-"
+export VM_CONSOLE_PASSWORD=123 # ephemeral, throwaway vm so this is fine
 export VM_VNC_PASSWORD=desktop1 # this is fine auth already happened over ssh
 
 _vm_new_usage() {
