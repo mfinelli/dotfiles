@@ -69,3 +69,21 @@
 
 - name: Configuring other shell-related tools
   ansible.builtin.import_tasks: other.yml
+
+- name: Creating vm secrets directory
+  when: mtype != 'work'
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/vm-secrets"
+    group: "{{ whoami_group }}"
+    mode: "0700"
+    owner: "{{ whoami }}"
+
+- name: Writing out vm secrets
+  when: mtype != 'work'
+  ansible.builtin.copy:
+    dest: "{{ ansible_user_dir }}/{{ item }}.asc"
+    group: "{{ whoami_group }}"
+    mode: "0600"
+    owner: "{{ whoami }}"
+    src: "{{ item }}.asc"
+  loop: "{{ zsh_vmsecrets }}"

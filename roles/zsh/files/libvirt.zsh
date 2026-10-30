@@ -7,6 +7,13 @@ export VM_DESKTOP_BASE_PREFIX="debian-13-generic-base-"
 export VM_CONSOLE_PASSWORD=123 # ephemeral, throwaway vm so this is fine
 export VM_VNC_PASSWORD=desktop1 # this is fine auth already happened over ssh
 
+# Secrets pushed into a guest by vm-provision, at /dev/shm/secrets/<name>.
+# agentvm.bash consumes and then removes them.
+export VM_SECRET_DIR=/dev/shm/secrets
+# Directory of GPG-encrypted secrets, one file per secret, named <secret>.asc
+# (or .gpg).
+export VM_SECRET_SRC="${VM_SECRET_SRC:-$HOME/.local/share/vm-secrets}"
+
 _vm_new_usage() {
   cat <<'EOF'
 Usage: vm-new [options] NAME
@@ -27,7 +34,8 @@ Environment:
   LIBVIRT_DEFAULT_URI, VM_HOST, VM_SSH_KEY, VM_BASE_PREFIX,
   VM_DESKTOP_BASE_PREFIX, VM_OSINFO, VM_CONSOLE_PASSWORD (optional)
 
-Related commands: vm-rm, vm-ip, vm-ssh, vm-scp, vm-rsync, vm-console, vm-vnc
+Related commands: vm-rm, vm-ip, vm-ssh, vm-scp, vm-rsync, vm-console, vm-vnc,
+                  vm-provision
 EOF
 }
 
@@ -71,8 +79,9 @@ vm-new() {
   fi
   echo "Using base image: $base"
 
-  local tmp rc pw_line pkgs mb desktop_ud=""
-  local boot_args=() video_args=()
+  local tmp rc pw_line pkgs mb
+  local -a boot_args video_args
+  local desktop_ud=""
   tmp=$(mktemp -d) || return 1
   (( uefi )) && boot_args=(--boot uefi)
 
@@ -106,8 +115,9 @@ EOF
 
   pw_line="lock_passwd: true"
   if [[ -n "$VM_CONSOLE_PASSWORD" ]]; then
+    # quote it: cloud-init's schema rejects a bare number here
     pw_line="lock_passwd: false
-    plain_text_passwd: $VM_CONSOLE_PASSWORD"
+    plain_text_passwd: \"$VM_CONSOLE_PASSWORD\""
   fi
 
   cat > "$tmp/user-data" <<EOF
@@ -220,6 +230,102 @@ vm-ssh() {
   local target
   target=$(_vm_target "${1:?usage: vm-ssh NAME}") || return 1
   ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target"
+}
+
+_vm_provision_usage() {
+  cat <<'EOF'
+Usage: vm-provision NAME
+
+Push the operator's secrets into a running VM's /dev/shm/secrets, where the
+agentvm setup script consumes and then removes them. Run this after the VM has
+booted (vm-ip must return an address) and before running the setup script.
+
+Secrets come from $VM_SECRET_SRC, one GPG-encrypted file per secret:
+git-name.asc, git-email.asc, ... The filename without its .asc/.gpg suffix is
+the secret name.
+
+  VM_SECRET_SRC   default: ~/.local/share/vm-secrets
+  VM_SECRET_GPG   default: gpg (override to pin a homedir or binary)
+
+Each secret is decrypted on the fly, piped over ssh, and never written to the
+guest's disk: /dev/shm is RAM, and the guest script deletes them after use.
+EOF
+}
+
+# secret name for a file in the secrets directory: basename minus .asc/.gpg
+_vm_secret_name() {
+  local n=${1##*/}
+  n=${n%.asc}
+  n=${n%.gpg}
+  print -r -- "$n"
+}
+
+vm-provision() {
+  local OPTIND=1 opt
+  while getopts "h" opt; do
+    case "$opt" in
+      h) _vm_provision_usage; return 0 ;;
+      *) _vm_provision_usage >&2; return 2 ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  local name="${1:?usage: vm-provision NAME}"
+  local target f s pushed=0 rc
+  local gpg=${VM_SECRET_GPG:-gpg}
+
+  if [[ ! -d $VM_SECRET_SRC ]]; then
+    echo "vm-provision: no secrets directory at $VM_SECRET_SRC" >&2
+    return 1
+  fi
+
+  target=$(_vm_target "$name") || return 1
+
+  # 0700 on the directory: /dev/shm is 1777, so a world-readable directory
+  # would expose every secret to all users in the guest.
+  ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target" \
+    "umask 077 && mkdir -p '$VM_SECRET_DIR' && chmod 700 '$VM_SECRET_DIR'" || return 1
+
+  # N glob qualifier: expand to nothing instead of erroring when there are no
+  # .asc/.gpg files, so the "no secrets found" message below can be reached.
+  for f in "$VM_SECRET_SRC"/*.asc(N) "$VM_SECRET_SRC"/*.gpg(N); do
+    [[ -f $f ]] || continue
+    s=$(_vm_secret_name "$f")
+
+    # decrypt locally and stream: no plaintext lands on the operator's disk,
+    # and ssh's remote umask 077 keeps the file 0600 as it is created.
+    #
+    # The exit status is taken from pipestatus rather than $?, because a
+    # pipeline reports only its last command unless pipefail is set, and this
+    # file is sourced into an interactive shell whose options vary. A missing
+    # or locked gpg key must abort, not leave an empty secret behind.
+    # pipestatus has to be captured as the very next statement: any command in
+    # between (even a [[ ]] test) resets it.
+    $gpg --batch --quiet --decrypt "$f" |
+      ssh -J "$VM_HOST" -i "${_vm_ssh_key%.pub}" "${_vm_ssh_opts[@]}" "$target" \
+        "umask 077 && cat > '$VM_SECRET_DIR/$s'"
+    local -a st=("${pipestatus[@]}")
+
+    if (( st[1] != 0 || st[2] != 0 )); then
+      echo "vm-provision: failed to provision $s (is your gpg key unlocked?)" >&2
+      # drop any empty or partial file the failed stream created
+      ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target" \
+        "rm -f '$VM_SECRET_DIR/$s'"
+      return 1
+    fi
+    pushed=$((pushed + 1))
+    echo "  $s"
+  done
+
+  if (( pushed == 0 )); then
+    echo "vm-provision: no .asc/.gpg secrets found in $VM_SECRET_SRC" >&2
+    return 1
+  fi
+
+  ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target" \
+    "chmod 600 '$VM_SECRET_DIR'/*" || return 1
+
+  echo "provisioned $pushed secret(s) into $name:$VM_SECRET_DIR"
 }
 
 vm-vnc() {

@@ -19,6 +19,10 @@ zsh_gist_function_aliases:
     filename: cwud.bash
     repo: https://gist.github.com/17d3af7e013ad54f5c3516308656f304.git
 
+zsh_vmsecrets:
+  - git-email
+  - git-name
+
 zsh_cloudflare_api_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
   61376531373362653762313434356364353237343339383138303930643138623834626530663162
