@@ -82,7 +82,7 @@
 - name: Writing out vm secrets
   when: mtype != 'work'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/{{ item }}.asc"
+    dest: "{{ ansible_user_dir }}/.local/share/vm-secrets/{{ item }}.asc"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
