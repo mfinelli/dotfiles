@@ -19,6 +19,8 @@ vim_plugins:
     repo: https://github.com/pearofducks/ansible-vim.git
   - name: brewfile
     repo: https://github.com/bfontaine/Brewfile.vim.git
+  - name: caddyfile
+    repo: https://github.com/isobit/vim-caddyfile.git
   - name: characterize
     repo: https://github.com/tpope/vim-characterize.git
   - name: commentary
