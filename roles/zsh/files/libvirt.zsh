@@ -159,7 +159,17 @@ vm-rm() {
   virsh undefine "$name" --remove-all-storage "${nvram[@]}"
 }
 
-vm-ip()      { virsh domifaddr "${1:?usage: vm-ip NAME}" | awk '/ipv4/ {split($4,a,"/"); print a[1]}'; }
+vm-ip() {
+  local name="${1:?usage: vm-ip NAME}" addr
+  # addresses actually configured in the guest (needs qemu-guest-agent)
+  addr=$(virsh domifaddr "$name" --source agent 2>/dev/null </dev/null |
+    awk '$3=="ipv4" && $4 !~ /^127\./ && $4 !~ /^169\.254\./ {split($4,a,"/"); print a[1]; exit}')
+  # fall back to DHCP leases
+  [[ -n "$addr" ]] || addr=$(virsh domifaddr "$name" 2>/dev/null </dev/null |
+    awk '/ipv4/ {split($4,a,"/"); print a[1]; exit}')
+  echo "$addr"
+}
+
 vm-console() { virsh console "${1:?usage: vm-console NAME}"; }
 vm-view()    { virt-viewer "${1:?usage: vm-view NAME}"; }
 
