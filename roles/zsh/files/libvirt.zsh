@@ -220,7 +220,17 @@ vm-vnc() {
   ssh -N -L "$lport:127.0.0.1:$port" -o ExitOnForwardFailure=yes "$VM_HOST" &
   pid=$!
   sleep 2
-  open "vnc://localhost:$lport"
+
+  if [[ $(uname) == Darwin ]]; then
+    open "vnc://localhost:$lport"
+  elif command -v vncviewer >/dev/null; then
+    vncviewer "localhost::$lport" &
+  elif command -v remmina >/dev/null; then
+    remmina -c "vnc://localhost:$lport" &
+  else
+    xdg-open "vnc://localhost:$lport"
+  fi
+
   echo "Tunnel open on localhost:$lport. Press Enter to close it."
   read -r
   kill "$pid"
