@@ -51,6 +51,8 @@ vim_plugins:
     repo: https://github.com/preservim/nerdtree.git
   - name: nerdtree-git
     repo: https://github.com/Xuyuanp/nerdtree-git-plugin.git
+  - name: nftables
+    repo: https://github.com/nfnty/vim-nftables.git
   - name: nginx
     repo: https://github.com/chr4/nginx.vim.git
   - name: pencil
