@@ -1,8 +1,10 @@
 export VM_HOST="mario@iris.mario.casa"
 export LIBVIRT_DEFAULT_URI="qemu+ssh://${VM_HOST}/system"
 export VM_SSH_KEY="$HOME/.ssh/home.pub"
-export VM_BASE_PREFIX="debian-13-"
 export VM_OSINFO="${VM_OSINFO:-debian13}"
+export VM_BASE_PREFIX="debian-13-base-"
+export VM_DESKTOP_BASE_PREFIX="debian-13-generic-base-"
+export VM_VNC_PASSWORD=desktop1 # this is fine auth already happened over ssh
 
 _vm_new_usage() {
   cat <<'EOF'
@@ -11,28 +13,29 @@ Usage: vm-new [options] NAME
 Create an ephemeral VM on the libvirt host from the newest Debian base image.
 
 Options:
-  -m MB     memory in MiB            (default: 2048)
-  -c N      vCPUs                    (default: 2)
-  -d GB     disk size in GiB         (default: 20)
-  -b FILE   base image volume name   (default: newest "$VM_BASE_PREFIX*.qcow2" in the pool)
+  -m MB     memory in MiB            (default: 2048, desktop: 4096)
+  -c N      vCPUs                    (default: 2, desktop: 2)
+  -d GB     disk size in GiB         (default: 20, desktop: 30)
+  -b FILE   base image volume name   (default: newest matching image in the pool)
   -n NET    libvirt network          (default: isolated-nat)
   -u        boot with UEFI instead of BIOS
+  -D        desktop guest: full-kernel image, GNOME, GDM auto-login, virtio video
   -h        show this help
 
 Environment:
   LIBVIRT_DEFAULT_URI, VM_HOST, VM_SSH_KEY, VM_BASE_PREFIX,
-  VM_CONSOLE_PASSWORD (optional), VM_OSINFO (optional)
+  VM_DESKTOP_BASE_PREFIX, VM_OSINFO, VM_CONSOLE_PASSWORD (optional)
 
-Related commands: vm-rm NAME, vm-ip NAME, vm-ssh NAME, vm-console NAME, vm-view NAME
+Related commands: vm-rm, vm-ip, vm-ssh, vm-scp, vm-rsync, vm-console, vm-vnc
 EOF
 }
 
 vm-new() {
   local OPTIND=1 opt
-  local mem=2048 cpus=2 disk=20 base="" net=isolated-nat uefi=0
+  local mem="" cpus="" disk="" base="" net=isolated-nat uefi=0 desktop=0
   local pool=default
 
-  while getopts "m:c:d:b:n:uh" opt; do
+  while getopts "m:c:d:b:n:uDh" opt; do
     case "$opt" in
       m) mem="$OPTARG" ;;
       c) cpus="$OPTARG" ;;
@@ -40,6 +43,7 @@ vm-new() {
       b) base="$OPTARG" ;;
       n) net="$OPTARG" ;;
       u) uefi=1 ;;
+      D) desktop=1 ;;
       h) _vm_new_usage; return 0 ;;
       *) _vm_new_usage >&2; return 2 ;;
     esac
@@ -49,19 +53,55 @@ vm-new() {
   local name="$1"
   if [[ -z "$name" ]]; then _vm_new_usage >&2; return 2; fi
 
+  if (( desktop )); then
+    : "${mem:=4096}" "${cpus:=2}" "${disk:=30}"
+  else
+    : "${mem:=2048}" "${cpus:=2}" "${disk:=20}"
+  fi
+
   if [[ -z "$base" ]]; then
-    base=$(virsh vol-list "$pool" | awk -v p="$VM_BASE_PREFIX" \
-      '$1 ~ "^" p ".*\\.qcow2$" {print $1}' | sort | tail -n1)
+    local prefix="$VM_BASE_PREFIX"
+    (( desktop )) && prefix="$VM_DESKTOP_BASE_PREFIX"
+    base=$(_vm_bases_for "$prefix" | tail -n1)
     if [[ -z "$base" ]]; then
-      echo "vm-new: no base image matching ${VM_BASE_PREFIX}*.qcow2 in pool '$pool'" >&2
+      echo "vm-new: no base image matching ${prefix}*.qcow2 in pool '$pool'" >&2
       return 1
     fi
   fi
   echo "Using base image: $base"
 
-  local tmp rc pw_line mb boot_args=()
+  local tmp rc pw_line pkgs mb desktop_ud=""
+  local boot_args=() video_args=()
   tmp=$(mktemp -d) || return 1
   (( uefi )) && boot_args=(--boot uefi)
+
+  pkgs="qemu-guest-agent, rsync"
+  if (( desktop )); then
+    pkgs="$pkgs, gnome-core, gdm3"
+    video_args=(--video virtio)
+    desktop_ud=$(cat <<'EOF'
+write_files:
+  - path: /usr/local/sbin/setup-desktop
+    permissions: "0755"
+    content: |
+      #!/bin/sh
+      set -e
+      f=/etc/gdm3/daemon.conf
+      [ -f "$f" ] || f=/etc/gdm3/custom.conf
+      grep -q '^\[daemon\]' "$f" 2>/dev/null || printf '[daemon]\n' >> "$f"
+      sed -i '/^\[daemon\]/a AutomaticLoginEnable=true\nAutomaticLogin=mario' "$f"
+      systemctl set-default graphical.target
+      systemctl enable gdm3
+runcmd:
+  - /usr/local/sbin/setup-desktop
+power_state:
+  mode: reboot
+  message: desktop setup finished, rebooting into the graphical session
+  timeout: 30
+  condition: true
+EOF
+)
+  fi
 
   pw_line="lock_passwd: true"
   if [[ -n "$VM_CONSOLE_PASSWORD" ]]; then
@@ -79,7 +119,8 @@ users:
     ssh_authorized_keys:
       - $(cat "$VM_SSH_KEY")
 package_update: true
-packages: [qemu-guest-agent]
+packages: [$pkgs]
+$desktop_ud
 EOF
 
   cat > "$tmp/meta-data" <<EOF
@@ -92,16 +133,19 @@ EOF
 
   mb=$(( $(wc -c < "$tmp/seed.iso") / 1048576 + 1 ))
 
+  local graphics="vnc"
+  [[ -n "$VM_VNC_PASSWORD" ]] && graphics="vnc,password=$VM_VNC_PASSWORD"
+
   virsh vol-create-as "$pool" "$name-seed.iso" "${mb}M" --format raw &&
   virsh vol-upload --pool "$pool" "$name-seed.iso" "$tmp/seed.iso" &&
   virsh vol-create-as "$pool" "$name.qcow2" "${disk}G" --format qcow2 \
     --backing-vol "$base" --backing-vol-format qcow2 &&
   virt-install --name "$name" --memory "$mem" --vcpus "$cpus" \
-    --osinfo "$VM_OSINFO" --import "${boot_args[@]}" \
+    --osinfo "$VM_OSINFO" --import "${boot_args[@]}" "${video_args[@]}" \
     --disk "vol=$pool/$name.qcow2" \
     --disk "vol=$pool/$name-seed.iso,device=cdrom" \
     --network "network=$net" \
-    --graphics vnc --noautoconsole
+    --graphics "$graphics" --noautoconsole
   rc=$?
   rm -rf "$tmp"
   return $rc
@@ -165,6 +209,21 @@ vm-ssh() {
   local target
   target=$(_vm_target "${1:?usage: vm-ssh NAME}") || return 1
   ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target"
+}
+
+vm-vnc() {
+  local name="${1:?usage: vm-vnc NAME}" d port lport pid
+  d=$(virsh vncdisplay "$name") || return 1
+  [[ -n "$d" ]] || { echo "no VNC display for '$name' (is it running?)" >&2; return 1; }
+  port=$((5900 + ${d##*:}))
+  lport=$((15000 + port - 5900))
+  ssh -N -L "$lport:127.0.0.1:$port" -o ExitOnForwardFailure=yes "$VM_HOST" &
+  pid=$!
+  sleep 2
+  open "vnc://localhost:$lport"
+  echo "Tunnel open on localhost:$lport. Press Enter to close it."
+  read -r
+  kill "$pid"
 }
 
 # Shutdown is asynchronous: `vm-stop` returns immediately. Check `vm-ls` or
