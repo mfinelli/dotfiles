@@ -176,8 +176,21 @@ vm-reboot()  { virsh reboot   "${1:?usage: vm-reboot NAME}"; }
 vm-reset()   { virsh reset    "${1:?usage: vm-reset NAME}"; }  # hard reset
 vm-ls()      { virsh list --all; }
 
+export VM_BASE_PREFIX="debian-13-base-"
+export VM_DESKTOP_BASE_PREFIX="debian-13-generic-base-"
+
 _vm_vols()  { virsh vol-list default | awk 'NR>2 && NF {print $1}'; }
-_vm_bases() { _vm_vols | grep "^${VM_BASE_PREFIX}.*\.qcow2$" | sort; }
+_vm_base_prefixes() { printf '%s\n' "$VM_BASE_PREFIX" "$VM_DESKTOP_BASE_PREFIX"; }
+
+# base volumes for one prefix, oldest first (literal prefix match)
+_vm_bases_for() {
+  _vm_vols | awk -v p="$1" 'index($0, p) == 1 && $0 ~ /\.qcow2$/' | sort
+}
+
+_vm_bases() {
+  local p
+  _vm_base_prefixes | while read -r p; do _vm_bases_for "$p"; done
+}
 
 # prints "overlay-volume base-volume" for every volume that has a backing file
 _vm_backing_map() {
@@ -209,9 +222,10 @@ _vm_images_clean_usage() {
   cat <<'EOF'
 Usage: vm-images-clean [-k N] [-y]
 
-Delete old base images that no volume depends on.
+Delete old base images that no volume depends on. Each flavor (cloud and
+desktop base images) is handled separately.
 
-  -k N   always keep the newest N images (default: 1)
+  -k N   always keep the newest N images of each flavor (default: 1)
   -y     actually delete (default is a dry run that only prints)
   -h     show this help
 
@@ -220,7 +234,7 @@ EOF
 }
 
 vm-images-clean() {
-  local OPTIND=1 opt keep=1 yes=0 map base i=0
+  local OPTIND=1 opt keep=1 yes=0 map prefix base i
   while getopts "k:yh" opt; do
     case "$opt" in
       k) keep="$OPTARG" ;;
@@ -231,20 +245,26 @@ vm-images-clean() {
   done
 
   map=$(_vm_backing_map)
-  while read -r base; do
-    [[ -z "$base" ]] && continue
-    i=$((i + 1))
-    if (( i <= keep )); then echo "keep (newest $keep): $base"; continue; fi
-    if printf '%s\n' "$map" | awk -v b="$base" '$2==b {f=1} END {exit !f}'; then
-      echo "keep (in use): $base"; continue
-    fi
-    if (( yes )); then
-      echo "delete: $base"
-      virsh vol-delete --pool default "$base"
-    else
-      echo "would delete: $base"
-    fi
-  done <<< "$(_vm_bases | sort -r)"   # newest first
+  while read -r prefix; do
+    [[ -z "$prefix" ]] && continue
+    i=0
+    while read -r base; do
+      [[ -z "$base" ]] && continue
+      i=$((i + 1))
+      if (( i <= keep )); then
+        echo "keep (newest $keep of ${prefix}*): $base"; continue
+      fi
+      if printf '%s\n' "$map" | awk -v b="$base" '$2==b {f=1} END {exit !f}'; then
+        echo "keep (in use): $base"; continue
+      fi
+      if (( yes )); then
+        echo "delete: $base"
+        virsh vol-delete --pool default "$base" </dev/null
+      else
+        echo "would delete: $base"
+      fi
+    done <<< "$(_vm_bases_for "$prefix" | sort -r)"   # newest first
+  done <<< "$(_vm_base_prefixes)"
 }
 
 # basenames of every disk/cdrom source attached to any defined domain
@@ -252,7 +272,7 @@ _vm_domain_disks() {
   local d
   virsh list --all --name | while read -r d; do
     [[ -z "$d" ]] && continue
-    virsh domblklist --details "$d" 2>/dev/null |
+    virsh domblklist --details "$d" 2>/dev/null </dev/null |
       awk 'NR>2 && NF && $4 != "-" {print $4}'
   done | sed 's:.*/::' | sort -u
 }
@@ -274,7 +294,7 @@ EOF
 }
 
 vm-orphans() {
-  local OPTIND=1 opt yes=0 used backing v found=0
+  local OPTIND=1 opt yes=0 used backing bases v found=0
   while getopts "yh" opt; do
     case "$opt" in
       y) yes=1 ;;
@@ -285,16 +305,17 @@ vm-orphans() {
 
   used=$(_vm_domain_disks)
   backing=$(_vm_backing_map | awk '{print $2}')
+  bases=$(_vm_bases)
 
   while read -r v; do
     [[ -z "$v" ]] && continue
-    [[ "$v" == ${VM_BASE_PREFIX}*.qcow2 ]] && continue
+    printf '%s\n' "$bases"   | grep -Fxq -- "$v" && continue
     printf '%s\n' "$used"    | grep -Fxq -- "$v" && continue
     printf '%s\n' "$backing" | grep -Fxq -- "$v" && continue
     found=1
     if (( yes )); then
       echo "delete: $v"
-      virsh vol-delete --pool default "$v"
+      virsh vol-delete --pool default "$v" </dev/null
     else
       echo "orphan: $v"
     fi
