@@ -23,6 +23,7 @@ zsh_vmsecrets:
   - git-email
   - git-name
   - github-token
+  - ollama-token
 
 zsh_cloudflare_api_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;p
