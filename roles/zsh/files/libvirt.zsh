@@ -6,6 +6,7 @@ export VM_BASE_PREFIX="debian-13-base-"
 export VM_DESKTOP_BASE_PREFIX="debian-13-generic-base-"
 export VM_CONSOLE_PASSWORD=123 # ephemeral, throwaway vm so this is fine
 export VM_VNC_PASSWORD=desktop1 # this is fine auth already happened over ssh
+export VM_REMOTE_ROOT="${VM_REMOTE_ROOT:-src}" # projects live in ~/src/NAME in the guest
 
 # Secrets pushed into a guest by vm-provision, at /dev/shm/secrets/<name>.
 # agentvm.bash consumes and then removes them.
@@ -212,6 +213,12 @@ vm-scp() {
   scp -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "${args[@]}"
 }
 
+# ssh to an already-resolved target (the "mario@ip" that _vm_target prints)
+_vm_ssh_target() {
+  local target="$1"; shift
+  ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target" "$@"
+}
+
 # vm-rsync NAME [rsync options] SRC DST   (prefix paths on the VM with ':')
 #
 # vm-rsync test1 -avz ./project/ :~/project/
@@ -228,8 +235,9 @@ vm-rsync() {
 
 vm-ssh() {
   local target
-  target=$(_vm_target "${1:?usage: vm-ssh NAME}") || return 1
-  ssh -J "$VM_HOST" -i "${VM_SSH_KEY%.pub}" "${_vm_ssh_opts[@]}" "$target"
+  target=$(_vm_target "${1:?usage: vm-ssh NAME [command...]}") || return 1
+  shift
+  _vm_ssh_target "$target" "$@"
 }
 
 _vm_provision_usage() {
@@ -508,4 +516,171 @@ vm-orphans() {
   done <<< "$(_vm_vols)"
 
   (( found )) || echo "no orphans"
+}
+
+_vm_gitinfo_script() {
+  cat <<'EOF'
+dir="$1"
+cd "$dir" 2>/dev/null || { echo "err=no such directory: $dir"; exit 0; }
+git rev-parse --git-dir >/dev/null 2>&1 || { echo "err=not a git repository: $dir"; exit 0; }
+[ -z "$(git rev-parse --show-prefix)" ] || { echo "err=not the top level of a git repository: $dir"; exit 0; }
+echo "branch=$(git symbolic-ref --short -q HEAD || echo DETACHED)"
+echo "head=$(git rev-parse -q --verify HEAD || echo NONE)"
+echo "roots=$(git rev-list --max-parents=0 HEAD 2>/dev/null | sort | tr '\n' ' ')"
+echo "shallow=$(git rev-parse --is-shallow-repository 2>/dev/null || echo unknown)"
+echo "origin=$(git remote get-url origin 2>/dev/null | sed -E 's#^(https?|ssh|git)://##; s#^[^@/]*@##; s#:#/#; s#\.git$##; s#/$##')"
+echo "dirty=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
+EOF
+}
+
+_vm_kv() { printf '%s\n' "$2" | awk -F= -v k="$1" '$1==k {sub(/^[^=]*=/, ""); print; exit}'; }
+
+# paths git ignores locally (all sources), anchored for rsync
+_vm_local_ignored() {
+  git -C "$1" ls-files --others --ignored --exclude-standard --directory | sed 's#^#/#'
+}
+
+_vm_sync_usage() {
+  cat <<'EOF'
+Usage: vm-sync [options] NAME
+
+One-way sync of a git project from the guest NAME into a local clone.
+Copies the working tree only (intentionally skips .git) and mirrors file
+additions and deletions.
+
+Run it from inside the local repository. The project is chosen by that repo's
+directory name: from ~/code/myproj, it syncs ~/src/myproj on the VM into
+~/code/myproj. VM_NAME is only the VM to connect to.
+
+Examples:
+  cd ~/code/myproj && vm-sync omp-project      # preview, then confirm
+  vm-sync -n omp-project                       # dry run only
+  vm-sync -r src/other omp-project             # remote dir has a different name
+  vm-sync -l ~/code/myproj omp-project         # without cd-ing first
+
+Options:
+  -l DIR   local repository top level   (default: the repo containing the
+           current directory)
+  -r DIR   project directory in the guest, relative to its home
+           (default: $VM_REMOTE_ROOT/<basename of the local repo>, i.e.
+           src/NAME)
+  -n       dry run: show what would change and stop
+  -y       apply without asking for confirmation
+  -k       keep local files that don't exist in the guest (no deletions)
+  -f       proceed even if the local working tree has uncommitted changes
+  -h       show this help
+
+Refuses to run unless both sides are the same repository (same initial commits,
+or same origin URL when a clone is shallow) on the same branch.
+Anything git ignores locally, and anything a .gitignore matches, is neither
+copied nor deleted.
+EOF
+}
+
+# Notes:
+#  - Files and directories INSIDE the project can have any name, including spaces.
+#  - The project directory paths themselves (-l, -r, the default remote path) must
+#    not contain spaces or single quotes: the remote path goes through the remote
+#    shell, and older rsync versions (such as macOS's bundled one) word-split it.
+#    The path in VM_SSH_KEY must not contain spaces either (it goes into rsync -e).
+#
+# Usage:
+# cd ~/code/myproj
+# vm-sync omp            # checks, shows the plan, asks before applying
+# vm-sync -n omp         # dry run only
+# vm-sync -y omp         # no prompt
+# vm-sync -r work/myproj omp
+vm-sync() {
+  local OPTIND=1 opt ldir="" rdir="" yes=0 dry=0 keep=0 force=0
+  while getopts "l:r:nykfh" opt; do
+    case "$opt" in
+      l) ldir="$OPTARG" ;;
+      r) rdir="$OPTARG" ;;
+      n) dry=1 ;;
+      y) yes=1 ;;
+      k) keep=1 ;;
+      f) force=1 ;;
+      h) _vm_sync_usage; return 0 ;;
+      *) _vm_sync_usage >&2; return 2 ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+  local name="$1"
+  [[ -n "$name" ]] || { _vm_sync_usage >&2; return 2; }
+
+  if [[ -n "$ldir" ]]; then
+    ldir=$(cd "$ldir" 2>/dev/null && pwd -P) || { echo "vm-sync: no such directory: $ldir" >&2; return 1; }
+  else
+    ldir=$(git rev-parse --show-toplevel 2>/dev/null) ||
+      { echo "vm-sync: not inside a git repository (use -l DIR)" >&2; return 1; }
+  fi
+  [[ -n "$rdir" ]] || rdir="$VM_REMOTE_ROOT/$(basename "$ldir")"
+
+  local target linfo rinfo
+  target=$(_vm_target "$name") || return 1
+  linfo=$(_vm_gitinfo_script | bash -s -- "$ldir")
+  rinfo=$(_vm_gitinfo_script | _vm_ssh_target "$target" "bash -s -- '$rdir'")
+  [[ -n "$rinfo" ]] || { echo "vm-sync: could not query $name over ssh" >&2; return 1; }
+
+  local lerr rerr
+  lerr=$(_vm_kv err "$linfo"); rerr=$(_vm_kv err "$rinfo")
+  [[ -z "$lerr" ]] || { echo "vm-sync: local: $lerr" >&2; return 1; }
+  [[ -z "$rerr" ]] || { echo "vm-sync: $name: $rerr" >&2; return 1; }
+
+  # same repository?
+  local lroots rroots lshallow rshallow lorigin rorigin
+  lroots=$(_vm_kv roots "$linfo");     rroots=$(_vm_kv roots "$rinfo")
+  lshallow=$(_vm_kv shallow "$linfo"); rshallow=$(_vm_kv shallow "$rinfo")
+  lorigin=$(_vm_kv origin "$linfo");   rorigin=$(_vm_kv origin "$rinfo")
+  if [[ -z "$lroots" || -z "$rroots" ]]; then
+    echo "vm-sync: a repository has no commits, cannot verify identity" >&2; return 1
+  elif [[ "$lroots" == "$rroots" ]]; then
+    :
+  elif [[ ( "$lshallow" == true || "$rshallow" == true ) && -n "$lorigin" && "$lorigin" == "$rorigin" ]]; then
+    echo "note: shallow clone, matched by origin URL ($lorigin)" >&2
+  else
+    echo "vm-sync: these are different repositories (initial commits differ)" >&2; return 1
+  fi
+
+  # same branch?
+  local lbranch rbranch lhead rhead
+  lbranch=$(_vm_kv branch "$linfo"); rbranch=$(_vm_kv branch "$rinfo")
+  [[ "$lbranch" == "$rbranch" ]] ||
+    { echo "vm-sync: branch mismatch: local '$lbranch', $name '$rbranch'" >&2; return 1; }
+  lhead=$(_vm_kv head "$linfo"); rhead=$(_vm_kv head "$rinfo")
+  [[ "$lhead" == "$rhead" ]] ||
+    echo "warning: HEAD differs (local ${lhead:0:8}, $name ${rhead:0:8}); the result includes those commit differences" >&2
+
+  # local changes that the sync would clobber
+  local ldirty
+  ldirty=$(_vm_kv dirty "$linfo")
+  if (( ldirty > 0 && ! force )); then
+    echo "vm-sync: local working tree has $ldirty uncommitted change(s); the sync could overwrite or delete them:" >&2
+    git -C "$ldir" status --short | head -10 >&2
+    echo "Commit or stash them first, or use -f to continue anyway." >&2
+    return 1
+  fi
+
+  # what would change?
+  local rs=(-rlpt -i --exclude=.git --filter=':- .gitignore'
+            -e "ssh -J $VM_HOST -i ${VM_SSH_KEY%.pub} ${_vm_ssh_opts[*]}")
+  (( keep )) || rs+=(--delete)
+  local src="$target:$rdir/" dst="$ldir/" raw plan ndel nchg
+  raw=$(rsync "${rs[@]}" --exclude-from=<(_vm_local_ignored "$ldir") -n "$src" "$dst") ||
+    { echo "vm-sync: rsync failed" >&2; return 1; }
+  plan=$(printf '%s\n' "$raw" | grep -v '^\.d' || true)
+  if [[ -z "$plan" ]]; then echo "already in sync"; return 0; fi
+  ndel=$(printf '%s\n' "$plan" | grep -c '^\*deleting')
+  nchg=$(printf '%s\n' "$plan" | grep -vc '^\*deleting')
+  printf '%s\n' "$plan"
+  echo "--- $nchg added/changed, $ndel deleted locally ($name:$rdir -> $ldir)"
+
+  (( dry )) && { echo "(dry run, nothing changed)"; return 0; }
+  if (( ! yes )); then
+    printf 'Apply? [y/N] '; read -r ans
+    [[ "$ans" == [yY]* ]] || { echo "aborted"; return 1; }
+  fi
+  rsync "${rs[@]}" --exclude-from=<(_vm_local_ignored "$ldir") "$src" "$dst" >/dev/null ||
+    { echo "vm-sync: rsync failed" >&2; return 1; }
+  echo "synced. Review with: git -C '$ldir' status"
 }
