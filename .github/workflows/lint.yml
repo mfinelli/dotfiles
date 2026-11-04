@@ -31,7 +31,8 @@ jobs:
       - name: Run prettier
         run: |
           prettier --version
-          find . -name '*.yaml' -o -name '*.yml' -print0 | xargs -0 prettier -c
+          find . \( -name '*.yaml' -o -name '*.yml' \) -print0 |
+            xargs -0 prettier -c
       - name: Run yapf
         run: |
           yapf --version
@@ -39,8 +40,8 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint --version
-          find . -name '*.yaml' -o -name '*.yml' -print0 | xargs -0 yamllint \
-            -f github
+          find . \( -name '*.yaml' -o -name '*.yml' \) -print0 |
+            xargs -0 yamllint -f github
       - name: Run ansible-lint
         run: |
           ansible-lint --version
