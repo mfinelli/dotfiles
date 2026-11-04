@@ -4,12 +4,12 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.config/git"
+    path: "{{ ansible_facts['user_dir'] }}/.config/git"
     state: directory
 
 - name: Copying `.gitconfig`
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.config/git/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/git/config"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
@@ -18,7 +18,7 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking global "gitignore"
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/git/ignore"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/git/ignore"
     src: "{{ playbook_dir }}/roles/git/files/gitignore_global"
     state: link
 
@@ -26,6 +26,6 @@
 - name: Linking custom git configuration
   when: mtype == 'work'
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/git/personal"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/git/personal"
     src: "{{ playbook_dir }}/roles/git/files/gitconfig_personal"
     state: link

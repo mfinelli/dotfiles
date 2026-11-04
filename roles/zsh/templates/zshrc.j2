@@ -17,7 +17,7 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '{{ ansible_user_dir }}/.zshrc'
+zstyle :compinstall filename '{{ ansible_facts['user_dir'] }}/.zshrc'
 
 # this was _not_ added by compinstall but let's us load local completions
 fpath=($XDG_DATA_HOME/zsh/completions $fpath)
@@ -26,53 +26,53 @@ autoload -Uz compinit
 compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}"
 # End of lines added by compinstall
 
-{% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
+{% if ansible_facts['os_family'] == "Darwin" and ansible_facts['architecture'] == "arm64" %}
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
+{% elif ansible_facts['os_family'] == "Darwin" and ansible_facts['architecture'] == "x86_64" %}
 eval "$(/usr/local/bin/brew shellenv)"
 {% endif %}
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters"
 source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-{% elif ansible_os_family == "Archlinux" %}
+{% elif ansible_facts['os_family'] == "Archlinux" %}
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-{% elif ansible_os_family == "Debian"  %}
+{% elif ansible_facts['os_family'] == "Debian"  %}
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {% endif %}
 
-source {{ ansible_user_dir }}/.local/share/zsh/abbr/zsh-abbr.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/abbr/zsh-abbr.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/autosuggestions-abbr/zsh-autosuggestions-abbreviations-strategy.zsh
 export ZSH_AUTOSUGGEST_STRATEGY=(abbreviations $ZSH_AUTOSUGGEST_STRATEGY)
 
-source {{ ansible_user_dir }}/.local/share/zsh/grml/etc/zsh/zshrc
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/grml/etc/zsh/zshrc
 
-{% if ansible_os_family == "Archlinux" %}
+{% if ansible_facts['os_family'] == "Archlinux" %}
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-{% elif ansible_os_family == "Darwin" %}
+{% elif ansible_facts['os_family'] == "Darwin" %}
 source "${HOMEBREW_PREFIX}/share/powerlevel10k/powerlevel10k.zsh-theme"
 {% else %}
-source {{ ansible_user_dir }}/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme
 {% endif %}
 
 # take some of the good parts of oh-my-zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/lib/clipboard.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/copybuffer/copybuffer.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/copypath/copypath.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/copyfile/copyfile.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/cp/cp.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/isodate/isodate.plugin.zsh
-# source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/nmap/nmap.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/rake/rake.plugin.zsh
-# source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/rsync/rsync.plugin.zsh
-source {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh/plugins/urltools/urltools.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/lib/clipboard.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/copybuffer/copybuffer.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/copypath/copypath.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/copyfile/copyfile.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/cp/cp.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/isodate/isodate.plugin.zsh
+# source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/nmap/nmap.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/rake/rake.plugin.zsh
+# source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/rsync/rsync.plugin.zsh
+source {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh/plugins/urltools/urltools.plugin.zsh
 
 export EDITOR=vim
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 export PATH="${HOMEBREW_PREFIX}/bin:$PATH"
 {% endif %}
 
@@ -80,13 +80,13 @@ if [[ -d "$HOME/bin" ]]; then
   export PATH="$HOME/bin:$PATH"
 fi
 
-{% if ansible_os_family == "Darwin" and mtype == "personal" %}
+{% if ansible_facts['os_family'] == "Darwin" and mtype == "personal" %}
 if [[ -d "$HOME/.docker/bin" ]]; then
   export PATH="$HOME/.docker/bin":$PATH
 fi
 {% endif %}
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 if [[ -e "${HOMEBREW_PREFIX}/opt/ruby/bin" ]]; then
   export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:$PATH"
 fi
@@ -111,7 +111,7 @@ if command -v vivid > /dev/null 2>&1; then
   export LS_COLORS="$(vivid generate solarized-dark)"
 fi
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 if [[ -f $HOMEBREW_PREFIX/bin/lsd ]]; then
   # we have lsd installed... use it
   alias ls="$HOMEBREW_PREFIX/bin/lsd"
@@ -131,7 +131,7 @@ fi
 
 alias please='eval "sudo $(fc -ln -1)"'
 
-{% if ansible_system == "Linux" %}
+{% if ansible_facts['system'] == "Linux" %}
 alias open='xdg-open'
 
 if [[ -e /usr/bin/bsdtar ]]; then
@@ -170,7 +170,7 @@ if command -v atuin > /dev/null 2>&1; then
   fi
 fi
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 # disable homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 {% endif %}
@@ -204,7 +204,7 @@ export NEW_RELIC_API_KEY={{ zsh_newrelic_api_key }}
 export VULTR_API_KEY={{ zsh_vultr_api_key }}
 {% endif %}
 
-{% if ansible_os_family == "Darwin" and mtype == "personal" %}
+{% if ansible_facts['os_family'] == "Darwin" and mtype == "personal" %}
 if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
   export CLOUDSDK_PYTHON="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin/python"
   source "${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
@@ -212,13 +212,13 @@ if [[ -f ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/pa
 fi
 {% endif %}
 
-{% if mtype == "work" and ansible_os_family == "Debian" %}
+{% if mtype == "work" and ansible_facts['os_family'] == "Debian" %}
 if [[ -f /usr/local/share/java/bfg.jar ]]; then
   alias bfg='java -jar /usr/local/share/java/bfg.jar'
 fi
 {% endif %}
 
-{% if ansible_os_family == "Debian" %}
+{% if ansible_facts['os_family'] == "Debian" %}
 export DEBFULLNAME="Mario Finelli"
 export DEBEMAIL="ubuntu@mroml.com"
 {% endif %}
@@ -235,18 +235,18 @@ function icanhazip() {
 }
 
 {% for gfa in zsh_gist_function_aliases %}
-if [[ -f "{{ ansible_user_dir }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
-  alias {{ gfa.alias }}="{{ ansible_user_dir }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}"
+if [[ -f "{{ ansible_facts['user_dir'] }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}" ]]; then
+  alias {{ gfa.alias }}="{{ ansible_facts['user_dir'] }}/.local/share/zsh/gists/{{ gfa.alias }}/{{ gfa.filename }}"
 fi
 
 {% endfor %}
 
-{% if ansible_os_family == "Archlinux" %}
+{% if ansible_facts['os_family'] == "Archlinux" %}
 # https://wiki.archlinux.org/title/GNOME/Keyring#Setup_gcr
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 {% endif %}
 
-{% if ansible_os_family == "Archlinux" %}
+{% if ansible_facts['os_family'] == "Archlinux" %}
 # "standard" chroot
 # create: mkarchroot $CHROOT/root base-devel
 # update: arch-nspawn $CHROOT/root pacman -Syu
@@ -279,7 +279,7 @@ export REDISCLI_HISTFILE="${XDG_STATE_HOME}/redis/rediscli_history"
 export WINEPREFIX="${XDG_DATA_HOME}/wine"
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 export SHELL_SESSIONS_DISABLE=1
 {% endif %}
 

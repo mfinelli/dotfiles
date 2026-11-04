@@ -1,6 +1,6 @@
 ---
 - name: Configuring World Clocks
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -34,7 +34,7 @@
         -0.007272211034407213)])>)>]
 
 - name: Configuring World Clocks
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"

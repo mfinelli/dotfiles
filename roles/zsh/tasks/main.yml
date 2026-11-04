@@ -7,33 +7,34 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ ansible_user_dir }}/.cache/zsh"
-    - "{{ ansible_user_dir }}/.config/zsh"
-    - "{{ ansible_user_dir }}/.local/share/zsh"
-    - "{{ ansible_user_dir }}/.local/share/zsh/completions"
+    - "{{ ansible_facts['user_dir'] }}/.cache/zsh"
+    - "{{ ansible_facts['user_dir'] }}/.config/zsh"
+    - "{{ ansible_facts['user_dir'] }}/.local/share/zsh"
+    - "{{ ansible_facts['user_dir'] }}/.local/share/zsh/completions"
 
 - name: Installing grml-zsh-config
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/zsh/grml"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/grml"
     repo: https://github.com/grml/grml-etc-core.git
     version: v0.19.24
 
 - name: Installing zsh-abbr
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/zsh/abbr"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/abbr"
     repo: https://github.com/olets/zsh-abbr.git
     version: v6.3.3
 
 - name: Installing zsh suggestions abbr-strategy
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/zsh/autosuggestions-abbr"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/\
+      autosuggestions-abbr"
     repo: >-
       https://github.com/olets/zsh-autosuggestions-abbreviations-strategy.git
     version: v1.1.2
 
 - name: Installing powerlevel10k
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/zsh/powerlevel10k"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/powerlevel10k"
     repo: https://github.com/romkatv/powerlevel10k.git
     version: 36f3045d69d1ba402db09d09eb12b42eebe0fa3b # v1.20.15
 
@@ -44,14 +45,14 @@
       git clone --config fetch.fsckObjects=false --config
       receive.fsckObjects=false --config transfer.fsckObjects=false
       https://github.com/ohmyzsh/ohmyzsh.git
-      {{ ansible_user_dir }}/.local/share/zsh/ohmyzsh
-    creates: "{{ ansible_user_dir }}/.local/share/zsh/ohmyzsh"
+      {{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh
+    creates: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/ohmyzsh"
 
 # i'd prefer this to be a symlink but then we miss out on ansible being able
 # to process it, run if/else, and drop in encrypted variables...
 - name: Copying zsh configuration
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.zshrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -60,7 +61,7 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking p10k configuration
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/zsh/p10k.zsh"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/zsh/p10k.zsh"
     src: "{{ playbook_dir }}/roles/zsh/files/p10k.zsh"
     state: link
 
@@ -73,7 +74,7 @@
 - name: Creating vm secrets directory
   when: mtype != 'work'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.local/share/vm-secrets"
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/vm-secrets"
     group: "{{ whoami_group }}"
     mode: "0700"
     owner: "{{ whoami }}"
@@ -82,7 +83,8 @@
 - name: Writing out vm secrets
   when: mtype != 'work'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.local/share/vm-secrets/{{ item }}.asc"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/vm-secrets/\
+      {{ item }}.asc"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"

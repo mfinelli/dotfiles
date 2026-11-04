@@ -4,19 +4,20 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ urlwatch_config_basepath[ansible_os_family] }}"
+    path: "{{ urlwatch_config_basepath[ansible_facts['os_family']] }}"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking urlwatch configuration
   ansible.builtin.file:
-    dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urlwatch.yaml"
+    dest: "{{ urlwatch_config_basepath[ansible_facts['os_family']] }}/\
+      urlwatch.yaml"
     src: "{{ playbook_dir }}/roles/urlwatch/files/urlwatch.yaml"
     state: link
 
 - name: Copying urlwatch URL list
   ansible.builtin.template:
-    dest: "{{ urlwatch_config_basepath[ansible_os_family] }}/urls.yaml"
+    dest: "{{ urlwatch_config_basepath[ansible_facts['os_family']] }}/urls.yaml"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"

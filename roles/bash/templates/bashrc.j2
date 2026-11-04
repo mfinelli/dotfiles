@@ -60,7 +60,7 @@ if command -v fd > /dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 export HOMEBREW_NO_ANALYTICS=1
 {% endif %}
 
@@ -78,7 +78,7 @@ function icanhazip() {
 #
 
 # Path to the bash it configuration
-export BASH_IT="{{ ansible_user_dir }}/.bash/bash-it"
+export BASH_IT="{{ ansible_facts['user_dir'] }}/.bash/bash-it"
 
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
@@ -139,7 +139,7 @@ source "$BASH_IT"/bash_it.sh
 # END BASH-IT CONFIGURATION
 #
 
-{% if ansible_os_family == "Archlinux" %}
+{% if ansible_facts['os_family'] == "Archlinux" %}
 # "standard" chroot
 # mkarchroot $CHROOT/root base-devel
 export CHROOT=$HOME/chroot

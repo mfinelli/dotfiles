@@ -1,12 +1,12 @@
 ---
 vim_plugins_dirs:
-  - "{{ ansible_user_dir }}/.local/state/vim"
-  - "{{ ansible_user_dir }}/.vim/"
-  - "{{ ansible_user_dir }}/.vim/pack"
-  - "{{ ansible_user_dir }}/.vim/pack/local"
-  - "{{ ansible_user_dir }}/.vim/pack/local/opt"
-  - "{{ ansible_user_dir }}/.vim/pack/local/start"
-  - "{{ ansible_user_dir }}/.vim/syntax"
+  - "{{ ansible_facts['user_dir'] }}/.local/state/vim"
+  - "{{ ansible_facts['user_dir'] }}/.vim/"
+  - "{{ ansible_facts['user_dir'] }}/.vim/pack"
+  - "{{ ansible_facts['user_dir'] }}/.vim/pack/local"
+  - "{{ ansible_facts['user_dir'] }}/.vim/pack/local/opt"
+  - "{{ ansible_facts['user_dir'] }}/.vim/pack/local/start"
+  - "{{ ansible_facts['user_dir'] }}/.vim/syntax"
 
 vim_plugins:
   - name: airline

@@ -6,7 +6,7 @@
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
   roles:
     - role: arch
-      when: ansible_os_family == 'Archlinux'
+      when: ansible_facts['os_family'] == 'Archlinux'
       tags: arch
     - role: aws
       when: mtype == 'personal' and wedition != 'media'
@@ -24,14 +24,14 @@
       tags: gnupg
     - role: gnome
       when:
-        - ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+        - ansible_facts['os_family'] in ['Archlinux', 'Debian']
         - mtype == 'personal' or mtype == 'work'
       tags: gnome
     - role: irssi
       when: mtype != 'server'
       tags: irssi
     - role: macos
-      when: ansible_os_family == 'Darwin'
+      when: ansible_facts['os_family'] == 'Darwin'
       tags: macos
     - role: other
       tags: other

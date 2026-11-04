@@ -4,7 +4,7 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.bash"
+    path: "{{ ansible_facts['user_dir'] }}/.bash"
     state: directory
 
 - name: Creating bash state directory
@@ -15,27 +15,27 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ ansible_user_dir }}/.local"
-    - "{{ ansible_user_dir }}/.local/state"
-    - "{{ ansible_user_dir }}/.local/state/bash"
+    - "{{ ansible_facts['user_dir'] }}/.local"
+    - "{{ ansible_facts['user_dir'] }}/.local/state"
+    - "{{ ansible_facts['user_dir'] }}/.local/state/bash"
 
 - name: Installing bash-it
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.bash/bash-it"
+    dest: "{{ ansible_facts['user_dir'] }}/.bash/bash-it"
     repo: https://github.com/Bash-it/bash-it.git
     version: v3.1.2
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking `.bash_profile`
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.bash_profile"
+    dest: "{{ ansible_facts['user_dir'] }}/.bash_profile"
     force: true
     src: "{{ playbook_dir }}/roles/bash/files/bash_profile"
     state: link
 
 - name: Copying `.bashrc`
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.bashrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.bashrc"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -43,5 +43,5 @@
 
 - name: Removing leftover bash history
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.bash_history"
+    path: "{{ ansible_facts['user_dir'] }}/.bash_history"
     state: absent

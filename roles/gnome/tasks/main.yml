@@ -57,25 +57,25 @@
   ansible.builtin.import_tasks: clocks.yml
 
 - name: Enabling GNOME Shell extensions
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/disable-user-extensions
     value: "false"
 
 - name: Activating SimpleWeather extension
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/shell/extensions/simple-weather/is-activated
     value: "true"
 
 - name: Enabling individual GNOME Shell extensions
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/shell/enabled-extensions
-    value: "[{{ gnome_extensions[ansible_os_family] | join(', ') }}]"
+    value: "[{{ gnome_extensions[ansible_facts['os_family']] | join(', ') }}]"
 
 - name: Configuring GNOME Shell dash-to-dock extension
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/shell/extensions/dash-to-dock/{{ item.key }}
     value: "{{ item.value }}"
@@ -88,7 +88,7 @@
       value: "true"
 
 - name: Configuring GNOME Shell systemd manager extension
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/{{ item.key }}
     value: "{{ item.value }}"
@@ -106,13 +106,14 @@
     group: "{{ whoami_group }}"
     state: directory
   loop:
-    - "{{ ansible_user_dir }}/.local"
-    - "{{ ansible_user_dir }}/.local/share/"
-    - "{{ ansible_user_dir }}/.local/share/copyous@boerdereinar.dev"
+    - "{{ ansible_facts['user_dir'] }}/.local"
+    - "{{ ansible_facts['user_dir'] }}/.local/share/"
+    - "{{ ansible_facts['user_dir'] }}/.local/share/copyous@boerdereinar.dev"
 
 - name: Downloading highlight.js for copyous extension
   ansible.builtin.get_url:
-    dest: "{{ ansible_user_dir }}/.local/share/copyous@boerdereinar.dev/\
+    dest:
+      "{{ ansible_facts['user_dir'] }}/.local/share/copyous@boerdereinar.dev/\
       highlight.min.js"
     owner: "{{ whoami }}"
     mode: "0644"
@@ -122,7 +123,7 @@
 
 - name: Configuring copyous extension
   when:
-    - ansible_os_family == 'Archlinux'
+    - ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: "{{ item.setting }}"
     value: "{{ item.value }}"
@@ -136,39 +137,39 @@
 
 - name: Configuring GNOME Shell systemd manager extension systemd services
   when:
-    - ansible_os_family == 'Archlinux'
+    - ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/systemd-manager/systemd
     value: >-
       ['{"name":"Docker","service":"docker.service","type":"system"}']
 
 - name: Configuring dock applications (at work)
-  when: ansible_os_family == 'Archlinux' and mtype == 'work'
+  when: ansible_facts['os_family'] == 'Archlinux' and mtype == 'work'
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_work_dock | join(', ') }}]"
 
 - name: Configuring dock applications (at home)
-  when: ansible_os_family == 'Archlinux' and mtype == 'personal'
+  when: ansible_facts['os_family'] == 'Archlinux' and mtype == 'personal'
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: "[{{ gnome_personal_dock | join(', ') }}]"
 
 - name: Configuring GNOME Shell Arc Menu extension icon (arch)
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: /org/gnome/shell/extensions/arcmenu/menu-button-icon
     value: "'resource:///org/gnome/shell/extensions/arcmenu/icons/scalable/\
       actions/distro-arch-symbolic.svg'"
 
 - name: Configuring GNOME Shell Arc Menu extension icon (debian)
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   community.general.dconf:
     key: /org/gnome/shell/extensions/arcmenu/distro-icon
     value: 1
 
 - name: Configuring GNOME Shell Arc Menu extension
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -185,13 +186,13 @@
       value: "'Top'"
 
 - name: Enabling location services # required for night light
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/system/location/enabled
     value: "true"
 
 - name: Configuring GNOME Night Light
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/color/{{ item.key }}"
     value: "{{ item.value }}"
@@ -202,20 +203,20 @@
       value: "true"
 
 - name: Configuring wellbeing
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/desktop/break-reminders/selected-breaks
     value: "['eyesight', 'movement']"
 
 # https://github.com/blueman-project/blueman/issues/2411
 - name: Setting blueman applet to use symbolic status icons
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: /org/blueman/general/symbolic-status-icons
     value: "true"
 
 - name: Configuring GNOME Interface fonts
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -228,13 +229,13 @@
       value: "'Ubuntu 11'"
 
 - name: Setting GNOME Overview shortcut to "Right Super"
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: /org/gnome/mutter/overlay-key
     value: "'Super_R'"
 
 - name: Configuring blur-my-shell-extension
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     # disables the corners on the dash-to-dock
     key: /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/pipeline
@@ -242,7 +243,7 @@
 
 # ID taken from observing `dconf watch /` but I don't think that it matters
 - name: Configuring GNOME random wallpaper local source
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -252,7 +253,7 @@
       value: "'Local'"
     - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
         sources/localFolder/1717579799622/folder"
-      value: "'{{ ansible_user_dir }}/.local/share/backgrounds'"
+      value: "'{{ ansible_facts['user_dir'] }}/.local/share/backgrounds'"
     - key: /org/gnome/shell/extensions/space-iflow-randomwallpaper/sources
       value: "['1717579799622']"
     - key: "/org/gnome/shell/extensions/space-iflow-randomwallpaper/\
@@ -260,7 +261,7 @@
       value: "true"
 
 - name: Configuring SimpleWeather extension
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] in ['Archlinux', 'Debian']
   community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"

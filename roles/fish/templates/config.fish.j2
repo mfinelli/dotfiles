@@ -7,12 +7,12 @@
 # TODO: gist aliases
 # TODO: archchroots
 
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
 # disable homebrew analytics
 set -gx HOMEBREW_NO_ANALYTICS 1
 {% endif %}
 
-{% if ansible_os_family == "Debian" %}
+{% if ansible_facts['os_family'] == "Debian" %}
 set -gx DEBFULLNAME "Mario Finelli"
 set -gx DEBEMAIL "ubuntu@mroml.com"
 {% endif %}
@@ -27,9 +27,9 @@ end
     set -gx USE_GKE_GCLOUD_AUTH_PLUGIN True
 {% endif %}
 
-{% if ansible_os_family == "Darwin" and ansible_architecture == "arm64" %}
+{% if ansible_facts['os_family'] == "Darwin" and ansible_facts['architecture'] == "arm64" %}
 /opt/homebrew/bin/brew shellenv | source
-{% elif ansible_os_family == "Darwin" and ansible_architecture == "x86_64" %}
+{% elif ansible_facts['os_family'] == "Darwin" and ansible_facts['architecture'] == "x86_64" %}
 eval "$(/usr/local/bin/brew shellenv)"
 /usr/local/bin/brew shellenv | source
 {% endif %}
@@ -53,7 +53,7 @@ if status is-login
         mise activate fish | source
     end
 
-    {% if ansible_os_family == "Archlinux" %}
+    {% if ansible_facts['os_family'] == "Archlinux" %}
     # https://wiki.archlinux.org/title/GNOME/Keyring#Setup_gcr
     set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
     {% endif %}
@@ -66,7 +66,7 @@ if status is-interactive
         set -gx LS_COLORS (vivid generate solarized-dark)
     end
 
-    {% if ansible_os_family == "Darwin" %}
+    {% if ansible_facts['os_family'] == "Darwin" %}
     if command -v lsd > /dev/null 2>&1
         alias ls="lsd"
     else if command -v gls > /dev/null 2>&1

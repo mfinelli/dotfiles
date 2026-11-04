@@ -1,6 +1,6 @@
 ---
 - name: Getting the internal ID of the GNOME Terminal profile
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.shell: >-
     set -e -o pipefail;
     dconf list /org/gnome/terminal/legacy/profiles:/ | head -n1 |
@@ -11,7 +11,7 @@
     executable: /bin/bash
 
 - name: Configuring GNOME Terminal
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   community.general.dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:\
       {{ gnome_terminal_profile.stdout }}/{{ item.key }}"
@@ -22,7 +22,7 @@
     - key: use-system-font
       value: "false"
     - key: font
-      value: "'{{ gnome_terminal_font[ansible_os_family] }} 12'"
+      value: "'{{ gnome_terminal_font[ansible_facts['os_family']] }} 12'"
     - key: use-theme-colors
       value: "false"
     - key: audible-bell

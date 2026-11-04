@@ -4,13 +4,13 @@
     group: "{{ whoami_group }}"
     mode: "0700"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.ssh"
+    path: "{{ ansible_facts['user_dir'] }}/.ssh"
     state: directory
 
 - name: Copying non-media public keys (at home)
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/{{ item }}.pub"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -20,7 +20,7 @@
 - name: Copying non-media private keys (at home)
   when: mtype == 'personal' and wedition != 'media'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/{{ item }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/{{ item }}"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -30,7 +30,7 @@
 - name: Copying media public keys (at home)
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa.pub"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -39,7 +39,7 @@
 - name: Copying media private keys (at home)
   when: mtype == 'personal' and wedition == 'media'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.ssh/id_rsa"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/id_rsa"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -48,7 +48,7 @@
 - name: Creating 1Passwword SSH configuration directories
   when: mtype == 'work'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/{{ item }}"
+    path: "{{ ansible_facts['user_dir'] }}/.config/{{ item }}"
     group: "{{ whoami_group }}"
     mode: "0700"
     owner: "{{ whoami }}"
@@ -60,7 +60,7 @@
 - name: Copying 1Password SSH agent configuration
   when: mtype == 'work'
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.config/1Password/ssh/agent.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/1Password/ssh/agent.toml"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"
@@ -73,9 +73,9 @@
     cmd: >
       set -e -o pipefail;
       ssh-add -L | grep ' !{{ item }}$'
-      > {{ ansible_user_dir }}/.ssh/{{ item }}.pub &&
-      chmod 0600 {{ ansible_user_dir }}/.ssh/{{ item }}.pub
-    creates: "{{ ansible_user_dir }}/.ssh/{{ item }}.pub"
+      > {{ ansible_facts['user_dir'] }}/.ssh/{{ item }}.pub &&
+      chmod 0600 {{ ansible_facts['user_dir'] }}/.ssh/{{ item }}.pub
+    creates: "{{ ansible_facts['user_dir'] }}/.ssh/{{ item }}.pub"
   args:
     executable: /bin/bash
   loop:
@@ -84,7 +84,7 @@
 
 - name: Copying SSH configuration
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.ssh/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/config"
     group: "{{ whoami_group }}"
     mode: "0600"
     owner: "{{ whoami }}"

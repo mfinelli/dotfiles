@@ -4,12 +4,12 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ghostty_config_path[ansible_system] }}"
+    path: "{{ ghostty_config_path[ansible_facts['system']] }}"
     state: directory
 
 - name: Linking ghostty configuration
   ansible.builtin.template:
-    dest: "{{ ghostty_config_path[ansible_system] }}/config"
+    dest: "{{ ghostty_config_path[ansible_facts['system']] }}/config"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"

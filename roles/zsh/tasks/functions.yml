@@ -4,12 +4,13 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.local/share/zsh/gists"
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/gists"
     state: directory
 
 - name: Installing gist functions
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.local/share/zsh/gists/{{ item.alias }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/zsh/gists/\
+      {{ item.alias }}"
     repo: "{{ item.repo }}"
     version: HEAD
   loop: "{{ zsh_gist_function_aliases }}"

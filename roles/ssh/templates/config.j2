@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 {% if mtype == "work" %}
-{% if ansible_os_family == "Archlinux" %}
+{% if ansible_facts['os_family'] == "Archlinux" %}
 Host aur aur.archlinux.org
     User aur
     Hostname aur.archlinux.org
@@ -63,7 +63,7 @@ Host aur aur.archlinux.org
     MACs hmac-sha2-512-etm@openssh.com
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -74,7 +74,7 @@ Host bitbucket.org
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -85,7 +85,7 @@ Host codeberg.org
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -96,7 +96,7 @@ Host gist.github.com
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -107,7 +107,7 @@ Host github.com
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -118,7 +118,7 @@ Host gitlab.com
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -129,7 +129,7 @@ Host *.scul.ch
     AddKeysToAgent yes
     HashKnownHosts no
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -140,7 +140,7 @@ Host *.mfpkg.net
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -150,7 +150,7 @@ Host *.mario.casa
     AddKeysToAgent yes
     HashKnownHosts no
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -161,7 +161,7 @@ Host *.finelli.dev
     AddKeysToAgent yes
     HashKnownHosts no
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -170,7 +170,7 @@ Host source.developers.google.com
     IdentityFile ~/.ssh/google
     IdentitiesOnly yes
     AddKeysToAgent yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -181,7 +181,7 @@ Host {{ ssh_baron_host }}
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -192,7 +192,7 @@ Host {{ ssh_emerald_host }}
     AddKeysToAgent yes
     HashKnownHosts yes
     VisualHostKey yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -202,7 +202,7 @@ Host git-codecommit.{{ region }}.amazonaws.com
     IdentityFile ~/.ssh/sculch_old
     IdentitiesOnly yes
     AddKeysToAgent yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 
@@ -214,7 +214,7 @@ Host git-codecommit.{{ region }}.amazonaws.com
     IdentityFile ~/.ssh/sculch_old
     IdentitiesOnly yes
     AddKeysToAgent yes
-{% if ansible_os_family == "Darwin" %}
+{% if ansible_facts['os_family'] == "Darwin" %}
     UseKeychain yes
 {% endif %}
 

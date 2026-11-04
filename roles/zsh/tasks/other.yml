@@ -4,13 +4,13 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.config/lsd"
+    path: "{{ ansible_facts['user_dir'] }}/.config/lsd"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking the lsd configuration file
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/lsd/config.yaml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/lsd/config.yaml"
     src: "{{ playbook_dir }}/roles/zsh/files/lsd.yml"
     state: link
 
@@ -19,12 +19,12 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.config/atuin"
+    path: "{{ ansible_facts['user_dir'] }}/.config/atuin"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking the atuin configuration file
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/atuin/config.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/atuin/config.toml"
     src: "{{ playbook_dir }}/roles/zsh/files/atuin.toml"
     state: link

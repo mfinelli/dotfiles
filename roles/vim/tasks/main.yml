@@ -10,14 +10,15 @@
 
 - name: Installing vim plugins
   ansible.builtin.git:
-    dest: "{{ ansible_user_dir }}/.vim/pack/local/start/{{ item.name }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/local/\
+      start/{{ item.name }}"
     repo: "{{ item.repo }}"
     version: HEAD
   loop: "{{ vim_plugins }}"
 
 - name: Installing raw syntax files
   ansible.builtin.get_url:
-    dest: "{{ ansible_user_dir }}/.vim/syntax/{{ item.name }}.vim"
+    dest: "{{ ansible_facts['user_dir'] }}/.vim/syntax/{{ item.name }}.vim"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
@@ -27,12 +28,12 @@
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking the vim configuration file
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.vimrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.vimrc"
     src: "{{ playbook_dir }}/roles/vim/files/vimrc"
     state: link
 
 - name: Linking silver searcher ignore file
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.vim/.ignore"
+    dest: "{{ ansible_facts['user_dir'] }}/.vim/.ignore"
     src: "{{ playbook_dir }}/roles/vim/files/ignore"
     state: link

@@ -1,5 +1,5 @@
 ---
-irssi_homedir: "{{ ansible_user_dir }}/.local/share/irssi"
+irssi_homedir: "{{ ansible_facts['user_dir'] }}/.local/share/irssi"
 
 irssi_supermario_certificate_password: !vault |
   $ANSIBLE_VAULT;1.2;AES256;w

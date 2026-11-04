@@ -1,54 +1,54 @@
 ---
 - name: Creating autostart directory
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] != 'Darwin'
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.config/autostart"
+    path: "{{ ansible_facts['user_dir'] }}/.config/autostart"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking keymapper configuration
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] != 'Darwin'
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/keymapper.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/keymapper.conf"
     src: "{{ playbook_dir }}/roles/other/files/keymapper.conf"
     state: link
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Linking keymapper autostart override (--no-tray)
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] != 'Darwin'
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.config/autostart/keymapper.desktop"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/autostart/keymapper.desktop"
     src: "{{ playbook_dir }}/roles/other/files/keymapper.desktop"
     state: link
 
 - name: Creating RaspberryPi Imager configuration directory
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] != 'Darwin'
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.config/Raspberry Pi"
+    path: "{{ ansible_facts['user_dir'] }}/.config/Raspberry Pi"
     state: directory
 
 - name: Copying RaspberryPi Imager configuration
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] != 'Darwin'
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.config/Raspberry Pi/Imager.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Raspberry Pi/Imager.conf"
     group: "{{ whoami_group }}"
     mode: "0644"
     owner: "{{ whoami }}"
     src: imager.conf
 
 - name: Creating libvirt machine images directory
-  when: ansible_os_family == 'Archlinux' and mtype != 'server'
+  when: ansible_facts['os_family'] == 'Archlinux' and mtype != 'server'
   ansible.builtin.file:
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/.local/{{ item }}"
+    path: "{{ ansible_facts['user_dir'] }}/.local/{{ item }}"
     state: directory
   loop:
     - var
@@ -60,27 +60,27 @@
     group: "{{ whoami_group }}"
     mode: "0755"
     owner: "{{ whoami }}"
-    path: "{{ ansible_user_dir }}/bin"
+    path: "{{ ansible_facts['user_dir'] }}/bin"
     state: directory
 
 # this is ok, because boostrap.bash calls dotfiles.yml as the playbook
 - name: Copying pocket portal submit script
   when: mtype != 'server'
   ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/bin/ppq"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/ppq"
     src: "{{ playbook_dir }}/roles/other/files/ppqsubmit.py"
     state: link
 
 - name: Creating tailscale tray startup
-  when: mtype == 'personal' and ansible_system == "Linux"
+  when: mtype == 'personal' and ansible_facts['system'] == "Linux"
   ansible.builtin.command:
     cmd: tailscale configure systray --enable-startup=systemd
-    creates: >-
-      {{ ansible_user_dir }}/.config/systemd/user/tailscale-systray.service
+    creates: "{{ ansible_facts['user_dir'] }}/.config/systemd/user/\
+      tailscale-systray.service"
   register: other_tailscale_systray
 
 - name: Enabling tailscale tray
-  when: mtype == 'personal' and ansible_system == "Linux"
+  when: mtype == 'personal' and ansible_facts['system'] == "Linux"
   ansible.builtin.systemd:
     daemon_reload: "{{ other_tailscale_systray.changed | bool }}"
     enabled: true
