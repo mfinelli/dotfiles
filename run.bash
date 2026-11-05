@@ -45,7 +45,7 @@ MEDIA=(liveusb zen)
 # shellcheck disable=SC2034
 GAMING=(bowser wario)
 # shellcheck disable=SC2034
-PSERVER=(argus atlas homepi iris kleio parkpi raipi rome.mfpkg.net talos tvpi)
+PSERVER=(argus atlas calliope hermes homepi iris kleio parkpi raipi rome.mfpkg.net talos)
 
 hn="$(hostname)"
 
